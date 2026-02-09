@@ -47,6 +47,7 @@ const initialState: CharacterState = {
 export default function App() {
   const [state, setState] = useState<CharacterState>(initialState);
   const [currentStep, setCurrentStep] = useState<"origin" | "origins">("origin");
+  const [originStep, setOriginStep] = useState<"ancestry" | "details">("ancestry");
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
 
@@ -86,6 +87,7 @@ export default function App() {
 
   const handleReset = () => {
     setState(initialState);
+    setOriginStep("ancestry");
   };
 
   const handleStartNewCharacter = () => {
@@ -117,11 +119,11 @@ export default function App() {
       ) : (
         <main className="modal-backdrop">
           <section className="origin-modal">
-            <div className="card-header">
-              <span className="step-index">Step 1</span>
-              <h2>Choose your origin</h2>
-            </div>
-            <div className="origin-layout">
+            <div className="origin-step">
+              <div className="card-header">
+                <span className="step-index">Step 1</span>
+                <h2>Choose your ancestry</h2>
+              </div>
               <article className="form-card">
                 <div className="field-group">
                   <label className="field-label" htmlFor="ancestry-select">
@@ -145,100 +147,126 @@ export default function App() {
                     </p>
                   )}
                 </div>
-
-                {isSinger ? (
-                  <div className="field-group">
-                    <div className="callout">
-                      <strong>Singers &amp; forms</strong>
-                      <p>
-                        Singers do not select cultural expertises. Instead, they gain forms and the
-                        ability to change forms over time.
-                      </p>
-                    </div>
-                    <ul className="benefit-list">
-                      <li>
-                        <strong>Unique Talent Tree (Level 1).</strong> Whenever you choose a new
-                        talent, you can choose it from the Singer talent tree in this chapter (in
-                        addition to the other trees you have access to).
-                      </li>
-                      <li>
-                        <strong>Change Form (Level 1).</strong> You gain the Change Form (Singer
-                        Key) talent from the Singer tree, along with one bonus talent that’s
-                        connected to it. Decide which form to begin the game in, choosing from the
-                        forms in these two talents. As you gain levels, you can learn new forms from
-                        talents in the Singer tree.
-                      </li>
-                      <li>
-                        <strong>Ancestry Bonus Talents (Level 6, 11, 16, and 21).</strong> Each time
-                        you reach a new tier (as indicated on the Character Advancement table in
-                        chapter 1), you again gain a bonus talent. You must choose it from the tree
-                        or from any heroic path (see chapter 4).
-                      </li>
-                    </ul>
-                  </div>
-                ) : (
-                  <div className="field-group">
-                    <div className="field-row">
-                      <label className="field-label">Cultural expertises</label>
-                      <span className="field-meta">{state.cultureKeys.length}/2 selected</span>
-                    </div>
-                    <div className="callout">
-                      <p>
-                        Your character’s culture isn’t determined by birth or any other single
-                        moment in time. Instead, cultural awareness can be shaped by nationality,
-                        ethnicity, migration, traveling experience, and more.
-                      </p>
-                      <span className="field-meta">Player Handbook p. 38</span>
-                    </div>
-                    {!isHuman && (
-                      <p className="field-hint">Select a human ancestry to choose cultures.</p>
-                    )}
-                    <div className="option-grid">
-                      {visibleCultures.map((culture) => {
-                        const checked = state.cultureKeys.includes(culture.id);
-                        const ancestryAllowed =
-                          !culture.allowedAncestries ||
-                          (selectedAncestry && culture.allowedAncestries.includes(selectedAncestry.id));
-                        const disabled =
-                          !isHuman ||
-                          !ancestryAllowed ||
-                          (!checked && state.cultureKeys.length >= 2);
-                        return (
-                          <label key={culture.id} className={`option-card${disabled ? " disabled" : ""}`}>
-                            <input
-                              type="checkbox"
-                              checked={checked}
-                              disabled={disabled}
-                              onChange={() => handleCultureToggle(culture.id)}
-                            />
-                            <span>
-                              <strong>{culture.name}</strong>
-                              <span>{culture.rulesText}</span>
-                            </span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </article>
-
-              <aside className="origin-aside">
-                <div className="sidebar-card">
-                  <h3>Origin artwork</h3>
-                  <div className="portrait-grid">
-                    <div className="portrait-card">
-                      <span className="label">Human cultures</span>
-                      <p>{isHuman ? "Ready for human culture art." : "Select a human culture."}</p>
-                    </div>
-                    <div className="portrait-card">
-                      <span className="label">Singer forms</span>
-                      <p>{isSinger ? "Ready for singer form art." : "Select singer ancestry."}</p>
-                    </div>
-                  </div>
+                <div className="origin-actions">
+                  <button
+                    className="primary"
+                    type="button"
+                    onClick={() => setOriginStep("details")}
+                    disabled={!state.ancestryKey}
+                  >
+                    Next: Culture &amp; forms
+                  </button>
                 </div>
-              </aside>
+              </article>
             </div>
+
+            {originStep === "details" && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <span className="step-index">Step 2</span>
+                  <h2>Culture &amp; forms</h2>
+                </div>
+                <div className="origin-layout">
+                  <article className="form-card">
+                    {isSinger ? (
+                      <div className="field-group">
+                        <div className="callout">
+                          <strong>Singers &amp; forms</strong>
+                          <p>
+                            Singers do not select cultural expertises. Instead, they gain forms and
+                            the ability to change forms over time.
+                          </p>
+                        </div>
+                        <ul className="benefit-list">
+                          <li>
+                            <strong>Unique Talent Tree (Level 1).</strong> Whenever you choose a new
+                            talent, you can choose it from the Singer talent tree in this chapter
+                            (in addition to the other trees you have access to).
+                          </li>
+                          <li>
+                            <strong>Change Form (Level 1).</strong> You gain the Change Form (Singer
+                            Key) talent from the Singer tree, along with one bonus talent that’s
+                            connected to it. Decide which form to begin the game in, choosing from
+                            the forms in these two talents. As you gain levels, you can learn new
+                            forms from talents in the Singer tree.
+                          </li>
+                          <li>
+                            <strong>Ancestry Bonus Talents (Level 6, 11, 16, and 21).</strong> Each
+                            time you reach a new tier (as indicated on the Character Advancement
+                            table in chapter 1), you again gain a bonus talent. You must choose it
+                            from the tree or from any heroic path (see chapter 4).
+                          </li>
+                        </ul>
+                      </div>
+                    ) : (
+                      <div className="field-group">
+                        <div className="field-row">
+                          <label className="field-label">Cultural expertises</label>
+                          <span className="field-meta">{state.cultureKeys.length}/2 selected</span>
+                        </div>
+                        <div className="callout">
+                          <p>
+                            Your character’s culture isn’t determined by birth or any other single
+                            moment in time. Instead, cultural awareness can be shaped by
+                            nationality, ethnicity, migration, traveling experience, and more.
+                          </p>
+                          <span className="field-meta">Player Handbook p. 38</span>
+                        </div>
+                        {!isHuman && (
+                          <p className="field-hint">Select a human ancestry to choose cultures.</p>
+                        )}
+                        <div className="option-grid">
+                          {visibleCultures.map((culture) => {
+                            const checked = state.cultureKeys.includes(culture.id);
+                            const ancestryAllowed =
+                              !culture.allowedAncestries ||
+                              (selectedAncestry &&
+                                culture.allowedAncestries.includes(selectedAncestry.id));
+                            const disabled =
+                              !isHuman ||
+                              !ancestryAllowed ||
+                              (!checked && state.cultureKeys.length >= 2);
+                            return (
+                              <label
+                                key={culture.id}
+                                className={`option-card${disabled ? " disabled" : ""}`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  disabled={disabled}
+                                  onChange={() => handleCultureToggle(culture.id)}
+                                />
+                                <span>
+                                  <strong>{culture.name}</strong>
+                                  <span>{culture.rulesText}</span>
+                                </span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </article>
+
+                  <aside className="origin-aside">
+                    <div className="sidebar-card">
+                      <h3>Origin artwork</h3>
+                      <div className="portrait-grid">
+                        <div className="portrait-card">
+                          <span className="label">Human cultures</span>
+                          <p>{isHuman ? "Ready for human culture art." : "Select a human culture."}</p>
+                        </div>
+                        <div className="portrait-card">
+                          <span className="label">Singer forms</span>
+                          <p>{isSinger ? "Ready for singer form art." : "Select singer ancestry."}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+            )}
           </section>
         </main>
       )}
