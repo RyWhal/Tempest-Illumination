@@ -8,7 +8,7 @@ import {
   skills,
   talents
 } from "./data/stormlightPack";
-import { CharacterState } from "./models";
+import type { CharacterState } from "./models";
 import { computeDerivedStats, validateAudit } from "./wizard/steps";
 
 const attributeList = [

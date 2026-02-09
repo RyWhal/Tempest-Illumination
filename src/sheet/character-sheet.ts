@@ -1,4 +1,4 @@
-import { CharacterState, DerivedStats, ValidationIssue } from "../models";
+import type { CharacterState, DerivedStats, ValidationIssue } from "../models";
 import { computeDerivedStats, validateAudit } from "../wizard/steps";
 
 export interface CharacterSheetView {
