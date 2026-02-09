@@ -3,6 +3,7 @@ import {
   ancestries,
   culturalExpertises,
   heroicPaths,
+  talents as stormlightTalents,
   skills
 } from "./data/stormlightPack";
 import type { CharacterState } from "./models";
@@ -46,11 +47,226 @@ const initialState: CharacterState = {
   }
 };
 
+const singerListenerCultureId = "sl.expertise.cultural.listener";
+
+const additionalExpertiseOptions = [
+  "Agriculture",
+  "Art",
+  "Commerce",
+  "Cooking",
+  "Diplomacy",
+  "Etiquette",
+  "Fishing",
+  "Forms Lore",
+  "Glyphs",
+  "Literature",
+  "Navigation",
+  "Rhythm Awareness",
+  "Sign Language",
+  "Storytelling",
+  "Survival",
+  "Tactics",
+  "Trade",
+  "Women’s Script",
+  "Written Records"
+];
+
+const startingKits = [
+  {
+    id: "academic",
+    name: "Academic Kit",
+    weapons: "One knife, sling, or staff",
+    armor: "Uniform",
+    equipment:
+      "Backpack with common clothing, an ink pen, a bottle of ink, 10 sheets of paper, 3 empty vials, a block of wax, a reference book (GM approved), and 1 dose of weak poison.",
+    spheres: "3d12 marks",
+    additionalExpertise:
+      "Gain the Literature expertise (or another culture/utility expertise if you already have it)."
+  },
+  {
+    id: "artisan",
+    name: "Artisan Kit",
+    weapons: "One hammer or light weapon (your choice)",
+    armor: "Leather armor",
+    equipment:
+      "Chest with common clothing, surgical supplies, 5 doses of weak antiseptic, an ink pen, a bottle of ink, 5 sheets of parchment, 5 candles, flint and steel, 3 empty glass bottles, a tuning fork, a musical instrument (your choice), and a scale.",
+    spheres: "4d8 marks"
+  },
+  {
+    id: "military",
+    name: "Military Kit",
+    weapons: "Two non-special weapons",
+    armor: "Uniform and chain armor",
+    equipment:
+      "Backpack with common clothing, a waterskin, flint and steel, a whetstone, a blanket, and 10 days of food rations.",
+    spheres: "2d6 marks"
+  },
+  {
+    id: "courtier",
+    name: "Courtier Kit",
+    weapons: "One sidesword, greatsword, longsword, or longbow",
+    armor: "None",
+    equipment: "Alcohol (bottle of violet wine), fine clothing.",
+    spheres: "4d20 marks",
+    connection:
+      "You’re supported by a patron of your noble house; it affords accommodations and a certain standard of living."
+  },
+  {
+    id: "prisoner",
+    name: "Prisoner Kit",
+    weapons: "None",
+    armor: "None",
+    equipment: "Manacles, ragged clothing.",
+    spheres: "None",
+    connection:
+      "You’ve attracted a Radiant spren; record the spren type in Connections and check two boxes for its key talent’s “Speak the First Ideal” goal if chosen later."
+  },
+  {
+    id: "underworld",
+    name: "Underworld Kit",
+    weapons: "Two light weapons",
+    armor: "Leather armor",
+    equipment:
+      "Backpack with common clothing, alcohol (bottle of Horneater white), a crowbar, a lockpick, 50 feet of rope, flint and steel, an oil lantern, a flask of oil, and 5 days of street food.",
+    spheres: "1d20 marks"
+  }
+];
+
+const equipmentItems = [
+  { name: "Alcohol (1 serving)", price: 1 },
+  { name: "Alcohol (bottle)", price: 1 },
+  { name: "Anesthetic (5 doses)", price: 75 },
+  { name: "Antiseptic (potent, 5 doses)", price: 50 },
+  { name: "Antiseptic (weak, 5 doses)", price: 25 },
+  { name: "Backpack", price: 8 },
+  { name: "Barrel", price: 15 },
+  { name: "Blanket", price: 2 },
+  { name: "Book (reference)", price: 10 },
+  { name: "Bottle (ceramic)", price: 1 },
+  { name: "Bottle (glass)", price: 1 },
+  { name: "Bucket", price: 1 },
+  { name: "Candle", price: 1 },
+  { name: "Case (leather)", price: 4 },
+  { name: "Chain (thick, 10 feet)", price: 20 },
+  { name: "Chain (thin, 1 foot)", price: 20 },
+  { name: "Chest", price: 30 },
+  { name: "Clothing (common)", price: 2 },
+  { name: "Clothing (fine)", price: 50 },
+  { name: "Clothing (ragged)", price: 1 },
+  { name: "Crowbar", price: 10 },
+  { name: "Ear trumpet", price: 50 },
+  { name: "Flask or tankard", price: 1 },
+  { name: "Flint and steel", price: 4 },
+  { name: "Food (ration, 1 day)", price: 1 },
+  { name: "Food (street, 1 day)", price: 3 },
+  { name: "Food (fine, 1 day)", price: 25 },
+  { name: "Grappling hook", price: 10 },
+  { name: "Hammer (handheld)", price: 4 },
+  { name: "Ink (1-ounce bottle)", price: 40 },
+  { name: "Ink pen", price: 1 },
+  { name: "Jug or pitcher", price: 2 },
+  { name: "Ladder (10-foot)", price: 5 },
+  { name: "Lantern (oil)", price: 20 },
+  { name: "Lantern (sphere)", price: 20 },
+  { name: "Lock and key", price: 50 },
+  { name: "Lockpick", price: 5 },
+  { name: "Magnifying lens", price: 400 },
+  { name: "Manacles", price: 10 },
+  { name: "Mirror (handheld)", price: 25 },
+  { name: "Musical instrument", price: 1 },
+  { name: "Net (hunting)", price: 4 },
+  { name: "Net (fishing)", price: 10 },
+  { name: "Oil (1 flask)", price: 1 },
+  { name: "Paper or parchment (1 sheet)", price: 1 },
+  { name: "Perfume (1 vial)", price: 20 },
+  { name: "Pick (mining)", price: 10 },
+  { name: "Poison (weak, 1 dose)", price: 20 },
+  { name: "Poison (effectual, 1 dose)", price: 50 },
+  { name: "Poison (potent, 1 dose)", price: 120 },
+  { name: "Pot (iron)", price: 8 },
+  { name: "Pouch", price: 1 },
+  { name: "Pulley system", price: 100 },
+  { name: "Rope (50 feet)", price: 30 },
+  { name: "Sack", price: 1 },
+  { name: "Scale", price: 20 },
+  { name: "Shovel", price: 8 },
+  { name: "Soap", price: 1 },
+  { name: "Spyglass", price: 500 },
+  { name: "Surgical supplies", price: 20 },
+  { name: "Tent (two-person)", price: 10 },
+  { name: "Treatment (medical, 1 dose)", price: 10 },
+  { name: "Tuning fork", price: 50 },
+  { name: "Unencased gem (infused)", price: 2 },
+  { name: "Vial (glass)", price: 4 },
+  { name: "Waterskin (empty)", price: 1 },
+  { name: "Wax (1 block)", price: 2 },
+  { name: "Whetstone", price: 1 }
+];
+
+const armorItems = [
+  { name: "Uniform", price: 40 },
+  { name: "Leather", price: 60 },
+  { name: "Chain", price: 80 },
+  { name: "Breastplate", price: 120 },
+  { name: "Half Plate", price: 400 },
+  { name: "Full Plate", price: 1600 }
+];
+
+const weaponItems = [
+  { name: "Half-Shard", price: 2000 },
+  { name: "Warhammer", price: 400 },
+  { name: "Grandbow", price: 1000 },
+  { name: "Axe", price: 20 },
+  { name: "Greatsword", price: 200 },
+  { name: "Hammer", price: 40 },
+  { name: "Longspear", price: 15 },
+  { name: "Longsword", price: 60 },
+  { name: "Poleaxe", price: 40 },
+  { name: "Shield", price: 10 },
+  { name: "Crossbow", price: 200 },
+  { name: "Longbow", price: 100 },
+  { name: "Javelin", price: 20 },
+  { name: "Knife", price: 8 },
+  { name: "Mace", price: 20 },
+  { name: "Rapier", price: 100 },
+  { name: "Shortspear", price: 10 },
+  { name: "Sidesword", price: 40 },
+  { name: "Staff", price: 1 },
+  { name: "Shortbow", price: 80 },
+  { name: "Sling", price: 2 }
+];
+
+const sphereValues = [
+  { gemstone: "Diamond", chip: 0.2, mark: 1, broam: 4 },
+  { gemstone: "Garnet, Heliodor, Topaz", chip: 1, mark: 5, broam: 20 },
+  { gemstone: "Ruby, Smokestone, Zircon", chip: 2, mark: 10, broam: 40 },
+  { gemstone: "Amethyst, Sapphire", chip: 5, mark: 25, broam: 100 },
+  { gemstone: "Emerald", chip: 10, mark: 50, broam: 200 }
+];
+
+const parseDice = (notation: string) => {
+  const match = notation.match(/(\\d+)d(\\d+)/i);
+  if (!match) {
+    return null;
+  }
+  return { count: Number(match[1]), sides: Number(match[2]) };
+};
+
+const rollDice = (count: number, sides: number) =>
+  Array.from({ length: count }, () => Math.floor(Math.random() * sides) + 1).reduce(
+    (total, value) => total + value,
+    0
+  );
+
 export default function App() {
   const [state, setState] = useState<CharacterState>(initialState);
   const [currentStep, setCurrentStep] = useState<"origin" | "origins">("origin");
-  const [originStep, setOriginStep] = useState<"origins" | "path">("origins");
   const [expertiseInput, setExpertiseInput] = useState("");
+  const [talentInput, setTalentInput] = useState("");
+  const [goalInput, setGoalInput] = useState("");
+  const [selectedKitId, setSelectedKitId] = useState<string | null>(null);
+  const [rolledSpheres, setRolledSpheres] = useState<number | null>(null);
+  const [purchasedItems, setPurchasedItems] = useState<{ name: string; price: number }[]>([]);
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
   const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
@@ -74,7 +290,12 @@ export default function App() {
     setState((prev) => ({
       ...prev,
       ancestryKey: value || undefined,
-      cultureKeys: value === "sl.ancestry.human" ? prev.cultureKeys : []
+      cultureKeys:
+        value === "sl.ancestry.human"
+          ? prev.cultureKeys
+          : value === "sl.ancestry.singer"
+            ? [singerListenerCultureId]
+            : []
     }));
   };
 
@@ -188,6 +409,9 @@ export default function App() {
   const maxAdditionalExpertises = Math.max(0, state.attributes.intellect);
   const totalExpertisesChosen = state.expertises.length;
   const canAddExpertise = totalExpertisesChosen < maxAdditionalExpertises;
+  const availableExpertises = additionalExpertiseOptions.filter(
+    (option) => !state.expertises.includes(option)
+  );
 
   const handleExpertiseAdd = (value: string) => {
     const cleaned = value.trim();
@@ -211,12 +435,177 @@ export default function App() {
 
   const handleReset = () => {
     setState(initialState);
-    setOriginStep("origins");
+    setSelectedKitId(null);
+    setRolledSpheres(null);
+    setPurchasedItems([]);
   };
 
   const handleStartNewCharacter = () => {
     handleReset();
     setCurrentStep("origins");
+  };
+
+  const handleTalentAdd = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) {
+      return;
+    }
+    setState((prev) => {
+      if (prev.talents.includes(cleaned)) {
+        return prev;
+      }
+      return { ...prev, talents: [...prev.talents, cleaned] };
+    });
+  };
+
+  const handleTalentRemove = (value: string) => {
+    setState((prev) => ({
+      ...prev,
+      talents: prev.talents.filter((item) => item !== value)
+    }));
+  };
+
+  const buildInventory = (
+    kitId: string | null,
+    spheres: number | null,
+    purchases: { name: string; price: number }[]
+  ) => {
+    const kit = startingKits.find((entry) => entry.id === kitId);
+    const kitItems = kit
+      ? [kit.weapons, kit.armor, kit.equipment, kit.additionalExpertise, kit.connection]
+          .filter(Boolean)
+          .map((item) => item as string)
+      : [];
+    const sphereEntry = spheres !== null ? [`Spheres: ${spheres} marks`] : [];
+    return [...kitItems, ...sphereEntry, ...purchases.map((entry) => entry.name)];
+  };
+
+  const handleKitSelect = (kitId: string) => {
+    setSelectedKitId(kitId);
+    setRolledSpheres(null);
+    setPurchasedItems([]);
+    setState((prev) => ({
+      ...prev,
+      inventory: buildInventory(kitId, null, [])
+    }));
+  };
+
+  const handleSphereRoll = () => {
+    const kit = startingKits.find((entry) => entry.id === selectedKitId);
+    if (!kit || kit.spheres === "None") {
+      setRolledSpheres(0);
+      setState((prev) => ({
+        ...prev,
+        inventory: buildInventory(selectedKitId, 0, purchasedItems)
+      }));
+      return;
+    }
+    const dice = parseDice(kit.spheres);
+    if (!dice) {
+      setRolledSpheres(0);
+      setState((prev) => ({
+        ...prev,
+        inventory: buildInventory(selectedKitId, 0, purchasedItems)
+      }));
+      return;
+    }
+    const total = rollDice(dice.count, dice.sides);
+    setRolledSpheres(total);
+    setState((prev) => ({
+      ...prev,
+      inventory: buildInventory(selectedKitId, total, purchasedItems)
+    }));
+  };
+
+  const handlePurchase = (item: { name: string; price: number }) => {
+    setPurchasedItems((prev) => {
+      const updated = [...prev, item];
+      setState((current) => ({
+        ...current,
+        inventory: buildInventory(selectedKitId, rolledSpheres, updated)
+      }));
+      return updated;
+    });
+  };
+
+  const handlePurchaseRemove = (index: number) => {
+    setPurchasedItems((prev) => {
+      const updated = prev.filter((_, entryIndex) => entryIndex !== index);
+      setState((current) => ({
+        ...current,
+        inventory: buildInventory(selectedKitId, rolledSpheres, updated)
+      }));
+      return updated;
+    });
+  };
+
+  const handleIdentityChange = (field: keyof CharacterState["identity"], value: string) => {
+    setState((prev) => ({
+      ...prev,
+      identity: {
+        ...prev.identity,
+        [field]: value
+      }
+    }));
+  };
+
+  const handleGoalAdd = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) {
+      return;
+    }
+    setState((prev) => {
+      if (prev.identity.goals.includes(cleaned)) {
+        return prev;
+      }
+      return {
+        ...prev,
+        identity: {
+          ...prev.identity,
+          goals: [...prev.identity.goals, cleaned]
+        }
+      };
+    });
+  };
+
+  const handleGoalRemove = (value: string) => {
+    setState((prev) => ({
+      ...prev,
+      identity: {
+        ...prev.identity,
+        goals: prev.identity.goals.filter((item) => item !== value)
+      }
+    }));
+  };
+
+  const isStep1Complete =
+    Boolean(state.ancestryKey) && (!isHuman || state.cultureKeys.length === 2);
+  const isStep2Complete = isStep1Complete && Boolean(state.pathKey);
+  const isStep3Complete = isStep2Complete && attributePointsRemaining === 0;
+  const isStep4Complete =
+    isStep3Complete &&
+    remainingSkillRanks === 0 &&
+    totalExpertisesChosen === maxAdditionalExpertises;
+  const isStep5Complete = isStep4Complete && state.talents.length > 0;
+  const isStep6Complete = isStep5Complete && Boolean(selectedKitId);
+  const selectedPathTalents = stormlightTalents.filter((talent) => {
+    if (talent.path && selectedPath && talent.path === selectedPath.name) {
+      return true;
+    }
+    if (isSinger && talent.subtype === "singer_key") {
+      return true;
+    }
+    return false;
+  });
+  const remainingSpheres =
+    rolledSpheres === null
+      ? null
+      : Math.max(0, rolledSpheres - purchasedItems.reduce((total, item) => total + item.price, 0));
+  const derivedStats = {
+    liftingCapacity: state.attributes.strength * 50,
+    movementRate: 5 + state.attributes.speed,
+    recoveryDie: `d${6 + state.attributes.willpower * 2}`,
+    sensesRange: `${10 + state.attributes.awareness * 5} ft`
   };
 
   return (
@@ -245,8 +634,9 @@ export default function App() {
           <section className="origin-modal">
             <div className="origin-step">
               <div className="card-header">
-                <span className="step-index">Step 1</span>
-                <h2>Ancestry &amp; culture</h2>
+                <h2>
+                  <strong>Step 1 - Ancestry &amp; culture</strong>
+                </h2>
               </div>
               <div className="origin-layout">
                 <article className="form-card">
@@ -301,6 +691,18 @@ export default function App() {
                           or from any heroic path (see chapter 4).
                         </li>
                       </ul>
+                      <div className="field-row">
+                        <span className="field-label">Cultural expertise</span>
+                      </div>
+                      <div className="expertise-list">
+                        {culturalExpertises
+                          .filter((culture) => culture.id === singerListenerCultureId)
+                          .map((culture) => (
+                            <span key={culture.id} className="expertise-pill locked">
+                              {culture.name}
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   ) : (
                     <div className="field-group">
@@ -351,16 +753,12 @@ export default function App() {
                       </div>
                     </div>
                   )}
-                  <div className="origin-actions">
-                    <button
-                      className="primary"
-                      type="button"
-                      onClick={() => setOriginStep("path")}
-                      disabled={!state.ancestryKey}
-                    >
-                      Next: Starting paths
-                    </button>
-                  </div>
+                  {!isStep1Complete && (
+                    <p className="field-hint">
+                      Choose an ancestry and finalize your culture selections to unlock the next
+                      step.
+                    </p>
+                  )}
                 </article>
 
                 <aside className="origin-aside">
@@ -381,13 +779,24 @@ export default function App() {
               </div>
             </div>
 
-            {originStep === "path" && (
+            {isStep1Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 2</span>
-                  <h2>Starting paths</h2>
+                  <h2>
+                    <strong>Step 2 - Starting paths</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
+                  {selectedPath && (
+                    <div className="callout">
+                      <strong>Starting skill: {selectedPath.startingSkill}</strong>
+                      <p>
+                        {startingSkill
+                          ? `${startingSkill.category} • ${startingSkill.attribute}`
+                          : "This skill grants a free rank during character creation."}
+                      </p>
+                    </div>
+                  )}
                   <div className="option-grid">
                     {heroicPaths.map((path) => (
                       <label
@@ -413,11 +822,12 @@ export default function App() {
               </div>
             )}
 
-            {originStep === "path" && (
+            {isStep2Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 3</span>
-                  <h2>Choose your attributes</h2>
+                  <h2>
+                    <strong>Step 3 - Choose your attributes</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <div className="field-row">
@@ -438,9 +848,8 @@ export default function App() {
                         <div key={attribute.key} className="attribute-card">
                           <span>
                             <strong>{attribute.label}</strong>
-                            <span className="field-meta">{currentValue}</span>
                           </span>
-                          <div className="counter">
+                          <div className="counter compact">
                             <button
                               className="ghost small"
                               type="button"
@@ -449,6 +858,7 @@ export default function App() {
                             >
                               -
                             </button>
+                            <span className="attribute-value">{currentValue}</span>
                             <button
                               className="primary small"
                               type="button"
@@ -463,22 +873,32 @@ export default function App() {
                     })}
                   </div>
                   <div className="callout">
-                    <p>
-                      Record any derived statistics from your attributes, such as lifting capacity,
-                      movement rate, recovery die, and senses range, after you distribute your
-                      points.
-                    </p>
-                    <span className="field-meta">Player Handbook p. 44</span>
+                    <p>Derived statistics (tracked from your attributes):</p>
+                    <ul className="stat-list">
+                      <li>
+                        <strong>Lifting capacity:</strong> {derivedStats.liftingCapacity} lb
+                      </li>
+                      <li>
+                        <strong>Movement rate:</strong> {derivedStats.movementRate}
+                      </li>
+                      <li>
+                        <strong>Recovery die:</strong> {derivedStats.recoveryDie}
+                      </li>
+                      <li>
+                        <strong>Senses range:</strong> {derivedStats.sensesRange}
+                      </li>
+                    </ul>
                   </div>
                 </article>
               </div>
             )}
 
-            {originStep === "path" && (
+            {isStep3Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 4</span>
-                  <h2>Choose your skills &amp; expertises</h2>
+                  <h2>
+                    <strong>Step 4 - Choose your skills &amp; expertises</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <div className="field-group">
@@ -568,6 +988,19 @@ export default function App() {
                         </button>
                       ))}
                     </div>
+                    <div className="expertise-grid">
+                      {availableExpertises.map((expertise) => (
+                        <button
+                          key={expertise}
+                          className="expertise-option"
+                          type="button"
+                          onClick={() => handleExpertiseAdd(expertise)}
+                          disabled={!canAddExpertise}
+                        >
+                          {expertise}
+                        </button>
+                      ))}
+                    </div>
                     <div className="field-row">
                       <input
                         type="text"
@@ -592,6 +1025,383 @@ export default function App() {
                         You have chosen all additional expertises for your current Intellect score.
                       </p>
                     )}
+                    {maxAdditionalExpertises === 0 && (
+                      <p className="field-hint">
+                        Your Intellect score does not grant additional expertises in this step.
+                      </p>
+                    )}
+                    {availableExpertises.length === 0 && canAddExpertise && (
+                      <p className="field-hint">
+                        All listed expertises are already selected—add a custom expertise below.
+                      </p>
+                    )}
+                  </div>
+                  {(remainingSkillRanks > 0 ||
+                    maxAdditionalExpertises > totalExpertisesChosen) && (
+                    <p className="field-hint">
+                      To unlock the next step, spend {Math.max(0, remainingSkillRanks)} more skill
+                      rank{remainingSkillRanks === 1 ? "" : "s"} and add{" "}
+                      {Math.max(0, maxAdditionalExpertises - totalExpertisesChosen)} more expertise
+                      {maxAdditionalExpertises - totalExpertisesChosen === 1 ? "" : "s"}.
+                    </p>
+                  )}
+                </article>
+              </div>
+            )}
+
+            {isStep4Complete && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <h2>
+                    <strong>Step 5 - Choose your talents</strong>
+                  </h2>
+                </div>
+                <article className="form-card">
+                  <p className="field-hint">
+                    Add the talents you qualify for at level 1. Include ancestry or heroic path
+                    talents as needed.
+                  </p>
+                  <div className="callout">
+                    <strong>What these talents do</strong>
+                    <p>
+                      Your heroic path grants a key talent at level 1. Singer ancestry adds its own
+                      key talent. Use the options below to add the appropriate key talent and any
+                      extra talents your table allows.
+                    </p>
+                  </div>
+                  <div className="talent-grid">
+                    {selectedPathTalents.map((talent) => (
+                      <div key={talent.id} className="talent-option">
+                        <div>
+                          <strong>{talent.name}</strong>
+                          <p className="field-hint">{talent.rulesText}</p>
+                        </div>
+                        <button
+                          className="primary small"
+                          type="button"
+                          onClick={() => handleTalentAdd(talent.name)}
+                          disabled={state.talents.includes(talent.name)}
+                        >
+                          {state.talents.includes(talent.name) ? "Added" : "Add talent"}
+                        </button>
+                      </div>
+                    ))}
+                    {selectedPathTalents.length === 0 && (
+                      <p className="field-hint">
+                        Select a heroic path to see its key talent options.
+                      </p>
+                    )}
+                  </div>
+                  <div className="talent-summary">
+                    {state.talents.length === 0 ? (
+                      <p className="field-hint">No talents selected yet.</p>
+                    ) : (
+                      state.talents.map((talent) => (
+                        <div key={talent} className="talent-card">
+                          <strong>{talent}</strong>
+                          <button
+                            className="ghost small"
+                            type="button"
+                            onClick={() => handleTalentRemove(talent)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div className="field-row">
+                    <input
+                      type="text"
+                      value={talentInput}
+                      onChange={(event) => setTalentInput(event.target.value)}
+                      placeholder="Add a talent"
+                    />
+                    <button
+                      className="primary small"
+                      type="button"
+                      onClick={() => {
+                        handleTalentAdd(talentInput);
+                        setTalentInput("");
+                      }}
+                      disabled={!talentInput.trim()}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {isStep5Complete && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <h2>
+                    <strong>Step 6 - Equip yourself</strong>
+                  </h2>
+                </div>
+                <article className="form-card">
+                  <p className="field-hint">
+                    Choose a starting kit, roll your starting spheres, and spend them on weapons,
+                    armor, or additional equipment.
+                  </p>
+                  <div className="kit-grid">
+                    {startingKits.map((kit) => (
+                      <label
+                        key={kit.id}
+                        className={`kit-card${selectedKitId === kit.id ? " active" : ""}`}
+                      >
+                        <input
+                          type="radio"
+                          name="starting-kit"
+                          value={kit.id}
+                          checked={selectedKitId === kit.id}
+                          onChange={() => handleKitSelect(kit.id)}
+                        />
+                        <span>
+                          <strong>{kit.name}</strong>
+                          <span>Weapons: {kit.weapons}</span>
+                          <span>Armor: {kit.armor}</span>
+                          <span>Equipment: {kit.equipment}</span>
+                          <span>Spheres: {kit.spheres}</span>
+                          {kit.additionalExpertise && <em>{kit.additionalExpertise}</em>}
+                          {kit.connection && <em>{kit.connection}</em>}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="field-row">
+                    <span className="field-label">Starting spheres</span>
+                    <span className="field-meta">
+                      {rolledSpheres === null
+                        ? "Roll to determine your marks."
+                        : `${rolledSpheres} marks`}
+                    </span>
+                  </div>
+                  <div className="field-row">
+                    <button
+                      className="primary small"
+                      type="button"
+                      onClick={handleSphereRoll}
+                      disabled={!selectedKitId}
+                    >
+                      Roll spheres
+                    </button>
+                    {remainingSpheres !== null && (
+                      <span className="field-meta">Remaining: {remainingSpheres} marks</span>
+                    )}
+                  </div>
+                  <div className="shop-grid">
+                    <div>
+                      <h3>Weapons</h3>
+                      <ul className="purchase-list scroll">
+                        {weaponItems.map((item) => (
+                          <li key={item.name}>
+                            <span>{item.name}</span>
+                            <span>{item.price} mk</span>
+                            <button
+                              className="ghost small"
+                              type="button"
+                              onClick={() => handlePurchase(item)}
+                              disabled={
+                                !selectedKitId ||
+                                rolledSpheres === null ||
+                                (remainingSpheres !== null && remainingSpheres < item.price)
+                              }
+                            >
+                              Add
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h3>Armor</h3>
+                      <ul className="purchase-list scroll">
+                        {armorItems.map((item) => (
+                          <li key={item.name}>
+                            <span>{item.name}</span>
+                            <span>{item.price} mk</span>
+                            <button
+                              className="ghost small"
+                              type="button"
+                              onClick={() => handlePurchase(item)}
+                              disabled={
+                                !selectedKitId ||
+                                rolledSpheres === null ||
+                                (remainingSpheres !== null && remainingSpheres < item.price)
+                              }
+                            >
+                              Add
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h3>Equipment</h3>
+                      <ul className="purchase-list scroll">
+                        {equipmentItems.map((item) => (
+                          <li key={item.name}>
+                            <span>{item.name}</span>
+                            <span>{item.price} mk</span>
+                            <button
+                              className="ghost small"
+                              type="button"
+                              onClick={() => handlePurchase(item)}
+                              disabled={
+                                !selectedKitId ||
+                                rolledSpheres === null ||
+                                (remainingSpheres !== null && remainingSpheres < item.price)
+                              }
+                            >
+                              Add
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="field-group">
+                    <h3>Purchased items</h3>
+                    <div className="inventory-list">
+                      {purchasedItems.length === 0 ? (
+                        <span className="field-hint">No purchases yet.</span>
+                      ) : (
+                        purchasedItems.map((item, index) => (
+                          <button
+                            key={`${item.name}-${index}`}
+                            className="expertise-pill"
+                            type="button"
+                            onClick={() => handlePurchaseRemove(index)}
+                          >
+                            {item.name} ({item.price} mk) ✕
+                          </button>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                  <div className="field-group">
+                    <h3>Sphere values (diamond marks)</h3>
+                    <ul className="purchase-list compact">
+                      {sphereValues.map((value) => (
+                        <li key={value.gemstone}>
+                          <span>{value.gemstone}</span>
+                          <span>
+                            Chip {value.chip} • Mark {value.mark} • Broam {value.broam}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {isStep6Complete && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <h2>
+                    <strong>Step 7 - Tell your story</strong>
+                  </h2>
+                </div>
+                <article className="form-card">
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-name">
+                      Character name
+                    </label>
+                    <input
+                      id="character-name"
+                      type="text"
+                      value={state.identity.name}
+                      onChange={(event) => handleIdentityChange("name", event.target.value)}
+                      placeholder="Name"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="player-name">
+                      Player name
+                    </label>
+                    <input
+                      id="player-name"
+                      type="text"
+                      value={state.identity.playerName}
+                      onChange={(event) => handleIdentityChange("playerName", event.target.value)}
+                      placeholder="Player"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-purpose">
+                      Purpose &amp; motivation
+                    </label>
+                    <textarea
+                      id="character-purpose"
+                      rows={3}
+                      value={state.identity.purpose}
+                      onChange={(event) => handleIdentityChange("purpose", event.target.value)}
+                      placeholder="What drives your character?"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-obstacle">
+                      Obstacles
+                    </label>
+                    <textarea
+                      id="character-obstacle"
+                      rows={3}
+                      value={state.identity.obstacle}
+                      onChange={(event) => handleIdentityChange("obstacle", event.target.value)}
+                      placeholder="What stands in their way?"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <div className="field-row">
+                      <span className="field-label">Goals</span>
+                      <span className="field-meta">{state.identity.goals.length} listed</span>
+                    </div>
+                    <div className="goal-input">
+                      <input
+                        type="text"
+                        value={goalInput}
+                        onChange={(event) => setGoalInput(event.target.value)}
+                        placeholder="Add a goal"
+                      />
+                      <button
+                        className="primary small"
+                        type="button"
+                        onClick={() => {
+                          handleGoalAdd(goalInput);
+                          setGoalInput("");
+                        }}
+                        disabled={!goalInput.trim()}
+                      >
+                        Add
+                      </button>
+                    </div>
+                    <div className="goal-list">
+                      {state.identity.goals.map((goal) => (
+                        <button
+                          key={goal}
+                          className="goal-pill"
+                          type="button"
+                          onClick={() => handleGoalRemove(goal)}
+                        >
+                          {goal} ✕
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-notes">
+                      Notes
+                    </label>
+                    <textarea
+                      id="character-notes"
+                      rows={3}
+                      value={state.identity.notes}
+                      onChange={(event) => handleIdentityChange("notes", event.target.value)}
+                      placeholder="Add any extra story details."
+                    />
                   </div>
                 </article>
               </div>
