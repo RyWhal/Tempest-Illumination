@@ -47,6 +47,8 @@ const initialState: CharacterState = {
   }
 };
 
+const singerListenerCultureId = "sl.expertise.cultural.listener";
+
 const additionalExpertiseOptions = [
   "Agriculture",
   "Art",
@@ -211,11 +213,7 @@ const armorItems = [
 ];
 
 const weaponItems = [
-  { name: "Improvised Weapon", price: 0 },
-  { name: "Unarmed Attack", price: 0 },
   { name: "Half-Shard", price: 2000 },
-  { name: "Shardblade", price: 0 },
-  { name: "Shardblade (Radiant)", price: 0 },
   { name: "Warhammer", price: 400 },
   { name: "Grandbow", price: 1000 },
   { name: "Axe", price: 20 },
@@ -292,7 +290,12 @@ export default function App() {
     setState((prev) => ({
       ...prev,
       ancestryKey: value || undefined,
-      cultureKeys: value === "sl.ancestry.human" ? prev.cultureKeys : []
+      cultureKeys:
+        value === "sl.ancestry.human"
+          ? prev.cultureKeys
+          : value === "sl.ancestry.singer"
+            ? [singerListenerCultureId]
+            : []
     }));
   };
 
@@ -462,20 +465,28 @@ export default function App() {
     }));
   };
 
+  const buildInventory = (
+    kitId: string | null,
+    spheres: number | null,
+    purchases: { name: string; price: number }[]
+  ) => {
+    const kit = startingKits.find((entry) => entry.id === kitId);
+    const kitItems = kit
+      ? [kit.weapons, kit.armor, kit.equipment, kit.additionalExpertise, kit.connection]
+          .filter(Boolean)
+          .map((item) => item as string)
+      : [];
+    const sphereEntry = spheres !== null ? [`Spheres: ${spheres} marks`] : [];
+    return [...kitItems, ...sphereEntry, ...purchases.map((entry) => entry.name)];
+  };
+
   const handleKitSelect = (kitId: string) => {
     setSelectedKitId(kitId);
     setRolledSpheres(null);
     setPurchasedItems([]);
-    const kit = startingKits.find((entry) => entry.id === kitId);
-    if (!kit) {
-      return;
-    }
-    const kitItems = [kit.weapons, kit.armor, kit.equipment, kit.additionalExpertise, kit.connection]
-      .filter(Boolean)
-      .map((item) => item as string);
     setState((prev) => ({
       ...prev,
-      inventory: kitItems
+      inventory: buildInventory(kitId, null, [])
     }));
   };
 
@@ -483,28 +494,35 @@ export default function App() {
     const kit = startingKits.find((entry) => entry.id === selectedKitId);
     if (!kit || kit.spheres === "None") {
       setRolledSpheres(0);
+      setState((prev) => ({
+        ...prev,
+        inventory: buildInventory(selectedKitId, 0, purchasedItems)
+      }));
       return;
     }
     const dice = parseDice(kit.spheres);
     if (!dice) {
       setRolledSpheres(0);
+      setState((prev) => ({
+        ...prev,
+        inventory: buildInventory(selectedKitId, 0, purchasedItems)
+      }));
       return;
     }
-    setRolledSpheres(rollDice(dice.count, dice.sides));
+    const total = rollDice(dice.count, dice.sides);
+    setRolledSpheres(total);
+    setState((prev) => ({
+      ...prev,
+      inventory: buildInventory(selectedKitId, total, purchasedItems)
+    }));
   };
 
   const handlePurchase = (item: { name: string; price: number }) => {
     setPurchasedItems((prev) => {
       const updated = [...prev, item];
-      const kit = startingKits.find((entry) => entry.id === selectedKitId);
-      const kitItems = kit
-        ? [kit.weapons, kit.armor, kit.equipment, kit.additionalExpertise, kit.connection]
-            .filter(Boolean)
-            .map((value) => value as string)
-        : [];
       setState((current) => ({
         ...current,
-        inventory: [...kitItems, ...updated.map((entry) => entry.name)]
+        inventory: buildInventory(selectedKitId, rolledSpheres, updated)
       }));
       return updated;
     });
@@ -513,15 +531,9 @@ export default function App() {
   const handlePurchaseRemove = (index: number) => {
     setPurchasedItems((prev) => {
       const updated = prev.filter((_, entryIndex) => entryIndex !== index);
-      const kit = startingKits.find((entry) => entry.id === selectedKitId);
-      const kitItems = kit
-        ? [kit.weapons, kit.armor, kit.equipment, kit.additionalExpertise, kit.connection]
-            .filter(Boolean)
-            .map((value) => value as string)
-        : [];
       setState((current) => ({
         ...current,
-        inventory: [...kitItems, ...updated.map((entry) => entry.name)]
+        inventory: buildInventory(selectedKitId, rolledSpheres, updated)
       }));
       return updated;
     });
@@ -589,6 +601,12 @@ export default function App() {
     rolledSpheres === null
       ? null
       : Math.max(0, rolledSpheres - purchasedItems.reduce((total, item) => total + item.price, 0));
+  const derivedStats = {
+    liftingCapacity: state.attributes.strength * 50,
+    movementRate: 5 + state.attributes.speed,
+    recoveryDie: `d${6 + state.attributes.willpower * 2}`,
+    sensesRange: `${10 + state.attributes.awareness * 5} ft`
+  };
 
   return (
     <div className="app">
@@ -673,6 +691,18 @@ export default function App() {
                           or from any heroic path (see chapter 4).
                         </li>
                       </ul>
+                      <div className="field-row">
+                        <span className="field-label">Cultural expertise</span>
+                      </div>
+                      <div className="expertise-list">
+                        {culturalExpertises
+                          .filter((culture) => culture.id === singerListenerCultureId)
+                          .map((culture) => (
+                            <span key={culture.id} className="expertise-pill locked">
+                              {culture.name}
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   ) : (
                     <div className="field-group">
@@ -757,6 +787,16 @@ export default function App() {
                   </h2>
                 </div>
                 <article className="form-card">
+                  {selectedPath && (
+                    <div className="callout">
+                      <strong>Starting skill: {selectedPath.startingSkill}</strong>
+                      <p>
+                        {startingSkill
+                          ? `${startingSkill.category} • ${startingSkill.attribute}`
+                          : "This skill grants a free rank during character creation."}
+                      </p>
+                    </div>
+                  )}
                   <div className="option-grid">
                     {heroicPaths.map((path) => (
                       <label
@@ -833,12 +873,21 @@ export default function App() {
                     })}
                   </div>
                   <div className="callout">
-                    <p>
-                      Record any derived statistics from your attributes, such as lifting capacity,
-                      movement rate, recovery die, and senses range, after you distribute your
-                      points.
-                    </p>
-                    <span className="field-meta">Player Handbook p. 44</span>
+                    <p>Derived statistics (tracked from your attributes):</p>
+                    <ul className="stat-list">
+                      <li>
+                        <strong>Lifting capacity:</strong> {derivedStats.liftingCapacity} lb
+                      </li>
+                      <li>
+                        <strong>Movement rate:</strong> {derivedStats.movementRate}
+                      </li>
+                      <li>
+                        <strong>Recovery die:</strong> {derivedStats.recoveryDie}
+                      </li>
+                      <li>
+                        <strong>Senses range:</strong> {derivedStats.sensesRange}
+                      </li>
+                    </ul>
                   </div>
                 </article>
               </div>
@@ -1012,6 +1061,14 @@ export default function App() {
                     Add the talents you qualify for at level 1. Include ancestry or heroic path
                     talents as needed.
                   </p>
+                  <div className="callout">
+                    <strong>What these talents do</strong>
+                    <p>
+                      Your heroic path grants a key talent at level 1. Singer ancestry adds its own
+                      key talent. Use the options below to add the appropriate key talent and any
+                      extra talents your table allows.
+                    </p>
+                  </div>
                   <div className="talent-grid">
                     {selectedPathTalents.map((talent) => (
                       <div key={talent.id} className="talent-option">
@@ -1137,7 +1194,7 @@ export default function App() {
                   <div className="shop-grid">
                     <div>
                       <h3>Weapons</h3>
-                      <ul className="purchase-list">
+                      <ul className="purchase-list scroll">
                         {weaponItems.map((item) => (
                           <li key={item.name}>
                             <span>{item.name}</span>
@@ -1160,7 +1217,7 @@ export default function App() {
                     </div>
                     <div>
                       <h3>Armor</h3>
-                      <ul className="purchase-list">
+                      <ul className="purchase-list scroll">
                         {armorItems.map((item) => (
                           <li key={item.name}>
                             <span>{item.name}</span>
@@ -1183,7 +1240,7 @@ export default function App() {
                     </div>
                     <div>
                       <h3>Equipment</h3>
-                      <ul className="purchase-list">
+                      <ul className="purchase-list scroll">
                         {equipmentItems.map((item) => (
                           <li key={item.name}>
                             <span>{item.name}</span>

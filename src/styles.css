@@ -409,7 +409,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   background: rgba(10, 14, 22, 0.7);
   border: 1px solid rgba(122, 137, 167, 0.3);
   border-radius: 12px;
@@ -447,7 +447,7 @@ input:focus {
 }
 
 .counter.compact {
-  align-self: flex-end;
+  align-self: center;
   gap: 6px;
 }
 
@@ -611,6 +611,20 @@ input:focus {
   border: 1px solid rgba(122, 137, 167, 0.2);
   background: rgba(10, 14, 22, 0.5);
   font-size: 0.85rem;
+}
+
+.purchase-list.scroll {
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.stat-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: grid;
+  gap: 6px;
 }
 
 .purchase-list.compact li {
