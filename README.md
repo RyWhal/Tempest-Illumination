@@ -3,7 +3,7 @@ A TTRPG character generator.
 
 ## Project structure
 - `docs/rules/`: Rule references for the wizard and validator.
-- `data/stormlight-pack/`: Draft Stormlight content pack JSON.
+- `data/stormlight-pack/`: Full Stormlight content pack JSON (restored records with source metadata).
 - `src/`: Wizard, sheet, and advancement scaffolding.
 
 ## Rule references
