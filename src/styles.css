@@ -438,6 +438,38 @@ input:focus {
   gap: 4px;
 }
 
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter .field-label {
+  min-width: 24px;
+  text-align: center;
+}
+
+.expertise-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.expertise-pill {
+  background: rgba(214, 200, 154, 0.2);
+  border: 1px solid rgba(214, 200, 154, 0.5);
+  color: #f8f7f5;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.expertise-pill.locked {
+  cursor: default;
+  opacity: 0.75;
+}
+
 .talent-summary {
   display: flex;
   flex-direction: column;
