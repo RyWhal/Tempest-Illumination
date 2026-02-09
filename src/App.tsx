@@ -2,7 +2,8 @@ import { useState } from "react";
 import {
   ancestries,
   culturalExpertises,
-  heroicPaths
+  heroicPaths,
+  skills
 } from "./data/stormlightPack";
 import type { CharacterState } from "./models";
 
@@ -49,8 +50,12 @@ export default function App() {
   const [state, setState] = useState<CharacterState>(initialState);
   const [currentStep, setCurrentStep] = useState<"origin" | "origins">("origin");
   const [originStep, setOriginStep] = useState<"origins" | "path">("origins");
+  const [expertiseInput, setExpertiseInput] = useState("");
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
+  const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
+  const startingSkill = skills.find((skill) => skill.name === selectedPath?.startingSkill);
+  const startingSkillId = startingSkill?.id;
 
   const isSinger = selectedAncestry?.id === "sl.ancestry.singer";
   const isHuman = selectedAncestry?.id === "sl.ancestry.human";
@@ -89,7 +94,118 @@ export default function App() {
   const handlePathChange = (value: string) => {
     setState((prev) => ({
       ...prev,
-      pathKey: value || undefined
+      pathKey: value || undefined,
+      skills: (() => {
+        const nextSkills = { ...prev.skills };
+        const previousPath = heroicPaths.find((path) => path.id === prev.pathKey);
+        const previousStartingSkill = skills.find(
+          (skill) => skill.name === previousPath?.startingSkill
+        );
+        const previousStartingSkillId = previousStartingSkill?.id;
+        const nextPath = heroicPaths.find((path) => path.id === value);
+        const nextStartingSkill = skills.find((skill) => skill.name === nextPath?.startingSkill);
+        const nextStartingSkillId = nextStartingSkill?.id;
+
+        if (previousStartingSkillId && nextSkills[previousStartingSkillId]) {
+          nextSkills[previousStartingSkillId] = Math.max(
+            0,
+            (nextSkills[previousStartingSkillId] ?? 0) - 1
+          );
+        }
+
+        if (nextStartingSkillId) {
+          nextSkills[nextStartingSkillId] = Math.min(
+            2,
+            (nextSkills[nextStartingSkillId] ?? 0) + 1
+          );
+        }
+
+        return nextSkills;
+      })()
+    }));
+  };
+
+  const totalAttributePoints = 12;
+  const maxAttributeScore = 3;
+  const attributePointsSpent = attributeList.reduce(
+    (total, attribute) => total + state.attributes[attribute.key],
+    0
+  );
+  const attributePointsRemaining = totalAttributePoints - attributePointsSpent;
+
+  const handleAttributeAdjust = (key: AttributeKey, delta: number) => {
+    setState((prev) => {
+      const currentValue = prev.attributes[key];
+      const nextValue = Math.min(
+        maxAttributeScore,
+        Math.max(0, currentValue + delta)
+      );
+      const nextTotal = attributeList.reduce(
+        (total, attribute) =>
+          total + (attribute.key === key ? nextValue : prev.attributes[attribute.key]),
+        0
+      );
+      if (nextTotal > totalAttributePoints) {
+        return prev;
+      }
+      return {
+        ...prev,
+        attributes: {
+          ...prev.attributes,
+          [key]: nextValue
+        }
+      };
+    });
+  };
+
+  const baseSkillRanks = 4;
+  const totalSkillRanks = skills.reduce(
+    (total, skill) => total + (state.skills[skill.id] ?? 0),
+    0
+  );
+  const startingSkillBonus = startingSkillId ? 1 : 0;
+  const spentSkillRanks = Math.max(0, totalSkillRanks - startingSkillBonus);
+  const remainingSkillRanks = baseSkillRanks - spentSkillRanks;
+
+  const handleSkillAdjust = (skillId: string, delta: number) => {
+    setState((prev) => {
+      const currentValue = prev.skills[skillId] ?? 0;
+      const minValue = skillId === startingSkillId ? 1 : 0;
+      const nextValue = Math.min(2, Math.max(minValue, currentValue + delta));
+      const nextSkills = { ...prev.skills, [skillId]: nextValue };
+      const nextTotal = skills.reduce(
+        (total, skill) => total + (nextSkills[skill.id] ?? 0),
+        0
+      );
+      const nextSpent = Math.max(0, nextTotal - (startingSkillId ? 1 : 0));
+      if (nextSpent > baseSkillRanks) {
+        return prev;
+      }
+      return { ...prev, skills: nextSkills };
+    });
+  };
+
+  const maxAdditionalExpertises = Math.max(0, state.attributes.intellect);
+  const totalExpertisesChosen = state.expertises.length;
+  const canAddExpertise = totalExpertisesChosen < maxAdditionalExpertises;
+
+  const handleExpertiseAdd = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) {
+      return;
+    }
+    setState((prev) => {
+      if (prev.expertises.includes(cleaned) || prev.expertises.length >= maxAdditionalExpertises) {
+        return prev;
+      }
+      return { ...prev, expertises: [...prev.expertises, cleaned] };
+    });
+  };
+
+  const handleExpertiseRemove = (value: string) => {
+    setState((prev) => ({
+      ...prev,
+      expertises: prev.expertises.filter((item) => item !== value)
     }));
   };
 
@@ -292,6 +408,190 @@ export default function App() {
                         </span>
                       </label>
                     ))}
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {originStep === "path" && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <span className="step-index">Step 3</span>
+                  <h2>Choose your attributes</h2>
+                </div>
+                <article className="form-card">
+                  <div className="field-row">
+                    <span className="field-label">Attribute points</span>
+                    <span className="field-meta">
+                      {attributePointsRemaining} remaining of {totalAttributePoints}
+                    </span>
+                  </div>
+                  <p className="field-hint">
+                    Distribute 12 points across Strength, Speed, Intellect, Willpower, Awareness,
+                    and Presence. You cannot assign more than 3 points to any attribute during
+                    character creation.
+                  </p>
+                  <div className="attribute-grid">
+                    {attributeList.map((attribute) => {
+                      const currentValue = state.attributes[attribute.key];
+                      return (
+                        <div key={attribute.key} className="attribute-card">
+                          <span>
+                            <strong>{attribute.label}</strong>
+                            <span className="field-meta">{currentValue}</span>
+                          </span>
+                          <div className="counter">
+                            <button
+                              className="ghost small"
+                              type="button"
+                              onClick={() => handleAttributeAdjust(attribute.key, -1)}
+                              disabled={currentValue <= 0}
+                            >
+                              -
+                            </button>
+                            <button
+                              className="primary small"
+                              type="button"
+                              onClick={() => handleAttributeAdjust(attribute.key, 1)}
+                              disabled={currentValue >= maxAttributeScore || attributePointsRemaining <= 0}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="callout">
+                    <p>
+                      Record any derived statistics from your attributes, such as lifting capacity,
+                      movement rate, recovery die, and senses range, after you distribute your
+                      points.
+                    </p>
+                    <span className="field-meta">Player Handbook p. 44</span>
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {originStep === "path" && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <span className="step-index">Step 4</span>
+                  <h2>Choose your skills &amp; expertises</h2>
+                </div>
+                <article className="form-card">
+                  <div className="field-group">
+                    <div className="field-row">
+                      <span className="field-label">Starting skill ranks</span>
+                      <span className="field-meta">
+                        {remainingSkillRanks} remaining of {baseSkillRanks}
+                      </span>
+                    </div>
+                    <p className="field-hint">
+                      Gain a free rank in your heroic path&apos;s starting skill, then distribute 4
+                      additional ranks across the skills below. You can&apos;t increase any skill
+                      above 2 ranks during character creation.
+                    </p>
+                    <div className="skill-grid">
+                      {skills.map((skill) => {
+                        const currentValue = state.skills[skill.id] ?? 0;
+                        const isStartingSkill = skill.id === startingSkillId;
+                        return (
+                          <div key={skill.id} className="skill-row">
+                            <span>
+                              <strong>{skill.name}</strong>
+                              <span className="field-meta">
+                                {skill.category} • {skill.attribute}
+                                {isStartingSkill ? " • Starting skill" : ""}
+                              </span>
+                            </span>
+                            <div className="counter">
+                              <button
+                                className="ghost small"
+                                type="button"
+                                onClick={() => handleSkillAdjust(skill.id, -1)}
+                                disabled={currentValue <= (isStartingSkill ? 1 : 0)}
+                              >
+                                -
+                              </button>
+                              <span className="field-label">{currentValue}</span>
+                              <button
+                                className="primary small"
+                                type="button"
+                                onClick={() => handleSkillAdjust(skill.id, 1)}
+                                disabled={currentValue >= 2 || remainingSkillRanks <= 0}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {!selectedPath && (
+                      <p className="field-hint">Select a starting path to unlock your free rank.</p>
+                    )}
+                  </div>
+
+                  <div className="field-group">
+                    <div className="field-row">
+                      <span className="field-label">Expertises</span>
+                      <span className="field-meta">
+                        {totalExpertisesChosen}/{maxAdditionalExpertises} additional
+                      </span>
+                    </div>
+                    <p className="field-hint">
+                      You already gained two expertises from culture. If your Intellect score is 1
+                      or higher, choose additional expertises equal to that score.
+                    </p>
+                    <div className="expertise-list">
+                      {state.cultureKeys.map((cultureId) => {
+                        const culture = culturalExpertises.find((item) => item.id === cultureId);
+                        if (!culture) {
+                          return null;
+                        }
+                        return (
+                          <span key={culture.id} className="expertise-pill locked">
+                            {culture.name}
+                          </span>
+                        );
+                      })}
+                      {state.expertises.map((expertise) => (
+                        <button
+                          key={expertise}
+                          className="expertise-pill"
+                          type="button"
+                          onClick={() => handleExpertiseRemove(expertise)}
+                        >
+                          {expertise} ✕
+                        </button>
+                      ))}
+                    </div>
+                    <div className="field-row">
+                      <input
+                        type="text"
+                        value={expertiseInput}
+                        onChange={(event) => setExpertiseInput(event.target.value)}
+                        placeholder="Add an expertise"
+                      />
+                      <button
+                        className="primary small"
+                        type="button"
+                        onClick={() => {
+                          handleExpertiseAdd(expertiseInput);
+                          setExpertiseInput("");
+                        }}
+                        disabled={!canAddExpertise || !expertiseInput.trim()}
+                      >
+                        Add
+                      </button>
+                    </div>
+                    {!canAddExpertise && maxAdditionalExpertises > 0 && (
+                      <p className="field-hint">
+                        You have chosen all additional expertises for your current Intellect score.
+                      </p>
+                    )}
                   </div>
                 </article>
               </div>
