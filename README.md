@@ -1,20 +1,22 @@
 # Tempest-Illumination
-A TTRPG character generator
+A TTRPG character generator.
 
-## Rules References
+## Project structure
+- `docs/rules/`: Rule references for the wizard and validator.
+- `data/stormlight-pack/`: Full Stormlight content pack JSON (restored records with source metadata).
+- `src/`: Wizard, sheet, and advancement scaffolding.
 
+## Rule references
 - [Character Creation Rules](docs/rules/character-creation.md)
-- [Advancement Rules](docs/rules/advancement.md)
+- [Advancement (Levels 2–20)](docs/rules/advancement-levels-2-20.md)
 - [Radiant Progression Rules](docs/rules/radiant-progression.md)
-- [Combat & Resources Rules](docs/rules/combat-resources.md)
+- [Combat & Resource Tracking Rules](docs/rules/combat-resources.md)
 - [Item Rules](docs/rules/item-rules.md)
 
-## Future UI References
+## Front-end development
+This project uses React + Vite.
 
-- [Wizard and Validator References](docs/future-ui.md)
-
-## UI Prototype
-
-A static HTML/CSS/JS scaffold lives in `ui/` to visualize the wizard layout. Open
-`ui/index.html` in a browser to preview the initial layout while the app wiring
-is built out.
+```bash
+npm install
+npm run dev
+```
