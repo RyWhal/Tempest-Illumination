@@ -1,51 +1,38 @@
-# Character Creation Rules Reference
+# Character Creation Rules
 
-## Rule Summary Table
+## Rule summary table
+| Area | Summary | Notes |
+| --- | --- | --- |
+| Ancestry | Choose Human or Singer. | Applies ancestry effects and talent picks. |
+| Culture | Pick exactly two cultural expertises. | Expertise definitions may include language/sub-choices. |
+| Starting path | Pick one heroic path. | Grants a key talent and starting skill rank. |
+| Attributes | Allocate creation points across six attributes. | Enforce totals and per-attribute caps. |
+| Skills | Apply path free rank and allocate remaining ranks. | No skill above rank 2 at level 1. |
+| Talents | Add ancestry/path key talents and required choices. | Block illegal prerequisites. |
+| Equipment | Choose a starting kit. | Populate inventory with items. |
+| Story metadata | Name, purpose, obstacle, goals. | Goals tie to Radiant triggers. |
 
-| Rule Area | Summary | Key Outputs | Stormlight Handbook PDF |
-| --- | --- | --- | --- |
-| Concept & Intent | Define character concept, narrative role, and campaign fit before mechanics. | Concept statement, role tags. | pp. 4-7 |
-| Attribute Baseline | Assign baseline attributes with a fixed pool and minimum/maximum caps. | Attribute scores, derived modifiers. | pp. 8-11 |
-| Ancestry & Culture | Select ancestry/culture package with traits, languages, and starting feature. | Heritage traits, language list. | pp. 12-16 |
-| Calling & Background | Pick a calling and background that grant skills and starting resources. | Skill ranks, background perks. | pp. 17-21 |
-| Starting Talents | Choose starting talents within tier limits and prerequisites. | Talent list, tier flags. | pp. 22-26 |
-| Equipment & Resources | Allocate starting gear and currency based on background. | Item list, starting wealth. | pp. 27-30 |
-| Final Validation | Verify prerequisites, caps, and campaign constraints. | Validation report. | pp. 31-32 |
-
-## Prerequisites & Dependencies
-
+## Dependencies / prerequisites graph
 ```mermaid
-flowchart TD
-  concept[Concept & Intent]
-  attributes[Attributes]
-  heritage[Ancestry & Culture]
-  calling[Calling & Background]
-  talents[Starting Talents]
-  gear[Equipment & Resources]
-  validation[Final Validation]
-
-  concept --> attributes
-  concept --> heritage
-  heritage --> calling
-  attributes --> talents
-  calling --> talents
-  calling --> gear
-  talents --> validation
-  gear --> validation
+graph TD
+  A[Ancestry] --> T1[Ancestry talents]
+  A --> C[Culture expertises]
+  P[Starting path] --> T2[Path key talent]
+  P --> S1[Starting skill rank]
+  S1 --> S2[Skill allocation]
+  A --> T3[Extra talent choice (Human)]
+  A --> T4[Singer form change]
+  C --> S3[Expertise bonuses]
+  T1 --> T5[Talent prerequisites]
+  T2 --> T5
+  S2 --> T5
 ```
 
-## Example Edge Cases
+## Example edge cases
+- Singer ancestry selected without Change Form talent choice (invalid).
+- Human ancestry selected but extra talent pick not taken (invalid).
+- More or fewer than two cultural expertises chosen (invalid).
+- Skill rank allocation exceeds level-1 cap for a single skill (invalid).
 
-- **Over-cap attributes:** A player assigns an attribute above the maximum after ancestry bonuses. Require reallocation before talents are chosen.
-- **Conflicting heritage and background:** A background prerequisite calls for a language not granted by chosen culture; enforce selecting a compatible background or adding the language via a talent swap.
-- **Starting gear duplication:** A kit provides a weapon already granted by background; replace with equivalent value item rather than stacking duplicates.
-- **Talent prerequisite chain:** A starting talent requires a tier-1 talent from another path; ensure the base talent is selected first and within starting tier limits.
-
-## Page References
-
-- Character concept overview: pp. 4-7.
-- Attribute allocation rules: pp. 8-11.
-- Ancestry/culture packages: pp. 12-16.
-- Calling/background selection: pp. 17-21.
-- Starting talents & equipment: pp. 22-30.
-- Final validation checklist: pp. 31-32.
+## Source references
+- TODO: Stormlight Handbook PDF page citations for each rule above.

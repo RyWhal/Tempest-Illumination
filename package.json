@@ -1,0 +1,14 @@
+{
+  "name": "tempest-illumination",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "lint": "echo 'no lint configured'",
+    "test": "echo 'no tests configured'"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
