@@ -12,3 +12,11 @@ A TTRPG character generator.
 - [Radiant Progression Rules](docs/rules/radiant-progression.md)
 - [Combat & Resource Tracking Rules](docs/rules/combat-resources.md)
 - [Item Rules](docs/rules/item-rules.md)
+
+## Front-end development
+This project uses React + Vite.
+
+```bash
+npm install
+npm run dev
+```
