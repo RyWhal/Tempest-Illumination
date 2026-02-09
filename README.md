@@ -12,3 +12,9 @@ A TTRPG character generator
 ## Future UI References
 
 - [Wizard and Validator References](docs/future-ui.md)
+
+## UI Prototype
+
+A static HTML/CSS/JS scaffold lives in `ui/` to visualize the wizard layout. Open
+`ui/index.html` in a browser to preview the initial layout while the app wiring
+is built out.
