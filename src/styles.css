@@ -407,12 +407,14 @@ input:focus {
 
 .attribute-card {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   background: rgba(10, 14, 22, 0.7);
   border: 1px solid rgba(122, 137, 167, 0.3);
   border-radius: 12px;
   padding: 12px;
+  gap: 8px;
 }
 
 .skill-grid {
@@ -442,6 +444,16 @@ input:focus {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+.counter.compact {
+  align-self: flex-end;
+  gap: 6px;
+}
+
+.counter.compact .small {
+  padding: 4px 8px;
+  font-size: 0.75rem;
 }
 
 .counter .field-label {

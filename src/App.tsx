@@ -49,8 +49,10 @@ const initialState: CharacterState = {
 export default function App() {
   const [state, setState] = useState<CharacterState>(initialState);
   const [currentStep, setCurrentStep] = useState<"origin" | "origins">("origin");
-  const [originStep, setOriginStep] = useState<"origins" | "path">("origins");
   const [expertiseInput, setExpertiseInput] = useState("");
+  const [talentInput, setTalentInput] = useState("");
+  const [inventoryInput, setInventoryInput] = useState("");
+  const [goalInput, setGoalInput] = useState("");
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
   const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
@@ -211,13 +213,102 @@ export default function App() {
 
   const handleReset = () => {
     setState(initialState);
-    setOriginStep("origins");
   };
 
   const handleStartNewCharacter = () => {
     handleReset();
     setCurrentStep("origins");
   };
+
+  const handleTalentAdd = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) {
+      return;
+    }
+    setState((prev) => {
+      if (prev.talents.includes(cleaned)) {
+        return prev;
+      }
+      return { ...prev, talents: [...prev.talents, cleaned] };
+    });
+  };
+
+  const handleTalentRemove = (value: string) => {
+    setState((prev) => ({
+      ...prev,
+      talents: prev.talents.filter((item) => item !== value)
+    }));
+  };
+
+  const handleInventoryAdd = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) {
+      return;
+    }
+    setState((prev) => {
+      if (prev.inventory.includes(cleaned)) {
+        return prev;
+      }
+      return { ...prev, inventory: [...prev.inventory, cleaned] };
+    });
+  };
+
+  const handleInventoryRemove = (value: string) => {
+    setState((prev) => ({
+      ...prev,
+      inventory: prev.inventory.filter((item) => item !== value)
+    }));
+  };
+
+  const handleIdentityChange = (field: keyof CharacterState["identity"], value: string) => {
+    setState((prev) => ({
+      ...prev,
+      identity: {
+        ...prev.identity,
+        [field]: value
+      }
+    }));
+  };
+
+  const handleGoalAdd = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) {
+      return;
+    }
+    setState((prev) => {
+      if (prev.identity.goals.includes(cleaned)) {
+        return prev;
+      }
+      return {
+        ...prev,
+        identity: {
+          ...prev.identity,
+          goals: [...prev.identity.goals, cleaned]
+        }
+      };
+    });
+  };
+
+  const handleGoalRemove = (value: string) => {
+    setState((prev) => ({
+      ...prev,
+      identity: {
+        ...prev.identity,
+        goals: prev.identity.goals.filter((item) => item !== value)
+      }
+    }));
+  };
+
+  const isStep1Complete =
+    Boolean(state.ancestryKey) && (!isHuman || state.cultureKeys.length === 2);
+  const isStep2Complete = isStep1Complete && Boolean(state.pathKey);
+  const isStep3Complete = isStep2Complete && attributePointsRemaining === 0;
+  const isStep4Complete =
+    isStep3Complete &&
+    remainingSkillRanks === 0 &&
+    totalExpertisesChosen === maxAdditionalExpertises;
+  const isStep5Complete = isStep4Complete && state.talents.length > 0;
+  const isStep6Complete = isStep5Complete && state.inventory.length > 0;
 
   return (
     <div className="app">
@@ -351,16 +442,12 @@ export default function App() {
                       </div>
                     </div>
                   )}
-                  <div className="origin-actions">
-                    <button
-                      className="primary"
-                      type="button"
-                      onClick={() => setOriginStep("path")}
-                      disabled={!state.ancestryKey}
-                    >
-                      Next: Starting paths
-                    </button>
-                  </div>
+                  {!isStep1Complete && (
+                    <p className="field-hint">
+                      Choose an ancestry and finalize your culture selections to unlock the next
+                      step.
+                    </p>
+                  )}
                 </article>
 
                 <aside className="origin-aside">
@@ -381,7 +468,7 @@ export default function App() {
               </div>
             </div>
 
-            {originStep === "path" && (
+            {isStep1Complete && (
               <div className="origin-step">
                 <div className="card-header">
                   <span className="step-index">Step 2</span>
@@ -413,7 +500,7 @@ export default function App() {
               </div>
             )}
 
-            {originStep === "path" && (
+            {isStep2Complete && (
               <div className="origin-step">
                 <div className="card-header">
                   <span className="step-index">Step 3</span>
@@ -440,7 +527,7 @@ export default function App() {
                             <strong>{attribute.label}</strong>
                             <span className="field-meta">{currentValue}</span>
                           </span>
-                          <div className="counter">
+                          <div className="counter compact">
                             <button
                               className="ghost small"
                               type="button"
@@ -474,7 +561,7 @@ export default function App() {
               </div>
             )}
 
-            {originStep === "path" && (
+            {isStep3Complete && (
               <div className="origin-step">
                 <div className="card-header">
                   <span className="step-index">Step 4</span>
@@ -592,6 +679,215 @@ export default function App() {
                         You have chosen all additional expertises for your current Intellect score.
                       </p>
                     )}
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {isStep4Complete && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <span className="step-index">Step 5</span>
+                  <h2>Choose your talents</h2>
+                </div>
+                <article className="form-card">
+                  <p className="field-hint">
+                    Add the talents you qualify for at level 1. Include ancestry or heroic path
+                    talents as needed.
+                  </p>
+                  <div className="talent-summary">
+                    {state.talents.length === 0 ? (
+                      <p className="field-hint">No talents selected yet.</p>
+                    ) : (
+                      state.talents.map((talent) => (
+                        <div key={talent} className="talent-card">
+                          <strong>{talent}</strong>
+                          <button
+                            className="ghost small"
+                            type="button"
+                            onClick={() => handleTalentRemove(talent)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div className="field-row">
+                    <input
+                      type="text"
+                      value={talentInput}
+                      onChange={(event) => setTalentInput(event.target.value)}
+                      placeholder="Add a talent"
+                    />
+                    <button
+                      className="primary small"
+                      type="button"
+                      onClick={() => {
+                        handleTalentAdd(talentInput);
+                        setTalentInput("");
+                      }}
+                      disabled={!talentInput.trim()}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {isStep5Complete && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <span className="step-index">Step 6</span>
+                  <h2>Equip yourself</h2>
+                </div>
+                <article className="form-card">
+                  <p className="field-hint">
+                    Record your starting kit, signature gear, and any important items.
+                  </p>
+                  <div className="inventory-list">
+                    {state.inventory.length === 0 ? (
+                      <span className="field-hint">No gear added yet.</span>
+                    ) : (
+                      state.inventory.map((item) => (
+                        <button
+                          key={item}
+                          className="expertise-pill"
+                          type="button"
+                          onClick={() => handleInventoryRemove(item)}
+                        >
+                          {item} ✕
+                        </button>
+                      ))
+                    )}
+                  </div>
+                  <div className="field-row">
+                    <input
+                      type="text"
+                      value={inventoryInput}
+                      onChange={(event) => setInventoryInput(event.target.value)}
+                      placeholder="Add equipment"
+                    />
+                    <button
+                      className="primary small"
+                      type="button"
+                      onClick={() => {
+                        handleInventoryAdd(inventoryInput);
+                        setInventoryInput("");
+                      }}
+                      disabled={!inventoryInput.trim()}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {isStep6Complete && (
+              <div className="origin-step">
+                <div className="card-header">
+                  <span className="step-index">Step 7</span>
+                  <h2>Tell your story</h2>
+                </div>
+                <article className="form-card">
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-name">
+                      Character name
+                    </label>
+                    <input
+                      id="character-name"
+                      type="text"
+                      value={state.identity.name}
+                      onChange={(event) => handleIdentityChange("name", event.target.value)}
+                      placeholder="Name"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="player-name">
+                      Player name
+                    </label>
+                    <input
+                      id="player-name"
+                      type="text"
+                      value={state.identity.playerName}
+                      onChange={(event) => handleIdentityChange("playerName", event.target.value)}
+                      placeholder="Player"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-purpose">
+                      Purpose &amp; motivation
+                    </label>
+                    <textarea
+                      id="character-purpose"
+                      rows={3}
+                      value={state.identity.purpose}
+                      onChange={(event) => handleIdentityChange("purpose", event.target.value)}
+                      placeholder="What drives your character?"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-obstacle">
+                      Obstacles
+                    </label>
+                    <textarea
+                      id="character-obstacle"
+                      rows={3}
+                      value={state.identity.obstacle}
+                      onChange={(event) => handleIdentityChange("obstacle", event.target.value)}
+                      placeholder="What stands in their way?"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <div className="field-row">
+                      <span className="field-label">Goals</span>
+                      <span className="field-meta">{state.identity.goals.length} listed</span>
+                    </div>
+                    <div className="goal-input">
+                      <input
+                        type="text"
+                        value={goalInput}
+                        onChange={(event) => setGoalInput(event.target.value)}
+                        placeholder="Add a goal"
+                      />
+                      <button
+                        className="primary small"
+                        type="button"
+                        onClick={() => {
+                          handleGoalAdd(goalInput);
+                          setGoalInput("");
+                        }}
+                        disabled={!goalInput.trim()}
+                      >
+                        Add
+                      </button>
+                    </div>
+                    <div className="goal-list">
+                      {state.identity.goals.map((goal) => (
+                        <button
+                          key={goal}
+                          className="goal-pill"
+                          type="button"
+                          onClick={() => handleGoalRemove(goal)}
+                        >
+                          {goal} ✕
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="character-notes">
+                      Notes
+                    </label>
+                    <textarea
+                      id="character-notes"
+                      rows={3}
+                      value={state.identity.notes}
+                      onChange={(event) => handleIdentityChange("notes", event.target.value)}
+                      placeholder="Add any extra story details."
+                    />
                   </div>
                 </article>
               </div>
