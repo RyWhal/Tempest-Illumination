@@ -1,0 +1,37 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Starter ancestry records extracted for downstream tooling."
+  },
+  "records": [
+    {
+      "id": "sl.ancestry.human",
+      "type": "ancestry",
+      "name": "Human",
+      "setting": "stormlight",
+      "size": "Medium",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 33
+      },
+      "rules_text": "Humans are the most widespread ancestry on Roshar. You are Medium and gain bonus talents from heroic paths at each tier (levels 1, 6, 11, 16, and 21)."
+    },
+    {
+      "id": "sl.ancestry.singer",
+      "type": "ancestry",
+      "name": "Singer",
+      "setting": "stormlight",
+      "size": "Medium",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 33
+      },
+      "rules_text": "Singers bond spren during highstorms to adopt forms. You are Medium, gain the Change Form key talent at level 1, and gain bonus talents at each tier from the Singer tree or heroic paths."
+    }
+  ]
+}

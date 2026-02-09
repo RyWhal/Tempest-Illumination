@@ -1,0 +1,49 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Surge definitions; these extend the base schema with new record types."
+  },
+  "records": [
+    {
+      "id": "sl.surge.adhesion",
+      "type": "surge",
+      "name": "Adhesion",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 82
+      },
+      "rules_text": "Adhesion manipulates pressure and atmospheric bonds. Windrunners use it for binding and spiritual pressure effects.",
+      "prerequisite_text": "Windrunner order",
+      "prerequisites": [
+        {
+          "type": "radiant_order",
+          "order": "Windrunner"
+        }
+      ]
+    },
+    {
+      "id": "sl.surge.gravitation",
+      "type": "surge",
+      "name": "Gravitation",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 82
+      },
+      "rules_text": "Gravitation manipulates gravitational attraction and allows Windrunners to alter their direction of fall or flight.",
+      "prerequisite_text": "Windrunner order",
+      "prerequisites": [
+        {
+          "type": "radiant_order",
+          "order": "Windrunner"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Sample cultural expertises for Roshar."
+  },
+  "records": [
+    {
+      "id": "sl.expertise.cultural.alethi",
+      "type": "cultural_expertise",
+      "name": "Alethi Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "You know Alethi princedoms, dialects, and Vorin cultural touchstones. Choose proficiency levels for spoken Alethi, glyphs, and women’s script."
+    },
+    {
+      "id": "sl.expertise.cultural.azish",
+      "type": "cultural_expertise",
+      "name": "Azish Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "You know Azish bureaucracy, member-state facts, and civic procedures. Choose proficiency levels for Azish sign, spoken Azish, and written Azish."
+    }
+  ]
+}
