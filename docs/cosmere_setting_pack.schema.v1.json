@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/cosmere-character-engine.schema.json",
+  "title": "Cosmere Character Engine - Setting Pack Schema",
+  "type": "object",
+  "required": [
+    "pack",
+    "records"
+  ],
+  "properties": {
+    "pack": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "setting",
+        "version",
+        "source_pdf"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "setting_pack"
+        },
+        "name": {
+          "type": "string"
+        },
+        "setting": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "source_pdf": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "pdf",
+        "page"
+      ],
+      "properties": {
+        "pdf": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "grant": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "order": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "target": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "prerequisite": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "min_level": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ancestry_id": {
+          "type": "string"
+        },
+        "talent_id": {
+          "type": "string"
+        },
+        "skill_id": {
+          "type": "string"
+        },
+        "min_rank": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "min_value": {
+          "type": "integer"
+        },
+        "any_of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisite"
+          }
+        },
+        "all_of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisite"
+          }
+        },
+        "not": {
+          "$ref": "#/$defs/prerequisite"
+        }
+      },
+      "additionalProperties": true
+    },
+    "record": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "setting",
+        "source"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "ancestry",
+            "skill",
+            "cultural_expertise",
+            "talent",
+            "item",
+            "kit",
+            "action",
+            "goal_template",
+            "rule_module"
+          ]
+        },
+        "subtype": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "setting": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "rules_text": {
+          "type": "string"
+        },
+        "prerequisite_text": {
+          "type": "string"
+        },
+        "activation_text": {
+          "type": "string"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisite"
+          }
+        },
+        "grants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/grant"
+          }
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "radiant_order": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

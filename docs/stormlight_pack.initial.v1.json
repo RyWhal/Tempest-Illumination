@@ -1,0 +1,809 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Wizard v1)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Initial dataset includes ancestries, cultural expertises, core skills, heroic path key talents, radiant first-ideal key talents, and singer form talents."
+  },
+  "records": [
+    {
+      "id": "sl.ancestry.human",
+      "type": "ancestry",
+      "name": "Human",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 33
+      },
+      "size": "Medium",
+      "rules_text": "Human Ancestry\nMost of Roshar is divided into human-ruled nations \nwith majority-human populations.\n\t\nMany ethnic groups are represented within the \nhuman species, some of which include distant singer \nancestry. Although each ethnic group shares common \nphysical characteristics among many of its people, these \ncharacteristics can express themselves very differently \nacross individuals. Due to the Vorin “right of travel,” \ninternational relations, and diasporas born of conflict, \nmost nations have some degree of ethnic diversity \namong citizens.\n\t\nThe “Culture” section of this chapter discusses the \nnations of Roshar and the most common ethnicities of \nthe people who live there.\nChoosing Human Ancestry\nIf you choose the human ancestry, your size is \nMedium, and you gain the following benefits at the \nspecified levels:\nAncestry Bonus Talents (Level 1, 6, 11, 16, and \n21). During step 5 of character creation, you gain \none bonus talent. As a human, you must choose this \ntalent from a heroic path (such as those in chapter 4). \nWhenever you reach a new tier (as indicated on the \nCharacter Advancement table in chapter 1), you again \ngain a bonus talent from a heroic path.\nAs usual, you must meet the prerequisites for these \ntalents (see the “Advancing Through a Path” section \nof chapter 4)."
+    },
+    {
+      "id": "sl.ancestry.singer",
+      "type": "ancestry",
+      "name": "Singer",
+      "setting": "stormlight",
+      "size": "Medium",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 33
+      },
+      "rules_text": "Singer Ancestry\nSingers are the indigenous population of Roshar, \nthough this knowledge was suppressed by the humans \nand lost for many Desolations. Singers can change \nforms by bonding spren during highstorms, altering \nthe singer’s appearance and abilities. Their intellectual \nand emotional capacities are equal to those of humans—\nbut unlike humans, whose abilities generally remain \nconstant, singer forms have the remarkable ability \nto temporarily amplify some abilities while others \nlie dormant.\n\t\nSingers have skin marbled with black, white, or \nred. Singer hairstrands range in hue, including orange, \nred, and black. Protective carapace covers parts of their \nbodies, though certain forms have more substantial \ncarapace, acting as biological armor. When a singer \ntakes on a new form, it can influence their physicality, \naspects of their personality, and their access (or lack \nthereof) to certain rhythms.\nAncestry\nYour ancestry reflects who you’re descended from. \nWhen you choose an ancestry in step 1 of character \ncreation, this affects your identity and general appear­\nance, determines your size (see “Size and Space” in \nchapter 10), and grants you talents or other abilities \nto represent unique traits of your species.\n\t\nThough your ancestry may be an important part \nof your identity, it doesn’t define you. In a later section, \nyou’ll choose the culture and society you were raised in, \nand possibly a different one you embrace today. These \nsignificantly impact how you view the world and what \nyou want for yourself, which might completely diverge \nfrom what others expect of you.\n\t\nThis section details the two species of sapient \nhumanoids who live on Roshar: humans and singers.\nGAL OR\nChoosing Singer Ancestry\nIf you choose the singer ancestry, your size is \nMedium, and you gain the following benefits at the \nspecified levels:\nUnique Talent Tree (Level 1). Whenever you choose \na new talent, you can choose it from the Singer talent \ntree in this chapter (in addition to the other trees you \nhave access to).\nChange Form (Level 1). You gain the Change Form \n(Singer Key) talent from the Singer tree, along with \none bonus talent that’s connected to it. Decide which \nform to begin the game in, choosing from the forms in \nthese two talents. As you gain levels, you can learn new \nforms from talents in the Singer tree.\nAncestry Bonus Talents (Level 6, 11, 16, and 21). \nEach time you reach a new tier (as indicated on the \nCharacter Advancement table in chapter 1), you again \ngain a bonus talent. You must choose it from the Singer \ntree or from any heroic path (see chapter 4).\nAs usual, you must meet the prerequisites for these \ntalents (see the “Advancing Through a Path” section \nof chapter 4)."
+    },
+    {
+      "id": "sl.skill.agility",
+      "type": "skill",
+      "name": "Agility",
+      "setting": "stormlight",
+      "attribute": "Speed",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.athletics",
+      "type": "skill",
+      "name": "Athletics",
+      "setting": "stormlight",
+      "attribute": "Strength",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.crafting",
+      "type": "skill",
+      "name": "Crafting",
+      "setting": "stormlight",
+      "attribute": "Intellect",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.deception",
+      "type": "skill",
+      "name": "Deception",
+      "setting": "stormlight",
+      "attribute": "Presence",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.deduction",
+      "type": "skill",
+      "name": "Deduction",
+      "setting": "stormlight",
+      "attribute": "Intellect",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.discipline",
+      "type": "skill",
+      "name": "Discipline",
+      "setting": "stormlight",
+      "attribute": "Willpower",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.heavy_weaponry",
+      "type": "skill",
+      "name": "Heavy Weaponry",
+      "setting": "stormlight",
+      "attribute": "Strength",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.insight",
+      "type": "skill",
+      "name": "Insight",
+      "setting": "stormlight",
+      "attribute": "Awareness",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.intimidation",
+      "type": "skill",
+      "name": "Intimidation",
+      "setting": "stormlight",
+      "attribute": "Willpower",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.leadership",
+      "type": "skill",
+      "name": "Leadership",
+      "setting": "stormlight",
+      "attribute": "Presence",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.light_weaponry",
+      "type": "skill",
+      "name": "Light Weaponry",
+      "setting": "stormlight",
+      "attribute": "Speed",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.lore",
+      "type": "skill",
+      "name": "Lore",
+      "setting": "stormlight",
+      "attribute": "Intellect",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.medicine",
+      "type": "skill",
+      "name": "Medicine",
+      "setting": "stormlight",
+      "attribute": "Intellect",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.perception",
+      "type": "skill",
+      "name": "Perception",
+      "setting": "stormlight",
+      "attribute": "Awareness",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.persuasion",
+      "type": "skill",
+      "name": "Persuasion",
+      "setting": "stormlight",
+      "attribute": "Presence",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.stealth",
+      "type": "skill",
+      "name": "Stealth",
+      "setting": "stormlight",
+      "attribute": "Speed",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.survival",
+      "type": "skill",
+      "name": "Survival",
+      "setting": "stormlight",
+      "attribute": "Awareness",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.thievery",
+      "type": "skill",
+      "name": "Thievery",
+      "setting": "stormlight",
+      "attribute": "Speed",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.expertise.cultural.alethi",
+      "type": "cultural_expertise",
+      "name": "Alethi Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Alethi expertise, you know \nthe names, locations, and highprinces of each prince­\ndom. Choose a princedom your character has lived in. \nYou can replicate its regional dialect, and you know how \nto find vendors, public organizations, and noteworthy \nlandmarks there. Choose how proficient you are in \nspoken Alethi, and reading and writing glyphs, as well \nas your literacy in women’s script (depending on your \ngender and regard for gender norms). Regardless of your \nreligious beliefs, you’re familiar with the basic tenets of \nVorinism, the Almighty, and the Heralds.\nCulture\nYour character’s culture isn’t determined by birth or \nany other single moment in time. Instead, cultural \nawareness can be shaped by nationality, ethnicity, \nmigration, traveling experience, and more. The \nupcoming “Rosharan Cultural Expertises” section \npresents cultural expertises for player characters; \nin step 1 of character creation, you can choose two of \nthese expertises. And if you’re playing a singer, the \n“Singers in Human Cultures” section helps you consider \nyour connections to the human-majority cultures of \nthe world. (To learn more about using expertises, see \n“Expertises” in chapter 3.)\n\t\nYour cultural expertises can be tied to your ancestry \nand ethnicities if you’d like them to be; this is common \nfor characters who grew up in or spent significant time \nin cultures tied to their lineage. Alternatively, you might \nknow little about any culture related to your lineage, \nbut be well-versed in the culture of a nation you were \nraised in or studied abroad in. The cultures you choose \naren’t meant to limit your character’s identity; rather, \nthey highlight where your cultural awareness is most \ncomprehensive.\n\t\nEither way, these expertises signify your character \nknows information about that culture and its place \nof origin, including potential fluency in an applicable \nlanguage. Your level of proficiency in spoken, signed, \nand written language is up to you. Consider whether \nyou adhere to social customs around language or \nnot—for example, an Alethi man might have learned \nto read despite cultural discouragement. There are \nno right or wrong answers here.\nCulture as a Canvas, Not the Painting\nNo group of people is a monolith. Rather than basing \nyour character’s personality on the cultural details in the \nfollowing sections, instead think of your culture as a series \nof stimuli you’ve been exposed to. Do you flourish in this \ncultural environment, or do you feel like an outsider? What \naspects of social customs resonate with you, and which \nones don’t? If you’re Herdazian, you might scoff at being \ncalled “cousin” by a stranger who only shares your general \nancestry—or the term might bring you a profound sense \nof comfort and belonging in a foreign land. The one or two \ncultures you choose are merely a canvas, and your story is \nthe painting; how you respond to the values and traditions \nof society is entirely up to you.\nChapter 2: Origins \n38"
+    },
+    {
+      "id": "sl.expertise.cultural.azish",
+      "type": "cultural_expertise",
+      "name": "Azish Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Azish expertise, you know about \nthe bureaucracy, Bronze Palace, Prime Aqasix, and the \nviziers. You can recall basic facts about each member \nstate in the Azish Empire. Choose how proficient you \nare in Azish sign language, as well as in spoken and \nwritten Azish. You can easily navigate civic buildings \nto review current laws, request the help of a constable \nfor law enforcement, file a complaint, or take the vizier \nexam. Regardless of your religious beliefs, you’re \nfamiliar with the Kadasixes and scions.\nHerdazian\nHerdaz is a verdant nation ruled by a monarch. Most \nof its territory is taken up by its two hundred and three \nhog ranches, for which Herdaz is famous. There are also \nlarge diasporas of Herdazians in neighboring nations, \nas nearly half of their population has left their ancestral \nland seeking opportunities or refuge from a long \nhistory of foreign occupation. It’s common for fellow \nHerdazians in foreign lands to warmly greet each other \nas cousins.\n\t\nVorinism is popular in Herdaz, but the nation has \nfewer ardents, and people of any status and occupation \ncan practice it personally. Most Herdazian Vorins \ncare deeply about their individual connections to \nthe Almighty and the Heralds, and they place little \nimportance on what they consider outward posturing.\n\t\nSinger ancestry in their ancient history has bestowed \nnearly all Herdazians with crystalline fingernails that \ncan function like flint when struck with a steel tool \ncalled a sparkflicker. They are also more resistant \nto poisons native to Roshar. Most Herdazians have \nmedium brown skin tones and brown hair.\nHerdazian Names\nAloro, Dunal, Duro, Erona, Hanol, Jonio, Kunor, \nLurio, Luron, Palor, Pinola, Polino, Relio, Sulio, \nTorona, Yorino."
+    },
+    {
+      "id": "sl.expertise.cultural.herdazian",
+      "type": "cultural_expertise",
+      "name": "Herdazian Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Herdazian expertise, you \nknow of the king and prominent ranching families. \nYou know how to navigate between expansive ranches, \nincluding how to avoid the coastal areas inhabited by \nvicious greatshells. Choose how proficient you are in \nspoken and written Herdazian, along with reading \nand writing glyphs. You know about basic tools for \nranching, including sparkflickers. Regardless of your \nreligious beliefs, you’re familiar with the basic tenets \nof Herdazian Vorinism.\nAlethi\nAzish\nAzish\nThe Prime Aqasix and a class of elite government \nscribes called viziers lead the bureaucratic nation of \nAzir and influence the Azish Empire’s member states. \nWhile independent thought is encouraged in friendly \nand official debates, most Azish look down on those \nwho fail to uphold procedure. Following said procedure \nis made difficult by Azish legislature’s expansiveness.\n\t\nMost Azish people have very dark brown skin and \nblack hair. They tend to be slightly shorter than people \nin Eastern Roshar. Large hats are a fixture of Azish \nuniforms and civilian fashion. Wraps and robes are worn \nby all genders, with vibrant colors and symbolic patterns \nindicating a person’s status. Azish is the official language \nand is spoken, signed, and written by most citizens. It is \ntypically spoken in pleasant, agreeable tones.\nAzish Names\nAdebazik, Arnok, Baxtol, Chivik, Dalwa, Etosha, Falkir, \nGanxir, Hauzir, Jirana, Koxi, Kunde, Maliq, Nineka, \nRaukir, Sigwir, Tama, Tigzir, Uju, Wolu, Yemzil.\n Chapter 2: Origins \n39\nDEANDRA SCICLUNA\n\nIriali Names\nByrle, Drin, Ilori, Imral, Jyste, Lalys, Lyre, Lysna, \nMyi, Rallin, Rellis, Ryli, Syderim, Palir, Ynne."
+    },
+    {
+      "id": "sl.expertise.cultural.iriali",
+      "type": "cultural_expertise",
+      "name": "Iriali Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Iriali expertise, you know \nof the Iriali Triumvirate—the two kings and queen \nwho rule together. Choose a city or rural area your \ncharacter has lived in; you know how to find vendors, \npublic organizations, and noteworthy landmarks there. \nChoose how proficient you are in spoken and written \nIri. Regardless of your religious beliefs, you’re familiar \nwith the basic tenets of the One and the Long Trail. \nYou also know basic strategies for travel and journeys, \nsuch as management of supplies.\nKharbranthian\nKharbranth, the City of Bells, is an independent city-\nstate that largely practices Vorinism. The mountain \nthat borders the city largely absorbs the initial impact \nof highstorms, making them milder than in neigh­\nboring regions. Once a pirate town, Kharbranth \nhas become a center of academic and medical \nachievement, supported by robust trade. Healthcare \nis free to all, including lower castes and foreigners. \nProspective surgeons from all over Roshar compete \nfor expensive educations at the Great Concourse of \nKharbranth. Scholars of other subjects flock to the \nPalanaeum, the largest library in Roshar. Innovations \nlike a plumbing system enhanced by heating fabrials \nearn the city a reputation of luxury.\n\t\nEthnically similar to the Veden and Alethi, most \nKharbranthians have tan skin and dark hair. Although \nhuman slavery is banned in Kharbranth, this basic right \ndoesn’t extend to singers.\nKharbranthian Names\nArivian, Baranam, Dorval, Harnith, Kintar, Korventh, \nLarnish, Lervian, Lorvis, Navil, Ovelgian, Sartal, \nSarvena, Telvar, Trilam, Zorlinth."
+    },
+    {
+      "id": "sl.expertise.cultural.kharbranthian",
+      "type": "cultural_expertise",
+      "name": "Kharbranthian Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Kharbranthian expertise, \nyou’re familiar with the city’s major education systems \nand their designations. Even if you don’t know how \nto use common medicines, you know their names and \nfunctions, as well as basic hygiene measures to ward \noff rotspren. Choose how proficient you are in speaking \nKharbranthian and reading and writing glyphs, as well \nas in women’s script (depending on your gender and \nregard for gender norms). Regardless of your religious \nbeliefs, you’re familiar with the basic tenets of Vorinism, \nthe Almighty, and the Heralds.\nIriali\nIri is ruled by three monarchs. The Iriali descended long \nago from offworlders, and most follow the religion of the \nOne. They believe their mission in life is to obtain a vast \ndiversity of experiences so they can eventually merge \ntheir consciousnesses together at the end of the Long \nTrail and become one being of extensive knowledge \nand understanding. Their destined journey is said to \nconsist of seven worlds, of which they consider Roshar \nthe fourth. It is unknown when they must leave for the \nfifth, so they remain ever vigilant and prepared.\n\t\nEthnic Iriali have golden skin and golden hair, \nwhich many foreigners consider auspicious. Orna­\nmental body paint adds contrast to their metallic \nfeatures. Iriali fashion favors pastel colors and flowy \nfabrics, and people of all genders and ages commonly \nwear wraps. Many Iriali forgo shirts altogether or wear \njust a simple bandeau. Due to their religious emphasis \non journeying, items like practical shoes are considered \nindicators of personal preparedness and faith.\nHerdazian\nIriali\nChapter 2: Origins \n40\nDEANDRA SCICLUNA\n\nNatan\nThe Vorin city-state of New Natanan is located near \nthe Ocean of Origins. This meager landholding is a \nremnant of a much larger empire that was destroyed \nlong ago. The ruins of its capital, once called Storm­\nseat, were reclaimed by the listeners and called Narak. \nToday, some Natans live as nomads that travel the \ndesolate lands previously contained in their empire.\n\t\nEthnic Natans have pale blue skin and white hair. \nThey mostly exist in isolation, either as nomads or \nas citizens confined to New Natanan by vigorous \nhighstorms that make sea travel exceptionally perilous. \nTheir sense of loss over their empire, particularly \nStormseat and its Oathgate, persists.\nNatan Names\nAtarel, Balar, Cetsa, Farlar, Gerem, Linarat, Lortan, \nNalina, Nathural, Oranat, Talinan, Tsalar, Tsorem, \nValisha, Valten, Xaltor.\nListener\nThe listeners are a group of singers who defied Odium \nlong ago and settled near the Shattered Plains. Through \noral tradition, they retained their sense of identity \nduring “the long sleep,” a time when they lost access \nto nearly all of their forms.\n\t\nWhen they learned King Gavilar of Alethkar \nintended to bring back the listener “gods”—the beings \nwho could take away their agency—the listeners had \nhim assassinated in an effort to retain their autonomy \nand freedom from Odium’s influence. The Alethi, \nwho called the listeners “Parshendi,” waged the War \nof Reckoning as vengeance for the death of their king. \nNarak became the listeners’ home, and they slowly \nrecovered more forms to fight the humans.\n\t\nThe Song of Listing includes upward of ninety-\none forms, but only five were recovered before the \nEverstorm: dullform, mateform, nimbleform, warform, \nand workform. Similar to other singers, the listeners \nare humanoid and typically have red and white or \nred and black marbled skin, along with red carapace, \nred or black hair strands, and dark gray eyes.\nListener Names\nBredol, Eldir, Fenral, Gromil, Istarin, Jarnak, Kethan, \nKoriel, Lurin, Nalim, Nirith, Orlan, Rishai, Saren, \nTirith, Urlan, Varem, Welten."
+    },
+    {
+      "id": "sl.expertise.cultural.listener",
+      "type": "cultural_expertise",
+      "name": "Listener Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "The Listener expertise is generally only available to \nsinger characters. If you’re a human who has lived or \nworked closely with the listener people, your GM can \ngive you permission to choose this expertise.\n\t\nAs a character with the Listener expertise, you’re \naware of dullform, mateform, nimbleform, warform \nand workform (even if you’re human and can’t assume \nthem yourself), and you’re familiar with the listener \ncouncil known as the Five. Depending on your interests, \nyou might know some of the songs of the listeners. You \nknow basic facts about Shattered Plains ecology. Choose \nhow proficient you are in the listener language and how \nfamiliar you are with the rhythms (though any singer \ninstinctively knows all the rhythms). You know about \nthe War of Reckoning and the Alethi armies that fight \nfor gemhearts on the plateaus.\nKharbranthian\nListener\n Chapter 2: Origins \n41\nDEANDRA SCICLUNA\n\nReshi Names\nAshi, Avand, Calsi, Fashan, Hailor, Ilesh, Isna, Jersa, \nLish, Naila, Neshor, Rifta, Sha, Tana, Trin, Vara, Wesh."
+    },
+    {
+      "id": "sl.expertise.cultural.reshi",
+      "type": "cultural_expertise",
+      "name": "Reshi Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Reshi expertise, you know about \nthe existence of Tai-na greatshells, spren deities, and \ntales of islands going to war. You’re familiar with the \nbasic ecology of the Reshi Sea and the locations of major \nstationary islands. Choose how proficient you are in \nspeaking and writing Reshi. You know which resources \nare unavailable in the Reshi Isles and which nations \nthey are typically sourced from. Regardless of whether \nyou choose to engage with the tradition yourself, you’re \nfamiliar with the Reshi inclination toward fierce but \nquickly resolved social conflicts.\nShin\nThe isolated nation of Shinovar is governed by Stone \nShamans who believe that stone is sacred and that \nit shouldn’t be broken or walked on by commoners. \nA mountain range offers Shinovar significant protection \nfrom highstorms, which are already lighter so far west. \nNon-native crops and animals flourish here, even those \nthat wouldn’t survive anywhere else on Roshar.\n\t\nFarmers are highly esteemed, while warriors are \nseen as lowly and destructive. Those people who \ncommit especially grievous offenses are named \nTruthless. They must take a symbolic Oathstone \nand hand it over to a master who claims authority to \ncommand them and pass ownership as they please.\n\t\nShin skin tones vary widely, including pale pink \ntones that are rarely seen outside Shinovar. Unlike most \nhuman ethnic groups on Roshar, their eyes don’t have \nepicanthic folds. Clothing customs assign vibrant colors \nto people who add to society (such as farmers), and \nduller colors to people who detract from it.\n\t\nNaming conventions include a given name followed \nby “son,” “daughter,” or “child,” and the name of a \nparent. If a child disgraces their parent, the child must \nadd a degree of separation by repeating the middle part \nof their name and replacing the last with a grandparent’s \nname instead of their parent’s."
+    },
+    {
+      "id": "sl.expertise.cultural.natan",
+      "type": "cultural_expertise",
+      "name": "Natan Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Natan expertise, you’ve heard \ntales of the lands the Natan people lost and what \nthey were like during their full glory. You know what \nhighstorms are like at full potency, as well as defensive \nmeasures you can take to protect yourself and your prop­\nerty. Choose how proficient you are in Natan or another \nVorin language. Regardless of your religious beliefs, \nyou’re familiar with the basic tenets of Vorinism, as well \nas with the common Natan reverence for the moons.\nReshi\nThe Reshi Isles are a series of misty islands and \ninhabitable Tai-na greatshell carapaces, each ruled by \na monarch. The Tai-na islands roam the Reshi Sea, \noccasionally colliding in brief conflicts. Reshi people \nworship these greatshell islands as their gods. Tourism \nis common on the stationary islands.\n\t\nMost Reshi have brown skin, black hair, and round \nfaces. Unfamiliar with the horrors of devastating \nwars, they tend to fight fiercely with words but resolve \ndisagreements quickly. The intonation of their language \nis sharp and spoken in quick bursts, making it difficult \nfor foreigners to learn.\nThose who subtract are \nallowed to walk on stone, \nbecause their lives are \nblasphemy.\nNatan\nReshi\nChapter 2: Origins \n42\nDEANDRA SCICLUNA\n\nShin Names\nAllo-daughter-Zethar, Ethsono-son-Alvo, Gesh-\nson-Nar, Lanethen-child-Gemth, Lorseth-son-\nson-Thalor, Nama-son-Elhlan, Shal-daughter-Xin, \nSzam-child-Lorn."
+    },
+    {
+      "id": "sl.expertise.cultural.shin",
+      "type": "cultural_expertise",
+      "name": "Shin Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Shin expertise, you’re familiar \nwith the mild highstorms that reach the isolated \nwestern lands of Shinovar, as well as the ecology and \narchitecture they support. You know how to barter \nby diminishing the perceived value of your offerings. \nChoose how proficient you are in speaking and writing \nShin. Regardless of your religious beliefs, you’re familiar \nwith the basic tenets of Stone Shamanism.\nThaylen\nThe island nation of Thaylenah is ruled by a monarch \nwho is elected by merchant councils and naval officers. \nThe nation thrives on international trade by land and \nsea, and it rewards particularly industrious merchants \nwith increased social status. Although the nation is \nVorin, Thaylens are more flexible with their faith \nand tend to ignore or relax customs rigidly upheld \nin Jah Keved and Alethkar.\nShin\nThaylen\n\t\nEthnic Thaylens have tan skin and long white \neyebrows that can be creatively styled as dictated by \nfashion trends and personal preferences. Their hair is \nusually brown or black, but some Thaylens dye their \nhair in bold colors. They favor tight vests with loose \npants and skirts.\nThaylen Names\nAlstrym, Bnlath, Brekmynv, Bryndal, Calkl, Cazmerk, \nCreyn, Dvalnm, Elcryn, Klazmn, Mralt, Pradlvk, Tlkry, \nUvlost, Ylbedr."
+    },
+    {
+      "id": "sl.expertise.cultural.thaylen",
+      "type": "cultural_expertise",
+      "name": "Thaylen Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Thaylen expertise, you’re \nfamiliar with the elective monarchy and the merchant \ncouncils. You know the names and reputations of major \nartifabrian guilds, and you’ve likely experienced fabrials \nas a part of everyday life. You know tips to mitigate sea \nsickness and arrange travel between the three islands \nand outer islets. Choose how proficient you are in speak­\ning and writing Thaylen. Regardless of your religious \nbeliefs, you’re familiar with the basic tenets of Vorinism, \nas well as the Passions.\nUnkalaki\nThe Horneater Peaks are each ruled by a patriarch \ncalled a nuatoma. Atop these steep and inhospitably icy \nmountains, warm crater lakes form cozy microclimates \nwhere crops flourish in balmy humidity. Unkalaki \npeople refer to these lakes as oceans. Traditional family \nstructures dictate each son’s occupation according \nto their birth order; the first two sons are assigned as \nhunters or farmers, the third as a craftsman, and the \nfourth as a warrior. Occupations for other genders tend \nto be more individualized and diverse.\n\t\nEthnic Unkalaki get their nickname of Horneaters \nfrom their abnormally strong teeth that can crush crem­\nling shells, a feature they receive through their ancient \nsinger ancestry. They tend to be tall with red hair, and \ntheir skin ranges from pale to tan. A rare few Unkalaki \ncan see spren that most humans can’t, earning the title \nof Sighted.\n\t\nIn the Unkalaki tradition, a person’s full name is \na poem. In less formal situations, they go by a single \nword or phrase from their name.\nUnkalaki Names\nArluno’ratha’tu, Harlun’thaoka, Ina’larataka’noom, \nKalorunel’ith, Luau’nun’iel, Tha’enithmonal’toko, \nUnla’biki’ai’karath, Yamloho’tamai’sinak.\n Chapter 2: Origins \n43\nDEANDRA SCICLUNA\n\n\t\nThere are four major ethnic groups within the \nborders of Jah Keved: Bav, Siln, Veden, and Unkalaki, \nwith Veden as the majority. Vedens comprise the \nmajority; they share many physical traits with the Alethi, \nthough they most commonly have black or red hair.\nTheir language is close enough to Alethi to be mutually \nintelligible. Fashion trends are also closely tied between \nthe two nations.\n\t\nIn Jah Keved, sons are given a first name that \nindicates their birth order; the first four sons are named \nNan, Tet, Asha, and Van. Second names are chosen by \nparents. Surnames are passed down from the parent of \nthe highest dahn or nahn social order.\nVeden Names\nNan Amallan, Bervash, Asha Cemdon, Dorlivana, \nVan Elnaha, Lerinda, Nan Qish, Tet Ridvish, Shulla, \nVarli, Tet Zashu."
+    },
+    {
+      "id": "sl.expertise.cultural.veden",
+      "type": "cultural_expertise",
+      "name": "Veden Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Veden expertise, you’re familiar \nwith the king, the princedoms, and the four major \nethnic groups in Jah Keved. Choose how proficient you \nare in speaking Veden and reading and writing glyphs, \nas well as your literacy in women’s script (depending on \nyour gender and regard for gender norms). If relevant \nto your backstory, also choose how proficient you are in \nthe Alethi, Bav, or Siln languages. Regardless of your \nreligious beliefs, you’re familiar with the basic tenets of \nVorinism and current events relevant to the church.\nWayfarer\nOccupation, exile, or tourism may lead a person to live \na life of traveling from one place to the next. You could \nbe a traveling surgeon reluctant to return home to Jah \nKeved, a mercenary from Steen, or an Iriali tidereader \nsent to gain insights from the shores of faraway lands. \nWhatever the reason, the lifestyle of a perpetual \ntraveler involves learning land and sea routes between \nmajor cities, remaining aware of bandit and pirate \nrisks, and maintaining familiarity with mobile storm \nshelters, map-reading, and modes of long-distance \ntransportation."
+    },
+    {
+      "id": "sl.expertise.cultural.wayfarer",
+      "type": "cultural_expertise",
+      "name": "Wayfarer Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Wayfarer expertise, you know \nhow to read international map keys. You can find trust­\nworthy currency exchange hubs in major cities, which \ncan be used to switch out dun spheres for infused ones. \nFrom your travels, you’ve learned basic greetings and \na few cultural touchstones from various nations."
+    },
+    {
+      "id": "sl.expertise.cultural.unkalaki",
+      "type": "cultural_expertise",
+      "name": "Unkalaki Expertise",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "rules_text": "As a character with the Unkalaki expertise, you know \nabout the leadership, ecology, and myths of the oceans \natop the peaks. Due to your lineage or lived experience, \nyour body is familiar with breathing thin air, allowing \nyou to keep your wits about you. Choose how proficient \nyou are in speaking and writing Unkalaki. Regardless \nof your religious beliefs, you know of the gods of the \nwaters, mountains, and trees, along with the practice \nof worshiping spren as gods. You also know of the \nphenomenon of strange offworld visitors emerging \nfrom the oceans.\nVeden\nJah Keved is ruled by a king and highprinces. Social \norders for lighteyes and darkeyes are maintained and \nendorsed by Vorinism, the primary religion of Vedens. \nThe Holy Enclave in the city of Valath is the center of \nthe faith. Despite border disputes with Alethkar, the \ntwo nations remain cordial.\nunkalaki\nVeden\nChapter 2: Origins \n44\nDEANDRA SCICLUNA\n\nmight include forced labor, permanent separation from \nloved ones, mockery, assault, malnourishment, and \nbeing treated and traded as property. This is by no \nmeans an exhaustive list; while many aspects of harm \nare universal for all enslaved singers, others are unique \nand deeply personal.\n\t\nYou’ve been exposed to human culture as a mostly \nsilent observer. What keen insights has your character \nmade in the time since they awakened in the Everstorm? \nWhat cultural values and traditions have they internal­\nized? Many of the singers in Azir sued their nation for \nback pay once they awakened, seeking acknowledgment \nthrough the legal system. Any human cultures your \nsinger character has lived in are well within their \nunderstanding. Which parts of those cultures do they \nalign with, and which harmed them or otherwise don’t \nalign? How do they generally feel toward humans now? \nWhat do they see as the best way forward?\n\t\nAlong with enslavement, consider how slaveform \nhas affected your character. For example, discovering \nrhythms that were withheld from them in slaveform \nmight be a heartbreaking experience that deepens their \ngrief and sense of loss, even as they strive to reclaim \ntheir lives.\nListeners\nA small enclave of singers known as the listeners \nlives in the Shattered Plains. They oppose the human \nAlethi who fight them for gemhearts under the guise \nof avenging the fallen Alethi king. These singers \naren’t confined to what they know as “slaveform,” \nthough the forms they can access are still limited \ncompared to those of their forebearers. The listeners \ncling to precious clues about their heritage and lost \nforms through the keeping of songs. Humans call \nthe listeners “Parshendi” to differentiate them from \n“slaveform” singers (who they know as “parshmen”), \nas most humans understand little about the singers \nand their cultures.\n\t\nWhat exposure to humans has your character had, \nif any? How do they generally feel about humans?\nSinger Characters in Campaigns\nPlayers of singer characters can work with their GM \nto determine how their character fits within the time \nperiod of their campaign. The Listener expertise \nrequires singer ancestry or GM permission, as humans \nwere largely unaware of the listener city of Narak and \nthe culture of its people. All other cultural expertises \nlisted are available to humans and singers, based on \nwhere they have lived or spent considerable time.\nOther Cultures\nCharacters aren’t limited to the specific cultures defined \nabove. With your GM’s approval, you can choose other \ncultural expertises, such as the following:\nOther Nations. You might decide to play a character \nwho is from (or familiar with) a Rosharan culture \nthat’s not detailed above. Feel free to create your \nown expertise for any culture your character would \nreasonably be an expert on. You can find information \nabout many cultures in the Stormlight World Guide or \nanother canon resource.\nSubcultures. Some subcultures have values and \nnorms that transcend national or ethnic identity. \nYou can choose an expertise in a subculture within \nsociety—for example, High Society, Military Life, \nor Underworld.\nSingers in Human Cultures\nIf you’re playing a singer character, decide whether \nyou’re a listener or have lived as a “parshman” in a \nmajority-human society. In the case of the latter, it’s \nlikely your character was enslaved and persecuted by \nthe humans around them. Consider how the following \nelements have influenced your character.\nPreviously Enslaved Singers\nBefore the arrival of the Everstorm, most singers across \nRoshar were trapped in what they know as slaveform. In \nthis form, a singer’s mind and spirit are suppressed; they \nspeak only in terse phrases, apathetically follow orders, \nand withhold any type of self-expression. Humans in \nsome nations enslaved singers in slaveform as “parsh­\nmen,” exploiting their inability to assert themselves or \nobject to forced labor. These singers couldn’t process \nor consent to what was done to them, but they later \nawakened from this form to the nightmarish realization \nof all they had been through.\n\t\nAfter the arrival of the Everstorm, enslaved singers \nregained full access to their minds and the so-called \nslaveform was no more. Unfortunately, most humans \nwho had enslaved these people continued to reject them \nas inferior beings. Some singers held onto hope that \ntheir human countryfolk would be honorable and work \nwith them in good faith to figure out a way forward \ntogether. However, many joined Odium, seeing no other \nway to protect themselves from their human oppressors.\nProcessing Enslavement\nWhat are some ways your character was harmed by \ntheir enslavement? There’s no such thing as an enslaved \nperson who is treated fairly or well. Examples of harm \n Chapter 2: Origins \n45"
+    },
+    {
+      "id": "sl.talent.heroic.agent_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Opportunist (Agent Key)",
+      "setting": "stormlight",
+      "path": "Agent",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 78
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "You instinctively sense moments of consequence. In these\nmoments where the scale teeters between disaster and glory,\nyou can push yourself—and your luck—to tip the outcome\nin your favor.\nOnce per round, when you roll a plot die, you can reroll\nthat result. The original roll has no effect and you must\nuse the new result.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Agent"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.envoy_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Rousing Presence (Envoy Key)",
+      "setting": "stormlight",
+      "path": "Envoy",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 86
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "With a gesture, a facial expression, or a few scant words,\nyou inspire others to excel.\nChoose an ally you can influence. They become\nDetermined until they benefit from that condition\nor until the scene ends.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Envoy"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.hunter_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Seek Quarry (Hunter Key)",
+      "setting": "stormlight",
+      "path": "Hunter",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 94
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "Once you’ve found your prey’s trail, you unrelentingly\npursue them and study their movements across the harshest\nof terrain.\nAfter spending 1 minute mentally preparing, you choose\na character who you can sense or who you’ve previously\nencountered. That character becomes your quarry until\nyou choose to end this effect ( ) or select a new quarry.\nAdditionally, you gain an advantage on tests made\nto find, attack, or study your quarry (such as the Gain\nAdvantage action).",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Hunter"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.leader_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Decisive Command (Leader Key)",
+      "setting": "stormlight",
+      "path": "Leader",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 102
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "Your voice carries the certainty of steel and your tactical\nacumen is renowned. This battle-won wisdom benefits\nthose who listen.\nWhen you acquire this talent, gain a command die,\nwhich begins as a d4.\nSpend 1 focus to choose an ally you can influence\nwithin 20 feet of you. The next time they make a test\nbefore the end of their next turn, they can roll your\ncommand die along with the other dice for that test.\nAfter rolling, they can choose one die roll from that test,\nother than the plot die, and add the command die to\nthat roll.\nSome Leader talents allow you to use your command\ndie in other ways; you can do so even if an ally currently\nhas a command die from you.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Leader"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.scholar_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Erudition (Scholar Key)",
+      "setting": "stormlight",
+      "path": "Scholar",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 111
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "You’ve conditioned your mind to quickly assimilate,\narchive, and recall information. After brief but intensive\nstudy, you can navigate your newest areas of focus with\nimpressive proficiency.\nWhen you acquire this talent, you become adroit at\nmental organization. Choose one cultural or utility\nexpertise you don’t already have, and choose two\ndifferent cognitive skills that aren’t surge skills.\nWhen you make a test, you count as having the\nchosen expertise, and you count as having one\nadditional rank of each of the chosen skills.\nYou can use this talent to gain skill ranks even\nif they exceed your usual maximum for skill ranks.\nThis talent’s expertise and skill ranks are temporary\nand don’t count toward prerequisites.\nAfter a long rest during which you had access to a\nlibrary, you can reassign any expertises and skill ranks\ngranted by this talent. Follow the same rules to choose\nthem as you did when you gained this talent.\nArtifabrian Specialty\nThe following talents, presented here in alphabetical\norder, appear in the Artifabrian specialty on the Scholar\ntalent tree.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Scholar"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.warrior_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Vigilant Stance (Warrior Key)",
+      "setting": "stormlight",
+      "path": "Warrior",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 118
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "You study special fighting styles to face various foes and\nstrategies. The most basic of these postures emphasizes\nalertness and quick responses to oncoming threats.\nWhen you acquire this talent, you learn to use stances.\nYou begin with Vigilant Stance, which you can\nenter as :\nVigilant Stance. While in this stance, reduce the focus\ncost of your Dodge and Reactive Strike reactions\nby 1. Additionally, you can enter another stance\nyou know as .\nYou can enter a stance you know by using that talent’s\nstated number of actions. Your stance ends if you either\nend it as , enter another stance, or end the scene. While\nin a stance, you temporarily gain any actions, bonuses,\nand other effects it grants; these effects end when the\nstance does.\nBy default, you can only use stances during combat,\nnot during other scenes.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Warrior"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.dustbringer_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Dustbringer Key)",
+      "setting": "stormlight",
+      "radiant_order": "Dustbringer",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 138
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding an ashspren, allowing you to breathe\nin and use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until\nyou get closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Abrasion and Division surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nAshspren Bond Talents\nThe following talents, presented here in alphabetical\norder, appear in the Ashspren Bond talent tree for the\nDustbringer path.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Dustbringer"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.edgedancer_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Edgedancer Key)",
+      "setting": "stormlight",
+      "radiant_order": "Edgedancer",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 146
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding a cultivationspren, allowing you to\nbreathe in and use Stormlight. You might be aware of this\nnascent bond, or you might use the powers subconsciously\nuntil you get closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Abrasion and Progression surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nA cultivationspren\nin the Physical Realm",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Edgedancer"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.elsecaller_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Elsecaller Key)",
+      "setting": "stormlight",
+      "radiant_order": "Elsecaller",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 154
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding an inkspren, allowing you to breathe\nin and use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until you\nget closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Transformation and Transport­\nation surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nRoleplaying an Inkspren\nThe “Playing with Spren” section provides general\nguidance on interacting with your spren. If you bond with\nan inkspren, also consider the following.\nPerceivability.  Unlike many Radiant spren, inkspren\nare visible and audible to other characters, so any spren\ninteraction has the chance of revealing their (and likely\nyour) position. However, inkspren can become almost\nimperceptibly small in the Physical Realm, and their col­\noring makes them exceptional at blending into shadows,\nso there’s little chance of them being spotted if they don’t\nwish to be.\nPhysical Interaction.  Inkspren are nearly incorporeal\nin the Physical Realm. They can’t pass through objects,\nbut they can change their size to pass through even the\nsmallest gaps.\n▷ or ↻  Test Assistance (Costs 1 Focus).  Your spren\nuses their knowledge and experiences to grant you an\nadvantage on a specific test. Typically, inkspren can help\nyou with Deduction, Discipline, and Stealth tests, along\nwith Lore tests related to topics they’re familiar with,\nthough your spren may be able to help in additional ways.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Elsecaller"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.lightweaver_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Lightweaver Key)",
+      "setting": "stormlight",
+      "radiant_order": "Lightweaver",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 162
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding a Cryptic, allowing you to breathe in\nand use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until you\nget closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvest­iture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Illumination and Transform­\nation surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nCryptic Names\nWhen a Cryptic’s complex name is translated to\nanother language, its meaning can almost always be\napproximated as “Pattern.” When interacting with\nother cultures, Cryptics take unique names inspired\nby art or mathematics, such as Algorithm, Cipher,\nCollage, Factorial, Integral, Radial, Symbol, Template,\nTessellation, and Variable.\nEarning a Bond\nThough some spren still generally distrust Cryptics,\nmany others trust Cryptic logic and decision-making\nso completely that when the Cryptics were some of\nthe first spren to begin bonding humans again in the\nmodern era, the cultivationspren and several other spren\ncultures quickly followed suit. Most Cryptics are quite\nsupportive of their fellows forming Nahel bonds, even\nthough they believe (due to the Recreance) that bonding\na human is a death sentence. They’ve decided the risks\nare worth what they can gain from becoming Knights\nRadiant again.\nUnlike many spren, a Cryptic who seeks to bond\na human often doesn’t do so alone. Instead, these\nCryptics travel with a group of others to assess the\nprospective Lightweaver, offer moral support, and study\nthe properties of a budding bond as it forms. They\ntend to look for bonding qualifications such as aptitude\nwith falsehoods, sarcasm, and humor (which Cryptics\nthemselves tend to lack). They also appreciate artists\nand other creatives who create well-constructed “lies,”\nincluding fictional and imaginative works of art.\nRoleplaying a Cryptic\nThe “Playing with Spren” section provides general guidance\non interacting with your spren. If you bond with a Cryptic,\nalso consider the following.\nLanguage Deciphering.  A Cryptic’s language-learning\nabilities far surpass those of other spren. After your Cryptic\nspends 10 minutes listening to a spoken language or 1 hour\ndeciphering a written one, they become permanently able to\nuse the spren Translation ability with that language, even if\nit isn’t Rosharan.\nPerceivability.  Unlike many Radiant spren, Cryptics\nare visible and audible to other characters, so any spren\ninteraction has the chance of revealing their (and likely\nyour) position. However, Cryptics are exceptionally adept at\nmimicking sounds and voices, which can be used to generate\ndistractions and deceive others. This mimicry can be used\nto embellish Lightweavings, as the Cryptic can perfectly\nrecreate the sounds of what they’re mimicking.\nPhysical Interaction.  Cryptics are nearly incorporeal in\nthe Physical Realm. They can’t pass through objects, but\nthey can press themselves nearly flat against surfaces,\nenabling them to pass through gaps that are at least half\nan inch wide.\n▷ or ↻  Test Assistance (Costs 1 Focus).  Your spren uses\ntheir knowledge and experiences to grant you an advantage\non a specific test. Typically, Cryptics can help with figuring\nout patterns (including ciphers and codes), picking locks,\nDeduction tests, and Lore tests related to topics they’re\nfamiliar with, though your spren may be able to help in\nadditional ways.\nOnce you speak the Third Ideal, your Cryptic becomes\nmuch better at detecting falsehoods, and you can use this\nTest Assistance ability to gain an advantage on a test to\ndetermine whether a character within your spren bond\nrange is lying.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Lightweaver"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.skybreaker_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Skybreaker Key)",
+      "setting": "stormlight",
+      "radiant_order": "Skybreaker",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 171
+      },
+      "prerequisite_text": "Level 13+; Speak",
+      "activation_text": null,
+      "rules_text": "Gain Investiture score and the Breathe Stormlight,\nEnhance, and Regenerate actions. When you complete\nthe goal “Speak the First Ideal,” you become Empow­\nered and gain Division and Gravitation.\n\u0007\nThird Ideal\n(Skybreaker)\nthe Second Ideal\nWhen you complete the goal\n“Speak the Third Ideal,” you\nbecome Empowered and\ncan manifest your spren as\na Radiant Shardblade.\nInvested\nYour max Investiture increases\nby your tier.\n\u0007\nFourth Ideal\n(Skybreaker)\nthe Third Ideal\nWhen you complete the goal\n“Speak the Fourth Ideal,” you\nbecome Empowered and can\nmanifest Radiant Shardplate.\nWound Regeneration\nWhen you Regenerate, spend\n2 Investiture to recover from\na temporary injury, or spend\n3 Investiture to recover from\na permanent one.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Skybreaker"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.stoneward_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Stoneward Key)",
+      "setting": "stormlight",
+      "radiant_order": "Stoneward",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 178
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding a peakspren, allowing you to breathe\nin and use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until you\nget closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Cohesion and Tension surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nRoleplaying a Peakspren\nThe “Playing with Spren” section provides general\nguidance on interacting with your spren. If you bond with\na peakspren, also consider the following.\nPerceivability.  Unlike many Radiant spren, peakspren\nare visible and audible to other characters, so any spren\ninteraction has the chance of revealing their (and likely\nyour) position. However, peakspren blend in well with\nrocky environments, and they can hide within stone (see\n“Physical Interaction” below), making them extremely\ndifficult to detect.\nPhysical Interaction.  Peakspren are nearly incorporeal\nin the Physical Realm. They can’t pass through most\nmaterials, but they can move through and occupy stone\nand other earthen materials as if in thin air. While within\nstone, their sight, hearing, and ability to speak audibly\naren’t limited.\nWhen a peakspren leaves their rocky hiding place, they\nappear to be breaking out of the rock. The stone quickly\nmelds back together and becomes whole, leaving no trace\nof the peakspren’s passage.\n▷ or ↻  Test Assistance (Costs 1 Focus).  Your spren\nuses their knowledge and experiences to grant you an\nadvantage on a specific test. Typically, peakspren can help\nwith supporting or coordinating individuals (especially\nunruly ones), Athletics tests, and Lore tests related to\ntopics they’re familiar with, though your spren may be able\nto help in additional ways.\nA Peakspren in the\nphysical realm",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Stoneward"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.truthwatcher_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Truthwatcher Key)",
+      "setting": "stormlight",
+      "radiant_order": "Truthwatcher",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 187
+      },
+      "prerequisite_text": "Level 13+; Speak",
+      "activation_text": null,
+      "rules_text": "Gain Investiture score and the Breathe Stormlight,\nEnhance, and Regenerate actions. When you complete\nthe goal “Speak the First Ideal,” you become Empow­\nered and gain Illumination and Progression.\n\u0007Third Ideal\n(Truthwatcher)\nthe Second Ideal\nWhen you complete the goal\n“Speak the Third Ideal,” you\nbecome Empowered and\ncan manifest your spren as\na Radiant Shardblade.\nInvested\nYour max Investiture increases\nby your tier.\n\u0007Fourth Ideal\n(Truthwatcher)\nthe Third Ideal\nWhen you complete the goal\n“Speak the Fourth Ideal,” you\nbecome Empowered and can\nmanifest Radiant Shardplate.\nWound Regeneration\nWhen you Regenerate, spend\n2 Investiture to recover from\na temporary injury, or spend\n3 Investiture to recover from\na permanent one.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Truthwatcher"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.willshaper_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Willshaper Key)",
+      "setting": "stormlight",
+      "radiant_order": "Willshaper",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 196
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding a lightspren, allowing you to breathe\nin and use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until you\nget closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance, and\nRegenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Cohesion and Transportation surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Willshaper"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.windrunner_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Windrunner Key)",
+      "setting": "stormlight",
+      "radiant_order": "Windrunner",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 204
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding an honorspren, allowing you to breathe\nin and use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until you\nget closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Adhesion and Gravitation surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nHonorspren Bond Talents\nThe following talents, presented here in alphabetical\norder, appear in the Honorspren Bond talent tree for\nthe Windrunner path.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Windrunner"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.singer.change_form_key",
+      "type": "talent",
+      "subtype": "singer_key",
+      "name": "Change Form (Singer Key)",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 35
+      },
+      "prerequisite_text": "Singer ancestry",
+      "activation_text": "(during a highstorm; see rules text)",
+      "rules_text": "Change Form (Singer Key)\nPrerequisite: Singer ancestry\nDuring a highstorm, you can change into dullform,\nmateform, or another one of your singer forms.\nWhile outdoors during a highstorm, you can activate \nthis talent either to change into dullform, or to take a \nspren into your gemheart and change into mateform \nor any form you’ve unlocked on the Singer talent tree. \nThe type of spren bonded determines your new form. \nIn most circumstances, you can automatically find and \nbond the type of spren required for that form. However, \nif the GM determines that current circumstances make \nthe spren difficult to locate, you might need to roleplay \nor succeed on a test to do so.\n\t\nWhile in a form, you temporarily gain its actions, \nstatistic increases, and other effects (even if this temp­\norarily increases your statistics above the maximum); \nthese effects only last until you assume a different \nform by using this talent again. You can only be in \none form at a time."
+    },
+    {
+      "id": "sl.talent.singer.forms_of_finesse",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Forms of Finesse",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Forms of Finesse\nPrerequisite: Change Form key talent\nActivation: \nYou gain two new singer forms—artform and nimble­\nform—which you can transform into using your \nChange Form.\nArtform\nArtform specializes in creative expression. You gain a \nheightened awareness of the rhythms, colors, and other \naspects of the world around you. If you have carapace, \nit’s purely cosmetic, representing radical self-expression.\nYou’ve bonded with a creationspren. While in this form, \nyou increase your Awareness by 1, and you gain utility \nexpertises in Painting and Music.\n\t\nAdditionally, you gain an advantage on Crafting tests \nand on tests related to entertaining, such as singing \nand dancing.\nNimbleform\nNimbleform specializes in physical and mental flexibility. \nYour protective carapace is minimal; instead, you have \nan increased range of motion and mental focus.\nYou’ve bonded with a windspren. While in this form, \nyour Speed increases by 1. When you change into this \nform, your maximum focus and current focus both \nincrease by 2, and when you assume a different form, \nboth decrease by 2."
+    },
+    {
+      "id": "sl.talent.singer.forms_of_resolve",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Forms of Resolve",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Forms of Resolve\nPrerequisite: Change Form key talent\nActivation: \nYou gain two new singer forms—warform and \nwork­form—which you can transform into using \nyour Change Form.\nWarform\nWarform specializes in combat, increasing your strength \nand stamina. Your body is large and covered with fierce \ncarapace, which protects you like armor. Any aversions \nyou might usually have to violence, pain, and death \nbecome slightly less pronounced in warform.\nYou’ve bonded with a painspren. While in this form, \nyour Strength increases by 1 and your deflect value \nincreases by 1. This deflect doesn’t stack with armor, \nso if you wear armor over your carapace, choose \nwhich value to use.\n\t\nAdditionally, when you move, you can jump a \nhorizontal distance up to your movement rate, or \na vertical distance up to half your movement rate, \nwithout succeeding on an Athletics test.\nWarform\n Chapter 2: Origins \n33\nANTHONY AVON (LEFT); KATIE PAYNE (RIGHT)\n\nWorkform\nWorkform specializes in labor. This form helps you see \ntasks through to completion, granting you determination \nand stamina. You have a rugged body with modest \ncarapace ridges.\nYou’ve bonded with a gravitationspren. While in this \nform, your Willpower increases by 1, and you ignore \nthe effects of the Exhausted condition.\n\t\nAdditionally, you can easily disguise yourself to pass \nunnoticed as a “parshman” in most human societies, \nthough people might begin noticing the differences in \nyour form if you’re caught doing anything suspicious."
+    },
+    {
+      "id": "sl.talent.singer.forms_of_wisdom",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Forms of Wisdom",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Forms of Wisdom\nPrerequisite: Change Form key talent\nActivation: \nYou gain two new singer forms—mediationform and \nscholarform—which you can transform into using your \nChange Form.\nMediationform\nMediationform specializes in communication, whether \nyou’re connecting with new people or teaching those you \nknow well. Your carapace is smooth, and your facial \nfeatures are well-defined and expressive.\nYou’ve bonded with a bindspren. While in this form, \nyour Presence increases by 1.\n\t\nAdditionally, you don’t have to spend focus to use \nthe Aid reaction.\nScholarform\nScholarform specializes in scholarship, enhancing your \nmental processes and memory. You become more patient \nand analytical, but you may also find yourself more \ninclined toward ambition. You have long hairstrands, \nand a cushioned lower body suited to sedentary work.\nYou’ve bonded with a logicspren. While in this form, \nyour Intellect increases by 1.\n\t\nAdditionally, when you adopt this form, choose \none cultural or utility expertise you don’t already have, \nand choose one cognitive skill that isn’t a surge skill. \nYou temporarily gain that expertise, and you tempor­\narily gain an additional rank in that skill.\n\t\nIf you gain the Erudition talent from the Scholar \npath, the expertise and skill rank you gain from your \nscholarform count as being granted by Erudition; when \nErudition allows you to reassign expertises and skills, \nyour scholarform expertise and skill are also eligible for \nreassignment. You can’t choose the same skill for both \nscholarform and Erudition.\nscholarform\nworkform\nChapter 2: Origins \n34\nKATIE PAYNE\n\nYou’ve bonded with a stormspren, a type of Void­spren. \nWhile in this form, your Strength increases by 1, your \nSpeed increases by 1, and your deflect value increases \nby 1. This deflect doesn’t stack with armor, so if you wear \narmor over your carapace, choose which value to use.\n\t\nAdditionally, you can use Unleash Light­ning:\n Unleash Lightning.  Your body crackles with the Ever­\nstorm’s unnatural red lightning, which you can unleash in a \nviolent arc. Spend 1 focus or 1 Investiture to make a ranged \nDiscipline attack against the Physical defense of a target \nwithin 60 feet of you. Roll 2d8 energy damage. On a hit, \nthe target is also Disoriented until the end of their next turn. \nIf you have recently taken on stormform, the GM might raise \nthe stakes on this attack due to the unpredictability of the \narcing lightning.\n\t\nAs you gain ranks in Discipline, the size of this attack’s \ndamage dice increases: at 4 ranks, you roll 2d10 damage \n(instead of 2d8), and at 5 ranks or more, you roll \n2d12 damage."
+    },
+    {
+      "id": "sl.talent.singer.ambitious_mind",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Ambitious Mind",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Ambitious Mind\nPrerequisite: Discipline 3+; either the Forms \nof Finesse, Forms of Resolve, or Forms of \nWisdom talent\nActivation: \nYour growing thirst for power opens you to the influence\nof Odium.\nThough you haven’t yet bonded a Voidspren, Odium’s \ninfluence seeps into your mind, and your Cognitive \ndefense increases by 2.\n\t\nIf you later acquire a talent that grants you forms of \npower, you can then use your Change Form to attract \na Voidspren. Bonding with this Voidspren follows the \nsame rules as taking other forms.\n\t\nWhile bonded with a Voidspren, you become \nvulnerable to its influence; once per day when you gain \na Complication on a test, you must succeed on a DC 15 \nDiscipline test or become Stunned until the end of \nyour next turn as you struggle against the Voidspren’s \ninfluence. You automatically succeed on this test if \nyou’ve sworn the First Ideal of a Radiant order."
+    },
+    {
+      "id": "sl.talent.singer.forms_of_destruction",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Forms of Destruction",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Forms of Destruction\nPrerequisite: Ambitious Mind talent\nActivation: \nYou gain two new forms of power—direform and \nstormform—which you can transform into using \nyour Change Form.\nDireform\nDireform specializes in unyielding strength and \npersistence, and this form is commonly used to guard \nobjects or prisoners. You have substantial carapace \nwith a jagged crest of spikes running along your head \nand shoulders. You’re inclined toward obedience to your \nsuperiors but obstinacy with others.\nYou’ve bonded with a callousspren, a type of Void­\nspren. While in this form, your Strength increases by \n2 and your deflect value increases by 2. This deflect \ndoesn’t stack with armor, so if you wear armor over \nyour carapace, choose which value to use.\n\t\nAdditionally, when a character triggers a Reactive \nStrike from you, you can use that reaction to attempt \nto Grapple them instead of attacking; when you do, \nyou must spend 1 focus as usual for Reactive Strike.\nStormform\nStormform is an elite battle form optimized for physical \nprowess and honed attacks. You’re covered in finesse-\nenhancing armored carapace that grows under your \nskin, poking through in ridges and spikes. You can \nmanipulate and unleash powerful red lighting on \nyour foes.\nDireform\n Chapter 2: Origins \n35\nIRINA NORDSOL"
+    },
+    {
+      "id": "sl.talent.singer.forms_of_expansion",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Forms of Expansion",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Forms of Expansion\nPrerequisite: Ambitious Mind talent\nActivation: \nYou gain two new forms of power—envoyform and \nrelayform—which you can transform into using your \nChange Form.\nEnvoyform\nEnvoyform is an embellished form often used to serve the \nadministrative needs of the Fused. Your tall form towers \nover others, and your ornate carapace is uniquely alluring. \nYou comprehend any language after brief exposure and can \ngrasp hidden context with the subtlest of cues.\nYou’ve bonded with a zealspren, a type of Voidspren. \nWhile in this form, your Intellect increases by 1, your \nPresence increases by 1, and you can speak, read, write, \nand understand all languages.\n\t\nAdditionally, you gain an advantage on Insight tests \nmade to interpret the desires or intentions of others.\nrelayform\nDecayform\nRelayform\nRelayform boasts speed and stamina ideal for scouts. \nYour agile and muscular body is protected in the front by \nlight carapace with smooth edges, and aerodynamic spikes \nrun along the backs of your forearms and calves. You can \nrun great distances and avoid detection.\nYou’ve bonded with a hastespren, a type of Voidspren. \nWhile in this form, your Speed increases by 2 and you \nignore the effects of the Slowed condition.\n\t\nAdditionally, when you make an Agility, Stealth, \nor Thievery test, you can spend 1 focus to gain an \nadvantage on that test.\nChapter 2: Origins \n36\nIRINA NORDSOL\n\nNightform\nNightform grants unpredictable visions of the future, \nand your senses become more acute, especially at night. \nPetal-like carapace grows from your skull, framing your \nears and enhancing your ability to perceive rhythms. \nIn various lights, your carapace reflects different \niridescent patterns.\nYou’ve bonded with a nightspren, a type of Voidspren. \nWhile in this form, your Awareness increases by 1 and \nyour Intellect increases by 1. When you change into \nthis form, your maximum focus and current focus both \nincrease by 2, and when you assume a different form, \nboth decrease by 2.\n\t\nAdditionally, your bond with a nightspren has \ngranted you precognitive abilities—whether you \nwish them or not. While in this form, you gain the \nIntervening Premonitions and Sporadic Premonitions \nabilities:\n Intervening Premonitions.  At the start of each session, \nroll two d20s and record both results. When an enemy \nor willing ally you can sense makes a test, you can use this \nreaction to replace the test’s d20 roll with one of your \nrecorded numbers. You can replace that number after you \nsee their die roll and after they apply any advantages, but \nyou must do so before the effects of the test are resolved. \nYou lose a recorded number when you use it to replace a \nd20 roll or when the session ends, whichever comes first.\n Sporadic Premonitions.  At the GM’s discretion, you might \noccasionally receive glimpses of the future at unpredictable \ntimes during gameplay. When this happens, the GM might \ndescribe vague flashes of imagery, sounds, and impressions \nin your mind, hinting at what may come."
+    },
+    {
+      "id": "sl.talent.singer.forms_of_mystery",
+      "type": "talent",
+      "subtype": "singer_forms",
+      "name": "Forms of Mystery",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 36
+      },
+      "rules_text": "Forms of Mystery\nPrerequisite: Ambitious Mind talent\nActivation: \nYou gain two new forms of power—decayform and \nnightform—which you can transform into using your \nChange Form.\nDecayform\nThe enigmatic decayform grants an insidious ability \nto sap the vitality of other beings. Your thin carapace \nis jagged, brittle, and asymmetrical. People you touch \nfind themselves less resilient while you remain in contact \nwith them. This spiritual decay affects not just their \nbodies, but their minds, leaving them with nightmares \nlong after the fact.\nYou’ve bonded with a blightspren, a type of Voidspren. \nWhile in this form, your Willpower increases by 2 \nand you can use Decaying Touch:\n Decaying Touch.  Before a character within your \nreach recovers health or focus, you can spend 1 focus or \n1 Investiture to prevent them from doing so. The character \ndoes not regain that health or focus, but any actions, Invest­\niture, or other resources they spent still remain spent.\nRules Tip: Actions and Reactions\nSome forms of power grant unique actions, reactions, or \nother abilities: stormform gives you the Unleash Lightning \naction, nightform gives you the Intervening Premonitions \nreaction, and some other forms allow you to spend focus \nor Investiture on special effects without using an action. \nIn chapter 9 (“Adventuring”) and chapter 10 (“Combat”), \nyou’ll learn everything you need to know about using \nabilities like these—but if you’re not sure where to start, \ncheck out the “Terms from Later Chapters” sidebar in \nchapter 4.\nVoidspren and Forms of Power\nWhile most spren who bond with singers are connected to \nthe Shards of Honor or Cultivation, Voidspren are powerful \nspren connected with Odium. Bonding a Voidspren \nmakes you more susceptible to Odium’s influence—but \nit also grants you access to powerful forms. The Forms of \nDestruction, Forms of Expansion, and Forms of Mystery \ntalents each grant you access to two of these forms of \npower (also known as Regal forms).\n\t\nIn these forms, you can hum to new, malevolent \nrhythms, and you may find that ordinary rhythms feel \ndistant. Your newfound power emboldens you, and \ndepending on your personality, you might feel increased \naggression or apathy toward others. If you have a Nahel \nbond with a Radiant spren, this helps you retain your usual \ndisposition without a struggle.\nForms of power. The ability\nto reshape the world.\nStrength beyond anything \nyou’ve ever dreamed of having.\n Chapter 2: Origins \n37"
+    }
+  ]
+}
