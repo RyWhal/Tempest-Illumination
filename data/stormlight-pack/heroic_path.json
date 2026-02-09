@@ -1,0 +1,133 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Heroic path metadata keyed to heroic key talents in docs/stormlight_pack.initial.v1.json."
+  },
+  "records": [
+    {
+      "id": "sl.heroic_path.agent",
+      "type": "heroic_path",
+      "name": "Agent",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 78
+      },
+      "theme": "A talented operative who solves problems with a keen mind or deft hand.",
+      "specialties": [
+        "Investigator",
+        "Spy",
+        "Thief"
+      ],
+      "starting_skill": "Insight",
+      "key_talent_id": "sl.talent.heroic.agent_key",
+      "key_talent_summary": "Opportunist: Reroll the plot die once per round.",
+      "rules_text": "Agents specialize in subtlety and problem-solving, gaining the Opportunist key talent and access to investigative specialties."
+    },
+    {
+      "id": "sl.heroic_path.envoy",
+      "type": "heroic_path",
+      "name": "Envoy",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 86
+      },
+      "theme": "An insightful negotiator who adeptly influences others.",
+      "specialties": [
+        "Diplomat",
+        "Faithful",
+        "Mentor"
+      ],
+      "starting_skill": "Discipline",
+      "key_talent_id": "sl.talent.heroic.envoy_key",
+      "key_talent_summary": "Rousing Presence: Make an ally Determined.",
+      "rules_text": "Envoys rally allies through presence and conviction, starting with Rousing Presence and social specialties."
+    },
+    {
+      "id": "sl.heroic_path.hunter",
+      "type": "heroic_path",
+      "name": "Hunter",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 94
+      },
+      "theme": "A skilled sharpshooter and outdoorsperson who seeks and eliminates problems.",
+      "specialties": [
+        "Archer",
+        "Assassin",
+        "Tracker"
+      ],
+      "starting_skill": "Perception",
+      "key_talent_id": "sl.talent.heroic.hunter_key",
+      "key_talent_summary": "Seek Quarry: Choose a character to pursue and gain an advantage against them.",
+      "rules_text": "Hunters excel at pursuit and precision, beginning with Seek Quarry and ranged specialties."
+    },
+    {
+      "id": "sl.heroic_path.leader",
+      "type": "heroic_path",
+      "name": "Leader",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 102
+      },
+      "theme": "A poised commander who directs and guides others to be their best.",
+      "specialties": [
+        "Champion",
+        "Officer",
+        "Politico"
+      ],
+      "starting_skill": "Leadership",
+      "key_talent_id": "sl.talent.heroic.leader_key",
+      "key_talent_summary": "Decisive Command: Add a d4 command die to an ally’s tests.",
+      "rules_text": "Leaders coordinate the team with decisive direction, starting with Decisive Command."
+    },
+    {
+      "id": "sl.heroic_path.scholar",
+      "type": "heroic_path",
+      "name": "Scholar",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 111
+      },
+      "theme": "An adroit thinker who excels at planning and building.",
+      "specialties": [
+        "Artifabrian",
+        "Strategist",
+        "Surgeon"
+      ],
+      "starting_skill": "Lore",
+      "key_talent_id": "sl.talent.heroic.scholar_key",
+      "key_talent_summary": "Erudition: Gain bonus skill ranks that you can reallocate.",
+      "rules_text": "Scholars focus on knowledge and preparation, starting with Erudition and intellectual specialties."
+    },
+    {
+      "id": "sl.heroic_path.warrior",
+      "type": "heroic_path",
+      "name": "Warrior",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 118
+      },
+      "theme": "A fighter who relies on skill, brute strength, or indomitable will.",
+      "specialties": [
+        "Duelist",
+        "Shardbearer",
+        "Soldier"
+      ],
+      "starting_skill": "Athletics",
+      "key_talent_id": "sl.talent.heroic.warrior_key",
+      "key_talent_summary": "Vigilant Stance: Gain a fighting stance that makes you more responsive and flexible in combat.",
+      "rules_text": "Warriors rely on battlefield prowess, beginning with Vigilant Stance and martial specialties."
+    }
+  ]
+}

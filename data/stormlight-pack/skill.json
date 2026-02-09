@@ -1,0 +1,49 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Core skills with attribute and category mapping."
+  },
+  "records": [
+    {
+      "id": "sl.skill.agility",
+      "type": "skill",
+      "name": "Agility",
+      "setting": "stormlight",
+      "attribute": "Speed",
+      "category": "Physical",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.lore",
+      "type": "skill",
+      "name": "Lore",
+      "setting": "stormlight",
+      "attribute": "Intellect",
+      "category": "Cognitive",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    },
+    {
+      "id": "sl.skill.persuasion",
+      "type": "skill",
+      "name": "Persuasion",
+      "setting": "stormlight",
+      "attribute": "Presence",
+      "category": "Spiritual",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 63
+      }
+    }
+  ]
+}

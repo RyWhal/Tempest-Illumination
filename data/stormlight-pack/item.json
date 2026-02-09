@@ -1,0 +1,42 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Starter equipment items."
+  },
+  "records": [
+    {
+      "id": "sl.item.spear",
+      "type": "item",
+      "name": "Spear",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 152
+      },
+      "rules_text": "A long reach weapon favored by soldiers. Use the Light Weaponry skill unless otherwise specified by your GM.",
+      "tags": [
+        "weapon",
+        "reach"
+      ]
+    },
+    {
+      "id": "sl.item.safepouch",
+      "type": "item",
+      "name": "Safepouch",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 150
+      },
+      "rules_text": "A pouch designed to keep spheres secure and protected from storms.",
+      "tags": [
+        "gear"
+      ]
+    }
+  ]
+}

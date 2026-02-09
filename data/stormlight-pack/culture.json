@@ -1,0 +1,73 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Culture records aligned to cultural expertises in docs/stormlight_pack.initial.v1.json."
+  },
+  "records": [
+    {
+      "id": "sl.culture.alethi",
+      "type": "culture",
+      "name": "Alethi",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "related_expertise_id": "sl.expertise.cultural.alethi",
+      "rules_text": "Alethi culture encompasses princedoms, dialects, and Vorin traditions tied to Alethkar and its people."
+    },
+    {
+      "id": "sl.culture.azish",
+      "type": "culture",
+      "name": "Azish",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "related_expertise_id": "sl.expertise.cultural.azish",
+      "rules_text": "Azish culture centers on bureaucracy, civic procedure, and the traditions of the Azish Empire."
+    },
+    {
+      "id": "sl.culture.herdazian",
+      "type": "culture",
+      "name": "Herdazian",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "related_expertise_id": "sl.expertise.cultural.herdazian",
+      "rules_text": "Herdazian culture emphasizes ranching families, Vorin traditions, and close-knit cousinly ties."
+    },
+    {
+      "id": "sl.culture.iriali",
+      "type": "culture",
+      "name": "Iriali",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "related_expertise_id": "sl.expertise.cultural.iriali",
+      "rules_text": "Iriali culture follows the One and the Long Trail, with traditions shaped by travel and the Iriali Triumvirate."
+    },
+    {
+      "id": "sl.culture.kharbranthian",
+      "type": "culture",
+      "name": "Kharbranthian",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 41
+      },
+      "related_expertise_id": "sl.expertise.cultural.kharbranthian",
+      "rules_text": "Kharbranthian culture prizes scholarship and medicine, supported by the City of Bells and its institutions."
+    }
+  ]
+}

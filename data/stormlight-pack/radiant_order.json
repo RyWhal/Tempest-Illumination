@@ -1,0 +1,175 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Radiant order definitions derived from radiant key talents in docs/stormlight_pack.initial.v1.json."
+  },
+  "records": [
+    {
+      "id": "sl.radiant_order.dustbringer",
+      "type": "radiant_order",
+      "name": "Dustbringer",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 138
+      },
+      "prerequisite_text": "First Ideal (Dustbringer Key)",
+      "rules_text": "Dustbringers swear Ideals focused on responsibility and self-mastery, granting access to the Division and Abrasion surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.dustbringer_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.edgedancer",
+      "type": "radiant_order",
+      "name": "Edgedancer",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 146
+      },
+      "prerequisite_text": "First Ideal (Edgedancer Key)",
+      "rules_text": "Edgedancers focus on remembrance and care for the overlooked, gaining access to the Abrasion and Progression surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.edgedancer_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.elsecaller",
+      "type": "radiant_order",
+      "name": "Elsecaller",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 154
+      },
+      "prerequisite_text": "First Ideal (Elsecaller Key)",
+      "rules_text": "Elsecallers pursue knowledge and transformation, gaining access to the Transformation and Transportation surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.elsecaller_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.lightweaver",
+      "type": "radiant_order",
+      "name": "Lightweaver",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 162
+      },
+      "prerequisite_text": "First Ideal (Lightweaver Key)",
+      "rules_text": "Lightweavers seek truths about themselves and weave illusions, gaining access to the Illumination and Transformation surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.lightweaver_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.skybreaker",
+      "type": "radiant_order",
+      "name": "Skybreaker",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 171
+      },
+      "prerequisite_text": "First Ideal (Skybreaker Key)",
+      "rules_text": "Skybreakers swear to law and justice, gaining access to the Gravitation and Division surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.skybreaker_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.stoneward",
+      "type": "radiant_order",
+      "name": "Stoneward",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 178
+      },
+      "prerequisite_text": "First Ideal (Stoneward Key)",
+      "rules_text": "Stonewards endure with resolve and teamwork, gaining access to the Cohesion and Tension surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.stoneward_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.truthwatcher",
+      "type": "radiant_order",
+      "name": "Truthwatcher",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 187
+      },
+      "prerequisite_text": "First Ideal (Truthwatcher Key)",
+      "rules_text": "Truthwatchers seek enlightenment and healing, gaining access to the Illumination and Progression surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.truthwatcher_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.willshaper",
+      "type": "radiant_order",
+      "name": "Willshaper",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 196
+      },
+      "prerequisite_text": "First Ideal (Willshaper Key)",
+      "rules_text": "Willshapers prize freedom and discovery, gaining access to the Cohesion and Transportation surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.willshaper_first_ideal_key"
+        }
+      ]
+    },
+    {
+      "id": "sl.radiant_order.windrunner",
+      "type": "radiant_order",
+      "name": "Windrunner",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 204
+      },
+      "prerequisite_text": "First Ideal (Windrunner Key)",
+      "rules_text": "Windrunners swear the Ideals of protection and gain access to the Adhesion and Gravitation surges.",
+      "prerequisites": [
+        {
+          "type": "talent",
+          "talent_id": "sl.talent.radiant.windrunner_first_ideal_key"
+        }
+      ]
+    }
+  ]
+}

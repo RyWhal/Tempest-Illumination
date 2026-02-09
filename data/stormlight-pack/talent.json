@@ -1,0 +1,186 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Representative talents with structured prerequisites and activation data, sourced from docs/stormlight_pack.initial.v1.json."
+  },
+  "records": [
+    {
+      "id": "sl.talent.heroic.agent_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Opportunist (Agent Key)",
+      "setting": "stormlight",
+      "path": "Agent",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 78
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "You instinctively sense moments of consequence. In these\nmoments where the scale teeters between disaster and glory,\nyou can push yourself—and your luck—to tip the outcome\nin your favor.\nOnce per round, when you roll a plot die, you can reroll\nthat result. The original roll has no effect and you must\nuse the new result.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Agent"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.envoy_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Rousing Presence (Envoy Key)",
+      "setting": "stormlight",
+      "path": "Envoy",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 86
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "With a gesture, a facial expression, or a few scant words,\nyou inspire others to excel.\nChoose an ally you can influence. They become\nDetermined until they benefit from that condition\nor until the scene ends.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Envoy"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.hunter_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Seek Quarry (Hunter Key)",
+      "setting": "stormlight",
+      "path": "Hunter",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 94
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "Once you’ve found your prey’s trail, you unrelentingly\npursue them and study their movements across the harshest\nof terrain.\nAfter spending 1 minute mentally preparing, you choose\na character who you can sense or who you’ve previously\nencountered. That character becomes your quarry until\nyou choose to end this effect ( ) or select a new quarry.\nAdditionally, you gain an advantage on tests made\nto find, attack, or study your quarry (such as the Gain\nAdvantage action).",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Hunter"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.leader_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Decisive Command (Leader Key)",
+      "setting": "stormlight",
+      "path": "Leader",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 102
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "Your voice carries the certainty of steel and your tactical\nacumen is renowned. This battle-won wisdom benefits\nthose who listen.\nWhen you acquire this talent, gain a command die,\nwhich begins as a d4.\nSpend 1 focus to choose an ally you can influence\nwithin 20 feet of you. The next time they make a test\nbefore the end of their next turn, they can roll your\ncommand die along with the other dice for that test.\nAfter rolling, they can choose one die roll from that test,\nother than the plot die, and add the command die to\nthat roll.\nSome Leader talents allow you to use your command\ndie in other ways; you can do so even if an ally currently\nhas a command die from you.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Leader"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.scholar_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Erudition (Scholar Key)",
+      "setting": "stormlight",
+      "path": "Scholar",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 111
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "You’ve conditioned your mind to quickly assimilate,\narchive, and recall information. After brief but intensive\nstudy, you can navigate your newest areas of focus with\nimpressive proficiency.\nWhen you acquire this talent, you become adroit at\nmental organization. Choose one cultural or utility\nexpertise you don’t already have, and choose two\ndifferent cognitive skills that aren’t surge skills.\nWhen you make a test, you count as having the\nchosen expertise, and you count as having one\nadditional rank of each of the chosen skills.\nYou can use this talent to gain skill ranks even\nif they exceed your usual maximum for skill ranks.\nThis talent’s expertise and skill ranks are temporary\nand don’t count toward prerequisites.\nAfter a long rest during which you had access to a\nlibrary, you can reassign any expertises and skill ranks\ngranted by this talent. Follow the same rules to choose\nthem as you did when you gained this talent.\nArtifabrian Specialty\nThe following talents, presented here in alphabetical\norder, appear in the Artifabrian specialty on the Scholar\ntalent tree.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Scholar"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.heroic.warrior_key",
+      "type": "talent",
+      "subtype": "heroic_key",
+      "name": "Vigilant Stance (Warrior Key)",
+      "setting": "stormlight",
+      "path": "Warrior",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 118
+      },
+      "prerequisite_text": "none",
+      "activation_text": "",
+      "rules_text": "You study special fighting styles to face various foes and\nstrategies. The most basic of these postures emphasizes\nalertness and quick responses to oncoming threats.\nWhen you acquire this talent, you learn to use stances.\nYou begin with Vigilant Stance, which you can\nenter as :\nVigilant Stance. While in this stance, reduce the focus\ncost of your Dodge and Reactive Strike reactions\nby 1. Additionally, you can enter another stance\nyou know as .\nYou can enter a stance you know by using that talent’s\nstated number of actions. Your stance ends if you either\nend it as , enter another stance, or end the scene. While\nin a stance, you temporarily gain any actions, bonuses,\nand other effects it grants; these effects end when the\nstance does.\nBy default, you can only use stances during combat,\nnot during other scenes.",
+      "grants": [
+        {
+          "type": "unlock_path",
+          "path": "Warrior"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.singer.change_form_key",
+      "type": "talent",
+      "subtype": "singer_key",
+      "name": "Change Form (Singer Key)",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 35
+      },
+      "prerequisite_text": "Singer ancestry",
+      "activation_text": "(during a highstorm; see rules text)",
+      "rules_text": "Change Form (Singer Key)\nPrerequisite: Singer ancestry\nDuring a highstorm, you can change into dullform,\nmateform, or another one of your singer forms.\nWhile outdoors during a highstorm, you can activate \nthis talent either to change into dullform, or to take a \nspren into your gemheart and change into mateform \nor any form you’ve unlocked on the Singer talent tree. \nThe type of spren bonded determines your new form. \nIn most circumstances, you can automatically find and \nbond the type of spren required for that form. However, \nif the GM determines that current circumstances make \nthe spren difficult to locate, you might need to roleplay \nor succeed on a test to do so.\n\t\nWhile in a form, you temporarily gain its actions, \nstatistic increases, and other effects (even if this temp­\norarily increases your statistics above the maximum); \nthese effects only last until you assume a different \nform by using this talent again. You can only be in \none form at a time.",
+      "prerequisites": [
+        {
+          "type": "ancestry",
+          "ancestry_id": "sl.ancestry.singer"
+        }
+      ]
+    },
+    {
+      "id": "sl.talent.radiant.windrunner_first_ideal_key",
+      "type": "talent",
+      "subtype": "radiant_key",
+      "name": "First Ideal (Windrunner Key)",
+      "setting": "stormlight",
+      "radiant_order": "Windrunner",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 204
+      },
+      "prerequisite_text": "Level 2+",
+      "activation_text": "",
+      "rules_text": "You begin bonding an honorspren, allowing you to breathe\nin and use Stormlight. You might be aware of this nascent\nbond, or you might use the powers subconsciously until you\nget closer to speaking the First Ideal.\nWhen you acquire this talent, you gain access to\nInvestiture, beginning with a maximum Investiture of\n2 + your Awareness or Presence (whichever is higher).\nYou can now use the Breathe Stormlight, Enhance,\nand Regenerate actions.\nAdditionally, you gain the goal “Speak the First\nIdeal.” After you complete this goal, you gain the\nfollowing reward:\n◆You become Empowered until the end of that scene.\n◆You gain the Adhesion and Gravitation surges.\n◆You gain an additional skill on your character sheet\nfor the above surges, starting with 1 rank in each.\nHonorspren Bond Talents\nThe following talents, presented here in alphabetical\norder, appear in the Honorspren Bond talent tree for\nthe Windrunner path.",
+      "grants": [
+        {
+          "type": "unlock_radiant_order",
+          "order": "Windrunner"
+        }
+      ],
+      "prerequisites": [
+        {
+          "type": "level",
+          "min_level": 2
+        }
+      ]
+    }
+  ]
+}

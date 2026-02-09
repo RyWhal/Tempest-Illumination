@@ -1,0 +1,50 @@
+{
+  "pack": {
+    "id": "stormlight.core.v1",
+    "type": "setting_pack",
+    "name": "Stormlight RPG Core (Data Pack)",
+    "setting": "stormlight",
+    "version": "1.0.0",
+    "source_pdf": "Stormlight Handbook Digital.pdf",
+    "notes": "Rule modules for validation and progression checks."
+  },
+  "records": [
+    {
+      "id": "sl.rule_module.windrunner_surge_access",
+      "type": "rule_module",
+      "name": "Windrunner Surge Access",
+      "setting": "stormlight",
+      "source": {
+        "pdf": "Stormlight Handbook Digital.pdf",
+        "page": 81
+      },
+      "prerequisite_text": "Level 2+ and Windrunner First Ideal",
+      "rules_text": "If the character meets the prerequisites, add Adhesion and Gravitation to their available surge list and grant surge skill ranks if the talent provides them.",
+      "prerequisites": [
+        {
+          "type": "all_of",
+          "all_of": [
+            {
+              "type": "level",
+              "min_level": 2
+            },
+            {
+              "type": "talent",
+              "talent_id": "sl.talent.radiant.windrunner_first_ideal_key"
+            }
+          ]
+        }
+      ],
+      "grants": [
+        {
+          "type": "unlock_surge",
+          "path": "sl.surge.adhesion"
+        },
+        {
+          "type": "unlock_surge",
+          "path": "sl.surge.gravitation"
+        }
+      ]
+    }
+  ]
+}
