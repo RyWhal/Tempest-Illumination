@@ -1,4 +1,4 @@
-import { CharacterState, ValidationIssue } from "../models";
+import type { CharacterState, ValidationIssue } from "../models";
 
 export interface LevelUpSummary {
   nextLevel: number;

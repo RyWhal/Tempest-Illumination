@@ -1,4 +1,4 @@
-import { CharacterState, DerivedStats, ValidationIssue } from "../models";
+import type { CharacterState, DerivedStats, ValidationIssue } from "../models";
 
 export interface WizardStep {
   key: string;

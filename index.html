@@ -6,7 +6,21 @@
     <title>Tempest Illumination</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root">
+      <div style="font-family: 'Inter', system-ui, sans-serif; color: #f8f7f5; padding: 24px;">
+        Loading Tempest Illumination… If this message persists, start the app with
+        <code>npm run dev</code> or serve the built <code>dist</code> folder.
+      </div>
+    </div>
+    <script type="module">
+      import("/src/main.tsx").catch((error) => {
+        const root = document.getElementById("root");
+        if (root) {
+          root.innerHTML =
+            "<div style=\"font-family: 'Inter', system-ui, sans-serif; color: #f8f7f5; padding: 24px;\"><strong>Unable to load the app.</strong><br />This usually means the page is being served without Vite. Run <code>npm run dev</code> or serve the built <code>dist</code> folder.</div>";
+        }
+        console.error(error);
+      });
+    </script>
   </body>
 </html>
