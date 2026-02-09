@@ -336,8 +336,9 @@ export default function App() {
           <section className="origin-modal">
             <div className="origin-step">
               <div className="card-header">
-                <span className="step-index">Step 1</span>
-                <h2>Ancestry &amp; culture</h2>
+                <h2>
+                  <strong>Step 1 - Ancestry &amp; culture</strong>
+                </h2>
               </div>
               <div className="origin-layout">
                 <article className="form-card">
@@ -471,8 +472,9 @@ export default function App() {
             {isStep1Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 2</span>
-                  <h2>Starting paths</h2>
+                  <h2>
+                    <strong>Step 2 - Starting paths</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <div className="option-grid">
@@ -503,8 +505,9 @@ export default function App() {
             {isStep2Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 3</span>
-                  <h2>Choose your attributes</h2>
+                  <h2>
+                    <strong>Step 3 - Choose your attributes</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <div className="field-row">
@@ -525,7 +528,6 @@ export default function App() {
                         <div key={attribute.key} className="attribute-card">
                           <span>
                             <strong>{attribute.label}</strong>
-                            <span className="field-meta">{currentValue}</span>
                           </span>
                           <div className="counter compact">
                             <button
@@ -536,6 +538,7 @@ export default function App() {
                             >
                               -
                             </button>
+                            <span className="attribute-value">{currentValue}</span>
                             <button
                               className="primary small"
                               type="button"
@@ -564,8 +567,9 @@ export default function App() {
             {isStep3Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 4</span>
-                  <h2>Choose your skills &amp; expertises</h2>
+                  <h2>
+                    <strong>Step 4 - Choose your skills &amp; expertises</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <div className="field-group">
@@ -679,7 +683,21 @@ export default function App() {
                         You have chosen all additional expertises for your current Intellect score.
                       </p>
                     )}
+                    {maxAdditionalExpertises === 0 && (
+                      <p className="field-hint">
+                        Your Intellect score does not grant additional expertises in this step.
+                      </p>
+                    )}
                   </div>
+                  {(remainingSkillRanks > 0 ||
+                    maxAdditionalExpertises > totalExpertisesChosen) && (
+                    <p className="field-hint">
+                      To unlock the next step, spend {Math.max(0, remainingSkillRanks)} more skill
+                      rank{remainingSkillRanks === 1 ? "" : "s"} and add{" "}
+                      {Math.max(0, maxAdditionalExpertises - totalExpertisesChosen)} more expertise
+                      {maxAdditionalExpertises - totalExpertisesChosen === 1 ? "" : "s"}.
+                    </p>
+                  )}
                 </article>
               </div>
             )}
@@ -687,8 +705,9 @@ export default function App() {
             {isStep4Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 5</span>
-                  <h2>Choose your talents</h2>
+                  <h2>
+                    <strong>Step 5 - Choose your talents</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <p className="field-hint">
@@ -739,8 +758,9 @@ export default function App() {
             {isStep5Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 6</span>
-                  <h2>Equip yourself</h2>
+                  <h2>
+                    <strong>Step 6 - Equip yourself</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <p className="field-hint">
@@ -788,8 +808,9 @@ export default function App() {
             {isStep6Complete && (
               <div className="origin-step">
                 <div className="card-header">
-                  <span className="step-index">Step 7</span>
-                  <h2>Tell your story</h2>
+                  <h2>
+                    <strong>Step 7 - Tell your story</strong>
+                  </h2>
                 </div>
                 <article className="form-card">
                   <div className="field-group">
