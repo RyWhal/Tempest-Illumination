@@ -8,6 +8,7 @@ export interface PackRecord {
   name: string;
   rulesText: string;
   source: SourceInfo;
+  allowedAncestries?: string[];
 }
 
 export interface HeroicPathRecord extends PackRecord {
@@ -73,6 +74,83 @@ export const culturalExpertises: PackRecord[] = [
     rulesText:
       "You know Azish bureaucracy, member-state facts, and civic procedures. Choose proficiency levels for Azish sign, spoken Azish, and written Azish.",
     source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.iriali",
+    name: "Iriali Expertise",
+    rulesText:
+      "You know Iriali traditions, Long Trail beliefs, and Iriali dialects. Choose proficiency levels for spoken Iriali, art, and navigation.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.kharbranthian",
+    name: "Kharbranthian Expertise",
+    rulesText:
+      "You know Kharbranthian trade, scholarship, and city-state customs. Choose proficiency levels for spoken Kharbranthian, commerce, and etiquette.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.listener",
+    name: "Listener Expertise",
+    rulesText:
+      "You know listener songs, forms, and rhythms. Choose proficiency levels for listener songs, forms lore, and rhythm awareness.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 },
+    allowedAncestries: ["sl.ancestry.singer"]
+  },
+  {
+    id: "sl.expertise.cultural.natan",
+    name: "Natan Expertise",
+    rulesText:
+      "You know Natan customs, coastal life, and sea lore. Choose proficiency levels for spoken Natan, fishing, and navigation.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.reshi",
+    name: "Reshi Expertise",
+    rulesText:
+      "You know Reshi island culture, traveling caravans, and oral traditions. Choose proficiency levels for spoken Reshi, survival, and storytelling.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.shin",
+    name: "Shin Expertise",
+    rulesText:
+      "You know Shin customs, stone taboos, and farming practices. Choose proficiency levels for spoken Shin, agriculture, and diplomacy.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.thaylen",
+    name: "Thaylen Expertise",
+    rulesText:
+      "You know Thaylen merchant codes, maritime routes, and Thaylen speech. Choose proficiency levels for spoken Thaylen, commerce, and navigation.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.unkalaki",
+    name: "Unkalaki Expertise",
+    rulesText:
+      "You know Unkalaki (Horneater) traditions, peaks rituals, and cuisine. Choose proficiency levels for spoken Unkalaki, cooking, and survival.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.veden",
+    name: "Veden Expertise",
+    rulesText:
+      "You know Veden politics, military customs, and dialects. Choose proficiency levels for spoken Veden, tactics, and etiquette.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.wayfarer",
+    name: "Wayfarer Expertise",
+    rulesText:
+      "You know Wayfarer trails, migrant caravans, and multilingual travel. Choose proficiency levels for navigation, trade, and spoken languages.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
+    id: "sl.expertise.cultural.other",
+    name: "Other",
+    rulesText: "Other expertises with GM approval (Player Handbook p. 45).",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 45 }
   }
 ];
 
