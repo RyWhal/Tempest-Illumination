@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tempest Illumination — Character Wizard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Tempest Illumination</p>
+        <h1>Character Creation Wizard</h1>
+        <p class="subtitle">
+          Early UI scaffold for stepping through Origins, Path, Attributes, Skills, Talents,
+          Equipment, Story, and Final Audit.
+        </p>
+      </div>
+      <button class="primary" type="button">Start New Character</button>
+    </header>
+
+    <main>
+      <section class="wizard-shell">
+        <aside class="step-list" aria-label="Character creation steps">
+          <h2>Steps</h2>
+          <ol id="stepList"></ol>
+        </aside>
+
+        <section class="step-panel" aria-live="polite">
+          <div class="panel-header">
+            <h2 id="stepTitle">Origins</h2>
+            <span class="status-pill" id="stepStatus">Needs attention</span>
+          </div>
+          <div class="panel-body">
+            <p id="stepDescription">
+              Select a homeland, culture, and background to ground the character in the
+              setting. Each step will eventually surface validation and rule citations.
+            </p>
+            <div class="placeholder-card">
+              <h3>Future Step UI</h3>
+              <ul>
+                <li>Step-specific form inputs</li>
+                <li>Validation hints + rule citations</li>
+                <li>Derived stat previews</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button class="ghost" type="button">Back</button>
+            <button class="primary" type="button">Save &amp; Continue</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="summary-panel">
+        <h2>Character Snapshot</h2>
+        <div class="snapshot-grid">
+          <div>
+            <h3>Name</h3>
+            <p id="characterName">New Character</p>
+          </div>
+          <div>
+            <h3>Origins</h3>
+            <p id="characterOrigins">Unassigned origins</p>
+          </div>
+          <div>
+            <h3>Path</h3>
+            <p id="characterPath">Unassigned path</p>
+          </div>
+          <div>
+            <h3>Derived Stats</h3>
+            <ul id="derivedStats"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Audit output will surface here with rule citations as the wizard matures.</p>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
