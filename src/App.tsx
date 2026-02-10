@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import {
   ancestries,
   culturalExpertises,
@@ -266,6 +266,11 @@ export default function App() {
   const [selectedKitId, setSelectedKitId] = useState<string | null>(null);
   const [rolledSpheres, setRolledSpheres] = useState<number | null>(null);
   const [purchasedItems, setPurchasedItems] = useState<{ name: string; price: number }[]>([]);
+  const [sheetBackgrounds, setSheetBackgrounds] = useState<{
+    front?: string;
+    back?: string;
+    radiant?: string;
+  }>({});
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
   const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
@@ -588,6 +593,27 @@ export default function App() {
     }));
   };
 
+  const handleSheetBackgroundUpload = (
+    page: "front" | "back" | "radiant",
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setSheetBackgrounds((prev) => ({ ...prev, [page]: reader.result }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleExportPdf = () => {
+    window.print();
+  };
+
   const isStep1Complete =
     Boolean(state.ancestryKey) && (!isHuman || state.cultureKeys.length === 2);
   const isStep2Complete = isStep1Complete && Boolean(state.pathKey);
@@ -617,6 +643,23 @@ export default function App() {
     recoveryDie: `d${6 + state.attributes.willpower * 2}`,
     sensesRange: `${10 + state.attributes.awareness * 5} ft`
   };
+  const selectedCultures = state.cultureKeys
+    .map((cultureId) => culturalExpertises.find((culture) => culture.id === cultureId)?.name)
+    .filter((cultureName): cultureName is string => Boolean(cultureName));
+  const activeSkills = skills
+    .map((skill) => ({
+      ...skill,
+      rank: state.skills[skill.id] ?? 0
+    }))
+    .filter((skill) => skill.rank > 0)
+    .sort((a, b) => b.rank - a.rank || a.name.localeCompare(b.name));
+  const finalSheetName = state.identity.name.trim() || "Unnamed Character";
+  const finalSheetPlayer = state.identity.playerName.trim() || "Unassigned";
+  const finalGoalList = state.identity.goals.length > 0 ? state.identity.goals : ["No goals listed"];
+  const finalInventory = state.inventory.length > 0 ? state.inventory : ["No inventory selected"];
+  const sheetSkills = activeSkills.slice(0, 18);
+  const sheetExpertises = [...selectedCultures, ...state.expertises];
+  const sheetTalents = state.talents.slice(0, 12);
 
   return (
     <div className="app">
@@ -1307,6 +1350,8 @@ export default function App() {
               </div>
             )}
 
+
+
             {isStep6Complete && (
               <div className="origin-step">
                 <div className="card-header">
@@ -1415,6 +1460,209 @@ export default function App() {
                 </article>
               </div>
             )}
+
+            {isStep6Complete && (
+              <div className="origin-step sheet-print-step">
+                <div className="card-header">
+                  <h2>
+                    <strong>Step 8 - Standard character sheet overlay</strong>
+                  </h2>
+                </div>
+                <article className="form-card">
+                  <p className="field-hint">
+                    Upload your official sheet pages, then the wizard data is overlaid directly on
+                    top. Use your browser&apos;s Save as PDF dialog for export.
+                  </p>
+                  <div className="sheet-upload-grid no-print">
+                    <label>
+                      <span className="field-meta">Page 1 (main sheet)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) => handleSheetBackgroundUpload("front", event)}
+                      />
+                    </label>
+                    <label>
+                      <span className="field-meta">Page 2 (story/equipment)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) => handleSheetBackgroundUpload("back", event)}
+                      />
+                    </label>
+                    <label>
+                      <span className="field-meta">Page 3 (radiant sheet)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) => handleSheetBackgroundUpload("radiant", event)}
+                      />
+                    </label>
+                    <button className="primary" type="button" onClick={handleExportPdf}>
+                      Export as PDF
+                    </button>
+                  </div>
+
+                  <div className="print-sheet-root">
+                    {sheetBackgrounds.front ? (
+                      <section className="sheet-page">
+                        <img src={sheetBackgrounds.front} alt="Character sheet page 1" />
+                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "41%", width: "40%" }}>
+                          {finalSheetName}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "83%", width: "12%", textAlign: "center" }}>
+                          {state.level}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "41%", width: "40%" }}>
+                          {selectedPath?.name ?? "—"}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "83%", width: "12%", textAlign: "center" }}>
+                          {selectedAncestry?.name ?? "—"}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "11.8%", left: "4%", width: "31%", textAlign: "center" }}>
+                          {finalSheetPlayer}
+                        </div>
+
+                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "5%", width: "7%", textAlign: "center" }}>
+                          {state.attributes.strength}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "23.7%", width: "7%", textAlign: "center" }}>
+                          {state.attributes.speed}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "38%", width: "7%", textAlign: "center" }}>
+                          {state.attributes.intellect}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "56.2%", width: "7%", textAlign: "center" }}>
+                          {state.attributes.willpower}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "70.6%", width: "7%", textAlign: "center" }}>
+                          {state.attributes.awareness}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "88.3%", width: "7%", textAlign: "center" }}>
+                          {state.attributes.presence}
+                        </div>
+
+                        <div className="sheet-overlay-list" style={{ top: "29.8%", left: "4.8%", width: "90%" }}>
+                          {sheetSkills.length === 0 ? "No trained skills" : sheetSkills.map((skill) => `${skill.name} (${skill.rank})`).join(" • ")}
+                        </div>
+
+                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "4.6%", width: "10%", textAlign: "center" }}>
+                          {derivedStats.liftingCapacity}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "20%", width: "10%", textAlign: "center" }}>
+                          {derivedStats.movementRate}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "39%", width: "20%", textAlign: "center" }}>
+                          {derivedStats.recoveryDie}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "67%", width: "20%", textAlign: "center" }}>
+                          {derivedStats.sensesRange}
+                        </div>
+
+                        <div className="sheet-overlay-list" style={{ top: "61%", left: "34.5%", width: "61%" }}>
+                          {sheetExpertises.length === 0 ? "No expertises" : sheetExpertises.join("\n")}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "69.8%", left: "34.5%", width: "61%" }}>
+                          {sheetTalents.length === 0 ? "No talents" : sheetTalents.join("\n")}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "69.8%", left: "2.4%", width: "28%" }}>
+                          {finalInventory.join("\n")}
+                        </div>
+                      </section>
+                    ) : (
+                      <p className="field-hint">Upload page 1 to render the official overlay.</p>
+                    )}
+
+                    {sheetBackgrounds.back && (
+                      <section className="sheet-page">
+                        <img src={sheetBackgrounds.back} alt="Character sheet page 2" />
+                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "41%", width: "40%" }}>
+                          {finalSheetName}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "83%", width: "12%", textAlign: "center" }}>
+                          {state.level}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "41%", width: "40%" }}>
+                          {selectedPath?.name ?? "—"}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "83%", width: "12%", textAlign: "center" }}>
+                          {selectedAncestry?.name ?? "—"}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "11.8%", left: "4%", width: "31%", textAlign: "center" }}>
+                          {finalSheetPlayer}
+                        </div>
+
+                        <div className="sheet-overlay-list" style={{ top: "26.5%", left: "68.8%", width: "26%" }}>
+                          {(state.identity.purpose || "").trim() || "No purpose entered."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "33%", left: "68.8%", width: "26%" }}>
+                          {(state.identity.obstacle || "").trim() || "No obstacle entered."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "41%", left: "67.4%", width: "27.5%" }}>
+                          {finalGoalList.join("\n")}
+                        </div>
+
+                        <div className="sheet-overlay-list" style={{ top: "26.5%", left: "35.5%", width: "28.5%" }}>
+                          {finalInventory.join("\n")}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "62.8%", left: "36%", width: "27%" }}>
+                          {rolledSpheres !== null ? `${rolledSpheres} marks` : "Marks not rolled"}
+                        </div>
+
+                        <div className="sheet-overlay-list" style={{ top: "68.5%", left: "35.5%", width: "28.5%" }}>
+                          {(state.identity.notes ?? "").trim() || "No notes entered."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "68.5%", left: "67.4%", width: "27.5%" }}>
+                          {selectedCultures.length > 0 ? selectedCultures.join("\n") : "No connections listed"}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "26.5%", left: "2.2%", width: "28.5%" }}>
+                          {selectedAncestry?.rulesText ?? "Add appearance details."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "55.2%", left: "2.2%", width: "28.5%" }}>
+                          {sheetTalents.join("\n") || "No other talents listed"}
+                        </div>
+                      </section>
+                    )}
+
+                    {sheetBackgrounds.radiant && (
+                      <section className="sheet-page">
+                        <img src={sheetBackgrounds.radiant} alt="Character sheet page 3" />
+                        <div className="sheet-overlay-field" style={{ top: "14.6%", left: "2.4%", width: "32%" }}>
+                          {selectedPath?.name ?? "Radiant order not set"}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "17%", left: "4.2%", width: "28%" }}>
+                          {state.talents.some((talent) => talent.toLowerCase().includes("first ideal"))
+                            ? "1st Ideal spoken"
+                            : "1st Ideal in progress"}
+                        </div>
+                        <div className="sheet-overlay-field" style={{ top: "17.5%", left: "40.5%", width: "25%" }}>
+                          {state.identity.name || "Spren name TBD"}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "23.5%", left: "40.5%", width: "24.5%" }}>
+                          {(state.identity.notes ?? "").trim() || "Spren personality not recorded."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "23.5%", left: "67.2%", width: "30%" }}>
+                          {sheetTalents.join("\n") || "No radiant talents selected."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "49%", left: "2.5%", width: "45.5%" }}>
+                          {state.talents.filter((talent) => talent.toLowerCase().includes("surge")).join("\n") || "No surge effects recorded."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "71%", left: "2.5%", width: "45.5%" }}>
+                          {sheetTalents.join("\n") || "No talents listed."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "49%", left: "51.5%", width: "45.5%" }}>
+                          {state.talents.filter((talent) => talent.toLowerCase().includes("surge")).slice(0, 6).join("\n") || "No second surge effects recorded."}
+                        </div>
+                        <div className="sheet-overlay-list" style={{ top: "71%", left: "51.5%", width: "45.5%" }}>
+                          {sheetTalents.join("\n") || "No talents listed."}
+                        </div>
+                      </section>
+                    )}
+                  </div>
+                </article>
+              </div>
+            )}
+
           </section>
         </main>
       )}
