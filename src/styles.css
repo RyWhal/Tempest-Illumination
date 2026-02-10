@@ -1098,3 +1098,16 @@ textarea {
     grid-column: auto;
   }
 }
+
+
+.toggle-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.toggle-row input {
+  width: 16px;
+  height: 16px;
+}

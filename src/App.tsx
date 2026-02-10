@@ -295,6 +295,7 @@ export default function App() {
   const [rolledSpheres, setRolledSpheres] = useState<number | null>(null);
   const [purchasedItems, setPurchasedItems] = useState<{ name: string; price: number }[]>([]);
   const [sheetExtras, setSheetExtras] = useState({
+    hasRadiantInfo: false,
     radiantOrder: "",
     sprenName: "",
     sprenPersonality: "",
@@ -600,7 +601,10 @@ export default function App() {
     }));
   };
 
-  const handleSheetExtraChange = (field: keyof typeof sheetExtras, value: string) => {
+  const handleSheetExtraChange = (
+    field: keyof typeof sheetExtras,
+    value: string | boolean
+  ) => {
     setSheetExtras((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -1500,6 +1504,22 @@ export default function App() {
                     />
                   </div>
                   <div className="field-group">
+                    <label className="toggle-row" htmlFor="has-radiant-info">
+                      <input
+                        id="has-radiant-info"
+                        type="checkbox"
+                        checked={sheetExtras.hasRadiantInfo}
+                        onChange={(event) =>
+                          handleSheetExtraChange("hasRadiantInfo", event.target.checked)
+                        }
+                      />
+                      <span>Add radiant details (if known)</span>
+                    </label>
+                  </div>
+
+                  {sheetExtras.hasRadiantInfo && (
+                    <>
+                  <div className="field-group">
                     <label className="field-label" htmlFor="radiant-order">
                       Radiant order (if known)
                     </label>
@@ -1611,6 +1631,8 @@ export default function App() {
                       placeholder="Optional"
                     />
                   </div>
+                    </>
+                  )}
                 </article>
               </div>
             )}
@@ -1814,11 +1836,12 @@ export default function App() {
                       </div>
                     </section>
 
-                    <section className="generated-sheet-page">
-                      <header className="generated-sheet-header">
-                        <h3>Radiant Sheet</h3>
-                        <span>Page 3</span>
-                      </header>
+                    {sheetExtras.hasRadiantInfo && (
+                      <section className="generated-sheet-page">
+                        <header className="generated-sheet-header">
+                          <h3>Radiant Sheet</h3>
+                          <span>Page 3</span>
+                        </header>
                       <div className="generated-sheet-grid generated-sheet-grid-columns">
                         <div className="sheet-box tall">
                           <strong>Radiant Order</strong>
@@ -1864,7 +1887,8 @@ export default function App() {
                           </ul>
                         </div>
                       </div>
-                    </section>
+                      </section>
+                    )}
                   </div>
                 </article>
               </div>
