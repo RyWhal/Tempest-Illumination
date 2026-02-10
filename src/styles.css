@@ -875,3 +875,133 @@ textarea {
     border-radius: 0;
   }
 }
+
+.sheet-export-controls {
+  margin-top: 12px;
+}
+
+.generated-sheet-root {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.generated-sheet-page {
+  background: #f5f5f5;
+  border: 2px solid #222;
+  border-radius: 10px;
+  color: #111;
+  padding: 14px;
+  box-shadow: 0 8px 18px rgba(7, 9, 14, 0.25);
+}
+
+.generated-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid #222;
+  margin-bottom: 10px;
+}
+
+.generated-sheet-header h3 {
+  margin: 0 0 6px;
+}
+
+.generated-sheet-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.generated-sheet-grid-main {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.generated-sheet-grid-derivations {
+  margin-top: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.generated-sheet-grid-columns {
+  margin-top: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.generated-attributes {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sheet-stat-pill {
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sheet-box {
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+}
+
+.sheet-box strong {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.78rem;
+}
+
+.sheet-box p {
+  margin: 6px 0;
+  color: #111;
+}
+
+.sheet-box ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.sheet-box.tall {
+  min-height: 360px;
+}
+
+@media (max-width: 960px) {
+  .generated-sheet-grid-main,
+  .generated-sheet-grid-derivations,
+  .generated-sheet-grid-columns,
+  .generated-attributes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media print {
+  .no-print,
+  .sheet-print-step .card-header {
+    display: none !important;
+  }
+
+  .origin-step:not(.sheet-print-step) {
+    display: none !important;
+  }
+
+  .sheet-print-step .form-card {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .generated-sheet-page {
+    break-after: page;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+  }
+}

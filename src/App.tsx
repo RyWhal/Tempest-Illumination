@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useState } from "react";
 import {
   ancestries,
   culturalExpertises,
@@ -266,11 +266,6 @@ export default function App() {
   const [selectedKitId, setSelectedKitId] = useState<string | null>(null);
   const [rolledSpheres, setRolledSpheres] = useState<number | null>(null);
   const [purchasedItems, setPurchasedItems] = useState<{ name: string; price: number }[]>([]);
-  const [sheetBackgrounds, setSheetBackgrounds] = useState<{
-    front?: string;
-    back?: string;
-    radiant?: string;
-  }>({});
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
   const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
@@ -591,23 +586,6 @@ export default function App() {
         goals: prev.identity.goals.filter((item) => item !== value)
       }
     }));
-  };
-
-  const handleSheetBackgroundUpload = (
-    page: "front" | "back" | "radiant",
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === "string") {
-        setSheetBackgrounds((prev) => ({ ...prev, [page]: reader.result }));
-      }
-    };
-    reader.readAsDataURL(file);
   };
 
   const handleExportPdf = () => {
@@ -1463,205 +1441,141 @@ export default function App() {
 
             {isStep6Complete && (
               <div className="origin-step sheet-print-step">
-                <div className="card-header">
+                <div className="card-header no-print">
                   <h2>
-                    <strong>Step 8 - Standard character sheet overlay</strong>
+                    <strong>Step 8 - Standard character sheet output</strong>
                   </h2>
                 </div>
                 <article className="form-card">
-                  <p className="field-hint">
-                    Upload your official sheet pages, then the wizard data is overlaid directly on
-                    top. Use your browser&apos;s Save as PDF dialog for export.
+                  <p className="field-hint no-print">
+                    Your wizard choices are already mapped onto a standardized printable character
+                    sheet format. Use export to save a PDF instantly.
                   </p>
-                  <div className="sheet-upload-grid no-print">
-                    <label>
-                      <span className="field-meta">Page 1 (main sheet)</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) => handleSheetBackgroundUpload("front", event)}
-                      />
-                    </label>
-                    <label>
-                      <span className="field-meta">Page 2 (story/equipment)</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) => handleSheetBackgroundUpload("back", event)}
-                      />
-                    </label>
-                    <label>
-                      <span className="field-meta">Page 3 (radiant sheet)</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) => handleSheetBackgroundUpload("radiant", event)}
-                      />
-                    </label>
+                  <div className="sheet-export-controls no-print">
                     <button className="primary" type="button" onClick={handleExportPdf}>
                       Export as PDF
                     </button>
                   </div>
 
-                  <div className="print-sheet-root">
-                    {sheetBackgrounds.front ? (
-                      <section className="sheet-page">
-                        <img src={sheetBackgrounds.front} alt="Character sheet page 1" />
-                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "41%", width: "40%" }}>
-                          {finalSheetName}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "83%", width: "12%", textAlign: "center" }}>
-                          {state.level}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "41%", width: "40%" }}>
-                          {selectedPath?.name ?? "—"}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "83%", width: "12%", textAlign: "center" }}>
-                          {selectedAncestry?.name ?? "—"}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "11.8%", left: "4%", width: "31%", textAlign: "center" }}>
-                          {finalSheetPlayer}
-                        </div>
+                  <div className="generated-sheet-root">
+                    <section className="generated-sheet-page">
+                      <header className="generated-sheet-header">
+                        <h3>Stormlight Character Sheet</h3>
+                        <span>Page 1</span>
+                      </header>
+                      <div className="generated-sheet-grid generated-sheet-grid-main">
+                        <div className="sheet-box"><strong>Character Name</strong><p>{finalSheetName}</p></div>
+                        <div className="sheet-box"><strong>Player Name</strong><p>{finalSheetPlayer}</p></div>
+                        <div className="sheet-box"><strong>Level</strong><p>{state.level}</p></div>
+                        <div className="sheet-box"><strong>Ancestry</strong><p>{selectedAncestry?.name ?? "—"}</p></div>
+                        <div className="sheet-box"><strong>Path</strong><p>{selectedPath?.name ?? "—"}</p></div>
+                        <div className="sheet-box"><strong>Cultures</strong><p>{selectedCultures.join(", ") || "—"}</p></div>
+                      </div>
 
-                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "5%", width: "7%", textAlign: "center" }}>
-                          {state.attributes.strength}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "23.7%", width: "7%", textAlign: "center" }}>
-                          {state.attributes.speed}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "38%", width: "7%", textAlign: "center" }}>
-                          {state.attributes.intellect}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "56.2%", width: "7%", textAlign: "center" }}>
-                          {state.attributes.willpower}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "70.6%", width: "7%", textAlign: "center" }}>
-                          {state.attributes.awareness}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "16.9%", left: "88.3%", width: "7%", textAlign: "center" }}>
-                          {state.attributes.presence}
-                        </div>
+                      <div className="generated-attributes">
+                        {attributeList.map((attribute) => (
+                          <div key={attribute.key} className="sheet-stat-pill">
+                            <span>{attribute.label}</span>
+                            <strong>{state.attributes[attribute.key]}</strong>
+                          </div>
+                        ))}
+                      </div>
 
-                        <div className="sheet-overlay-list" style={{ top: "29.8%", left: "4.8%", width: "90%" }}>
-                          {sheetSkills.length === 0 ? "No trained skills" : sheetSkills.map((skill) => `${skill.name} (${skill.rank})`).join(" • ")}
-                        </div>
+                      <div className="generated-sheet-grid generated-sheet-grid-derivations">
+                        <div className="sheet-box"><strong>Lifting Capacity</strong><p>{derivedStats.liftingCapacity} lb</p></div>
+                        <div className="sheet-box"><strong>Movement</strong><p>{derivedStats.movementRate}</p></div>
+                        <div className="sheet-box"><strong>Recovery Die</strong><p>{derivedStats.recoveryDie}</p></div>
+                        <div className="sheet-box"><strong>Senses Range</strong><p>{derivedStats.sensesRange}</p></div>
+                      </div>
 
-                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "4.6%", width: "10%", textAlign: "center" }}>
-                          {derivedStats.liftingCapacity}
+                      <div className="generated-sheet-grid generated-sheet-grid-columns">
+                        <div className="sheet-box">
+                          <strong>Skills</strong>
+                          <ul>
+                            {sheetSkills.length === 0 ? <li>No trained skills</li> : sheetSkills.map((skill) => <li key={skill.id}>{skill.name}: {skill.rank}</li>)}
+                          </ul>
                         </div>
-                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "20%", width: "10%", textAlign: "center" }}>
-                          {derivedStats.movementRate}
+                        <div className="sheet-box">
+                          <strong>Expertises</strong>
+                          <ul>
+                            {sheetExpertises.length === 0 ? <li>No expertises</li> : sheetExpertises.map((expertise) => <li key={expertise}>{expertise}</li>)}
+                          </ul>
                         </div>
-                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "39%", width: "20%", textAlign: "center" }}>
-                          {derivedStats.recoveryDie}
+                        <div className="sheet-box">
+                          <strong>Talents</strong>
+                          <ul>
+                            {sheetTalents.length === 0 ? <li>No talents</li> : sheetTalents.map((talent) => <li key={talent}>{talent}</li>)}
+                          </ul>
                         </div>
-                        <div className="sheet-overlay-field" style={{ top: "51.5%", left: "67%", width: "20%", textAlign: "center" }}>
-                          {derivedStats.sensesRange}
-                        </div>
+                      </div>
+                    </section>
 
-                        <div className="sheet-overlay-list" style={{ top: "61%", left: "34.5%", width: "61%" }}>
-                          {sheetExpertises.length === 0 ? "No expertises" : sheetExpertises.join("\n")}
+                    <section className="generated-sheet-page">
+                      <header className="generated-sheet-header">
+                        <h3>Story & Equipment</h3>
+                        <span>Page 2</span>
+                      </header>
+                      <div className="generated-sheet-grid generated-sheet-grid-columns">
+                        <div className="sheet-box tall">
+                          <strong>Armor & Equipment</strong>
+                          <ul>
+                            {finalInventory.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}
+                          </ul>
+                          <p><strong>Marks:</strong> {rolledSpheres !== null ? `${rolledSpheres} marks` : "Not rolled"}</p>
                         </div>
-                        <div className="sheet-overlay-list" style={{ top: "69.8%", left: "34.5%", width: "61%" }}>
-                          {sheetTalents.length === 0 ? "No talents" : sheetTalents.join("\n")}
+                        <div className="sheet-box tall">
+                          <strong>Purpose</strong>
+                          <p>{(state.identity.purpose || "").trim() || "No purpose entered."}</p>
+                          <strong>Obstacle</strong>
+                          <p>{(state.identity.obstacle || "").trim() || "No obstacle entered."}</p>
+                          <strong>Goals</strong>
+                          <ul>{finalGoalList.map((goal) => <li key={goal}>{goal}</li>)}</ul>
                         </div>
-                        <div className="sheet-overlay-list" style={{ top: "69.8%", left: "2.4%", width: "28%" }}>
-                          {finalInventory.join("\n")}
+                        <div className="sheet-box tall">
+                          <strong>Notes</strong>
+                          <p>{(state.identity.notes ?? "").trim() || "No notes entered."}</p>
+                          <strong>Connections</strong>
+                          <ul>{selectedCultures.length === 0 ? <li>No connections listed</li> : selectedCultures.map((culture) => <li key={culture}>{culture}</li>)}</ul>
                         </div>
-                      </section>
-                    ) : (
-                      <p className="field-hint">Upload page 1 to render the official overlay.</p>
-                    )}
+                      </div>
+                    </section>
 
-                    {sheetBackgrounds.back && (
-                      <section className="sheet-page">
-                        <img src={sheetBackgrounds.back} alt="Character sheet page 2" />
-                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "41%", width: "40%" }}>
-                          {finalSheetName}
+                    <section className="generated-sheet-page">
+                      <header className="generated-sheet-header">
+                        <h3>Radiant Sheet</h3>
+                        <span>Page 3</span>
+                      </header>
+                      <div className="generated-sheet-grid generated-sheet-grid-columns">
+                        <div className="sheet-box tall">
+                          <strong>Radiant Order</strong>
+                          <p>{selectedPath?.name ?? "Radiant order not set"}</p>
+                          <strong>Ideals</strong>
+                          <p>{state.talents.some((talent) => talent.toLowerCase().includes("first ideal")) ? "1st Ideal spoken" : "1st Ideal in progress"}</p>
                         </div>
-                        <div className="sheet-overlay-field" style={{ top: "2.6%", left: "83%", width: "12%", textAlign: "center" }}>
-                          {state.level}
+                        <div className="sheet-box tall">
+                          <strong>Spren Name</strong>
+                          <p>{state.identity.name || "Spren name TBD"}</p>
+                          <strong>Spren Personality</strong>
+                          <p>{(state.identity.notes ?? "").trim() || "Spren personality not recorded."}</p>
                         </div>
-                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "41%", width: "40%" }}>
-                          {selectedPath?.name ?? "—"}
+                        <div className="sheet-box tall">
+                          <strong>Surges / Radiant Talents</strong>
+                          <ul>
+                            {(state.talents.filter((talent) => talent.toLowerCase().includes("surge")).length > 0
+                              ? state.talents.filter((talent) => talent.toLowerCase().includes("surge"))
+                              : sheetTalents
+                            ).map((entry) => (
+                              <li key={entry}>{entry}</li>
+                            ))}
+                          </ul>
                         </div>
-                        <div className="sheet-overlay-field" style={{ top: "8.7%", left: "83%", width: "12%", textAlign: "center" }}>
-                          {selectedAncestry?.name ?? "—"}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "11.8%", left: "4%", width: "31%", textAlign: "center" }}>
-                          {finalSheetPlayer}
-                        </div>
-
-                        <div className="sheet-overlay-list" style={{ top: "26.5%", left: "68.8%", width: "26%" }}>
-                          {(state.identity.purpose || "").trim() || "No purpose entered."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "33%", left: "68.8%", width: "26%" }}>
-                          {(state.identity.obstacle || "").trim() || "No obstacle entered."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "41%", left: "67.4%", width: "27.5%" }}>
-                          {finalGoalList.join("\n")}
-                        </div>
-
-                        <div className="sheet-overlay-list" style={{ top: "26.5%", left: "35.5%", width: "28.5%" }}>
-                          {finalInventory.join("\n")}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "62.8%", left: "36%", width: "27%" }}>
-                          {rolledSpheres !== null ? `${rolledSpheres} marks` : "Marks not rolled"}
-                        </div>
-
-                        <div className="sheet-overlay-list" style={{ top: "68.5%", left: "35.5%", width: "28.5%" }}>
-                          {(state.identity.notes ?? "").trim() || "No notes entered."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "68.5%", left: "67.4%", width: "27.5%" }}>
-                          {selectedCultures.length > 0 ? selectedCultures.join("\n") : "No connections listed"}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "26.5%", left: "2.2%", width: "28.5%" }}>
-                          {selectedAncestry?.rulesText ?? "Add appearance details."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "55.2%", left: "2.2%", width: "28.5%" }}>
-                          {sheetTalents.join("\n") || "No other talents listed"}
-                        </div>
-                      </section>
-                    )}
-
-                    {sheetBackgrounds.radiant && (
-                      <section className="sheet-page">
-                        <img src={sheetBackgrounds.radiant} alt="Character sheet page 3" />
-                        <div className="sheet-overlay-field" style={{ top: "14.6%", left: "2.4%", width: "32%" }}>
-                          {selectedPath?.name ?? "Radiant order not set"}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "17%", left: "4.2%", width: "28%" }}>
-                          {state.talents.some((talent) => talent.toLowerCase().includes("first ideal"))
-                            ? "1st Ideal spoken"
-                            : "1st Ideal in progress"}
-                        </div>
-                        <div className="sheet-overlay-field" style={{ top: "17.5%", left: "40.5%", width: "25%" }}>
-                          {state.identity.name || "Spren name TBD"}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "23.5%", left: "40.5%", width: "24.5%" }}>
-                          {(state.identity.notes ?? "").trim() || "Spren personality not recorded."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "23.5%", left: "67.2%", width: "30%" }}>
-                          {sheetTalents.join("\n") || "No radiant talents selected."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "49%", left: "2.5%", width: "45.5%" }}>
-                          {state.talents.filter((talent) => talent.toLowerCase().includes("surge")).join("\n") || "No surge effects recorded."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "71%", left: "2.5%", width: "45.5%" }}>
-                          {sheetTalents.join("\n") || "No talents listed."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "49%", left: "51.5%", width: "45.5%" }}>
-                          {state.talents.filter((talent) => talent.toLowerCase().includes("surge")).slice(0, 6).join("\n") || "No second surge effects recorded."}
-                        </div>
-                        <div className="sheet-overlay-list" style={{ top: "71%", left: "51.5%", width: "45.5%" }}>
-                          {sheetTalents.join("\n") || "No talents listed."}
-                        </div>
-                      </section>
-                    )}
+                      </div>
+                    </section>
                   </div>
                 </article>
               </div>
             )}
+
 
           </section>
         </main>
