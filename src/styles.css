@@ -631,6 +631,16 @@ input:focus {
   justify-content: space-between;
 }
 
+.kit-detail-label {
+  font-weight: 600;
+  color: #d6d9e3;
+}
+
+.kit-detail-value {
+  text-align: right;
+  color: #f8f7f5;
+}
+
 .inventory-list span {
   padding: 6px 10px;
   border-radius: 999px;

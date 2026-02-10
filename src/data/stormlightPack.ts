@@ -76,6 +76,13 @@ export const culturalExpertises: PackRecord[] = [
     source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
   },
   {
+    id: "sl.expertise.cultural.herdazian",
+    name: "Herdazian Expertise",
+    rulesText:
+      "You know Herdazian customs, slang, and border traditions. Choose proficiency levels for spoken Herdazian, commerce, and survival.",
+    source: { pdf: "Stormlight Handbook Digital.pdf", page: 41 }
+  },
+  {
     id: "sl.expertise.cultural.iriali",
     name: "Iriali Expertise",
     rulesText:

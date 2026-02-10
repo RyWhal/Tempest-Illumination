@@ -245,7 +245,7 @@ const sphereValues = [
 ];
 
 const parseDice = (notation: string) => {
-  const match = notation.match(/(\\d+)d(\\d+)/i);
+  const match = notation.match(/(\d+)d(\d+)/i);
   if (!match) {
     return null;
   }
@@ -262,7 +262,6 @@ export default function App() {
   const [state, setState] = useState<CharacterState>(initialState);
   const [currentStep, setCurrentStep] = useState<"origin" | "origins">("origin");
   const [expertiseInput, setExpertiseInput] = useState("");
-  const [talentInput, setTalentInput] = useState("");
   const [goalInput, setGoalInput] = useState("");
   const [selectedKitId, setSelectedKitId] = useState<string | null>(null);
   const [rolledSpheres, setRolledSpheres] = useState<number | null>(null);
@@ -272,6 +271,7 @@ export default function App() {
   const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
   const startingSkill = skills.find((skill) => skill.name === selectedPath?.startingSkill);
   const startingSkillId = startingSkill?.id;
+  const selectedKit = startingKits.find((kit) => kit.id === selectedKitId) ?? null;
 
   const isSinger = selectedAncestry?.id === "sl.ancestry.singer";
   const isHuman = selectedAncestry?.id === "sl.ancestry.human";
@@ -481,6 +481,16 @@ export default function App() {
   };
 
   const handleKitSelect = (kitId: string) => {
+    if (!kitId) {
+      setSelectedKitId(null);
+      setRolledSpheres(null);
+      setPurchasedItems([]);
+      setState((prev) => ({
+        ...prev,
+        inventory: buildInventory(null, null, [])
+      }));
+      return;
+    }
     setSelectedKitId(kitId);
     setRolledSpheres(null);
     setPurchasedItems([]);
@@ -710,14 +720,6 @@ export default function App() {
                         <label className="field-label">Cultural expertises</label>
                         <span className="field-meta">{state.cultureKeys.length}/2 selected</span>
                       </div>
-                      <div className="callout">
-                        <p>
-                          Your character’s culture isn’t determined by birth or any other single
-                          moment in time. Instead, cultural awareness can be shaped by nationality,
-                          ethnicity, migration, traveling experience, and more.
-                        </p>
-                        <span className="field-meta">Player Handbook p. 38</span>
-                      </div>
                       {!isHuman && (
                         <p className="field-hint">Select a human ancestry to choose cultures.</p>
                       )}
@@ -750,6 +752,14 @@ export default function App() {
                             </label>
                           );
                         })}
+                      </div>
+                      <div className="callout">
+                        <p>
+                          Your character’s culture isn’t determined by birth or any other single
+                          moment in time. Instead, cultural awareness can be shaped by nationality,
+                          ethnicity, migration, traveling experience, and more.
+                        </p>
+                        <span className="field-meta">Player Handbook p. 38</span>
                       </div>
                     </div>
                   )}
@@ -787,16 +797,6 @@ export default function App() {
                   </h2>
                 </div>
                 <article className="form-card">
-                  {selectedPath && (
-                    <div className="callout">
-                      <strong>Starting skill: {selectedPath.startingSkill}</strong>
-                      <p>
-                        {startingSkill
-                          ? `${startingSkill.category} • ${startingSkill.attribute}`
-                          : "This skill grants a free rank during character creation."}
-                      </p>
-                    </div>
-                  )}
                   <div className="option-grid">
                     {heroicPaths.map((path) => (
                       <label
@@ -1110,25 +1110,6 @@ export default function App() {
                       ))
                     )}
                   </div>
-                  <div className="field-row">
-                    <input
-                      type="text"
-                      value={talentInput}
-                      onChange={(event) => setTalentInput(event.target.value)}
-                      placeholder="Add a talent"
-                    />
-                    <button
-                      className="primary small"
-                      type="button"
-                      onClick={() => {
-                        handleTalentAdd(talentInput);
-                        setTalentInput("");
-                      }}
-                      disabled={!talentInput.trim()}
-                    >
-                      Add
-                    </button>
-                  </div>
                 </article>
               </div>
             )}
@@ -1145,30 +1126,58 @@ export default function App() {
                     Choose a starting kit, roll your starting spheres, and spend them on weapons,
                     armor, or additional equipment.
                   </p>
-                  <div className="kit-grid">
-                    {startingKits.map((kit) => (
-                      <label
-                        key={kit.id}
-                        className={`kit-card${selectedKitId === kit.id ? " active" : ""}`}
-                      >
-                        <input
-                          type="radio"
-                          name="starting-kit"
-                          value={kit.id}
-                          checked={selectedKitId === kit.id}
-                          onChange={() => handleKitSelect(kit.id)}
-                        />
-                        <span>
-                          <strong>{kit.name}</strong>
-                          <span>Weapons: {kit.weapons}</span>
-                          <span>Armor: {kit.armor}</span>
-                          <span>Equipment: {kit.equipment}</span>
-                          <span>Spheres: {kit.spheres}</span>
-                          {kit.additionalExpertise && <em>{kit.additionalExpertise}</em>}
-                          {kit.connection && <em>{kit.connection}</em>}
-                        </span>
-                      </label>
-                    ))}
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="starting-kit-select">
+                      Starting kit
+                    </label>
+                    <select
+                      id="starting-kit-select"
+                      value={selectedKitId ?? ""}
+                      onChange={(event) => handleKitSelect(event.target.value)}
+                    >
+                      <option value="">Select a kit</option>
+                      {startingKits.map((kit) => (
+                        <option key={kit.id} value={kit.id}>
+                          {kit.name}
+                        </option>
+                      ))}
+                    </select>
+                    {selectedKit ? (
+                      <ul className="purchase-list compact">
+                        <li>
+                          <span className="kit-detail-label">Weapons</span>
+                          <span className="kit-detail-value">{selectedKit.weapons}</span>
+                        </li>
+                        <li>
+                          <span className="kit-detail-label">Armor</span>
+                          <span className="kit-detail-value">{selectedKit.armor}</span>
+                        </li>
+                        <li>
+                          <span className="kit-detail-label">Equipment</span>
+                          <span className="kit-detail-value">{selectedKit.equipment}</span>
+                        </li>
+                        <li>
+                          <span className="kit-detail-label">Spheres</span>
+                          <span className="kit-detail-value">{selectedKit.spheres}</span>
+                        </li>
+                        {selectedKit.additionalExpertise && (
+                          <li>
+                            <span className="kit-detail-label">Expertise bonus</span>
+                            <span className="kit-detail-value">
+                              {selectedKit.additionalExpertise}
+                            </span>
+                          </li>
+                        )}
+                        {selectedKit.connection && (
+                          <li>
+                            <span className="kit-detail-label">Connection</span>
+                            <span className="kit-detail-value">{selectedKit.connection}</span>
+                          </li>
+                        )}
+                      </ul>
+                    ) : (
+                      <p className="field-hint">Select a kit to view its starting items.</p>
+                    )}
                   </div>
                   <div className="field-row">
                     <span className="field-label">Starting spheres</span>
