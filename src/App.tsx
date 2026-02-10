@@ -1145,21 +1145,35 @@ export default function App() {
                     {selectedKit ? (
                       <ul className="purchase-list compact">
                         <li>
-                          <strong>Weapons:</strong> {selectedKit.weapons}
+                          <span className="kit-detail-label">Weapons</span>
+                          <span className="kit-detail-value">{selectedKit.weapons}</span>
                         </li>
                         <li>
-                          <strong>Armor:</strong> {selectedKit.armor}
+                          <span className="kit-detail-label">Armor</span>
+                          <span className="kit-detail-value">{selectedKit.armor}</span>
                         </li>
                         <li>
-                          <strong>Equipment:</strong> {selectedKit.equipment}
+                          <span className="kit-detail-label">Equipment</span>
+                          <span className="kit-detail-value">{selectedKit.equipment}</span>
                         </li>
                         <li>
-                          <strong>Spheres:</strong> {selectedKit.spheres}
+                          <span className="kit-detail-label">Spheres</span>
+                          <span className="kit-detail-value">{selectedKit.spheres}</span>
                         </li>
                         {selectedKit.additionalExpertise && (
-                          <li>{selectedKit.additionalExpertise}</li>
+                          <li>
+                            <span className="kit-detail-label">Expertise bonus</span>
+                            <span className="kit-detail-value">
+                              {selectedKit.additionalExpertise}
+                            </span>
+                          </li>
                         )}
-                        {selectedKit.connection && <li>{selectedKit.connection}</li>}
+                        {selectedKit.connection && (
+                          <li>
+                            <span className="kit-detail-label">Connection</span>
+                            <span className="kit-detail-value">{selectedKit.connection}</span>
+                          </li>
+                        )}
                       </ul>
                     ) : (
                       <p className="field-hint">Select a kit to view its starting items.</p>
