@@ -244,6 +244,34 @@ const sphereValues = [
   { gemstone: "Emerald", chip: 10, mark: 50, broam: 200 }
 ];
 
+
+const skillSheetColumns = {
+  physical: [
+    { label: "Agility", attr: "SPD", key: "Agility" },
+    { label: "Athletics", attr: "STR", key: "Athletics" },
+    { label: "Heavy Weaponry", attr: "STR", key: "Heavy Weaponry" },
+    { label: "Light Weaponry", attr: "SPD", key: "Light Weaponry" },
+    { label: "Stealth", attr: "SPD", key: "Stealth" },
+    { label: "Thievery", attr: "SPD", key: "Thievery" }
+  ],
+  cognitive: [
+    { label: "Crafting", attr: "INT", key: "Crafting" },
+    { label: "Deduction", attr: "INT", key: "Deduction" },
+    { label: "Discipline", attr: "WIL", key: "Discipline" },
+    { label: "Intimidation", attr: "WIL", key: "Intimidation" },
+    { label: "Lore", attr: "INT", key: "Lore" },
+    { label: "Medicine", attr: "INT", key: "Medicine" }
+  ],
+  spiritual: [
+    { label: "Deception", attr: "PRE", key: "Deception" },
+    { label: "Insight", attr: "AWA", key: "Insight" },
+    { label: "Leadership", attr: "PRE", key: "Leadership" },
+    { label: "Perception", attr: "AWA", key: "Perception" },
+    { label: "Persuasion", attr: "PRE", key: "Persuasion" },
+    { label: "Survival", attr: "AWA", key: "Survival" }
+  ]
+} as const;
+
 const parseDice = (notation: string) => {
   const match = notation.match(/(\d+)d(\d+)/i);
   if (!match) {
@@ -266,6 +294,19 @@ export default function App() {
   const [selectedKitId, setSelectedKitId] = useState<string | null>(null);
   const [rolledSpheres, setRolledSpheres] = useState<number | null>(null);
   const [purchasedItems, setPurchasedItems] = useState<{ name: string; price: number }[]>([]);
+  const [sheetExtras, setSheetExtras] = useState({
+    radiantOrder: "",
+    sprenName: "",
+    sprenPersonality: "",
+    sprenBondRange: "",
+    otherAbilities: "",
+    surgeOneName: "",
+    surgeOneEffect: "",
+    surgeOneTalents: "",
+    surgeTwoName: "",
+    surgeTwoEffect: "",
+    surgeTwoTalents: ""
+  });
 
   const selectedAncestry = ancestries.find((ancestry) => ancestry.id === state.ancestryKey);
   const selectedPath = heroicPaths.find((path) => path.id === state.pathKey);
@@ -559,6 +600,10 @@ export default function App() {
     }));
   };
 
+  const handleSheetExtraChange = (field: keyof typeof sheetExtras, value: string) => {
+    setSheetExtras((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleGoalAdd = (value: string) => {
     const cleaned = value.trim();
     if (!cleaned) {
@@ -623,7 +668,8 @@ export default function App() {
   };
   const selectedCultures = state.cultureKeys
     .map((cultureId) => culturalExpertises.find((culture) => culture.id === cultureId)?.name)
-    .filter((cultureName): cultureName is string => Boolean(cultureName));
+    .filter((cultureName): cultureName is string => Boolean(cultureName))
+    .map((cultureName) => cultureName.replace(/\s+expertise$/i, ""));
   const activeSkills = skills
     .map((skill) => ({
       ...skill,
@@ -638,6 +684,24 @@ export default function App() {
   const sheetSkills = activeSkills.slice(0, 18);
   const sheetExpertises = [...selectedCultures, ...state.expertises];
   const sheetTalents = state.talents.slice(0, 12);
+  const physicalDefense = 10 + Math.max(state.attributes.strength, state.attributes.speed);
+  const cognitiveDefense = 10 + Math.max(state.attributes.intellect, state.attributes.willpower);
+  const spiritualDefense = 10 + Math.max(state.attributes.awareness, state.attributes.presence);
+  const healthMax = 10 + state.attributes.strength * 2 + state.level;
+  const focusMax = 2 + state.attributes.willpower + state.attributes.intellect;
+  const investitureMax = 2 + Math.max(state.attributes.awareness, state.attributes.presence);
+  const deflect = Math.max(0, state.attributes.speed - 1);
+  const remainingMarksDisplay = remainingSpheres ?? 0;
+  const weaponNames = purchasedItems
+    .filter((item) => weaponItems.some((weapon) => weapon.name === item.name))
+    .map((item) => item.name);
+  const armorAndEquipment = purchasedItems
+    .filter((item) => !weaponItems.some((weapon) => weapon.name === item.name))
+    .map((item) => item.name);
+
+  const skillRankLookup = Object.fromEntries(
+    activeSkills.map((skill) => [skill.name.toLowerCase(), skill.rank])
+  );
 
   return (
     <div className="app">
@@ -1435,6 +1499,118 @@ export default function App() {
                       placeholder="Add any extra story details."
                     />
                   </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="radiant-order">
+                      Radiant order (if known)
+                    </label>
+                    <input
+                      id="radiant-order"
+                      type="text"
+                      value={sheetExtras.radiantOrder}
+                      onChange={(event) => handleSheetExtraChange("radiantOrder", event.target.value)}
+                      placeholder="Leave blank if not yet known"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="spren-name">Spren name</label>
+                    <input
+                      id="spren-name"
+                      type="text"
+                      value={sheetExtras.sprenName}
+                      onChange={(event) => handleSheetExtraChange("sprenName", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="spren-personality">Spren personality</label>
+                    <textarea
+                      id="spren-personality"
+                      rows={3}
+                      value={sheetExtras.sprenPersonality}
+                      onChange={(event) => handleSheetExtraChange("sprenPersonality", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="spren-bond-range">Spren bond range</label>
+                    <input
+                      id="spren-bond-range"
+                      type="text"
+                      value={sheetExtras.sprenBondRange}
+                      onChange={(event) => handleSheetExtraChange("sprenBondRange", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="other-abilities">Other abilities</label>
+                    <textarea
+                      id="other-abilities"
+                      rows={3}
+                      value={sheetExtras.otherAbilities}
+                      onChange={(event) => handleSheetExtraChange("otherAbilities", event.target.value)}
+                      placeholder="Anything not covered elsewhere"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="surge-one-name">Surge 1 name</label>
+                    <input
+                      id="surge-one-name"
+                      type="text"
+                      value={sheetExtras.surgeOneName}
+                      onChange={(event) => handleSheetExtraChange("surgeOneName", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="surge-one-effect">Surge 1 effect</label>
+                    <textarea
+                      id="surge-one-effect"
+                      rows={2}
+                      value={sheetExtras.surgeOneEffect}
+                      onChange={(event) => handleSheetExtraChange("surgeOneEffect", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="surge-one-talents">Surge 1 talents</label>
+                    <textarea
+                      id="surge-one-talents"
+                      rows={2}
+                      value={sheetExtras.surgeOneTalents}
+                      onChange={(event) => handleSheetExtraChange("surgeOneTalents", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="surge-two-name">Surge 2 name</label>
+                    <input
+                      id="surge-two-name"
+                      type="text"
+                      value={sheetExtras.surgeTwoName}
+                      onChange={(event) => handleSheetExtraChange("surgeTwoName", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="surge-two-effect">Surge 2 effect</label>
+                    <textarea
+                      id="surge-two-effect"
+                      rows={2}
+                      value={sheetExtras.surgeTwoEffect}
+                      onChange={(event) => handleSheetExtraChange("surgeTwoEffect", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="field-group">
+                    <label className="field-label" htmlFor="surge-two-talents">Surge 2 talents</label>
+                    <textarea
+                      id="surge-two-talents"
+                      rows={2}
+                      value={sheetExtras.surgeTwoTalents}
+                      onChange={(event) => handleSheetExtraChange("surgeTwoTalents", event.target.value)}
+                      placeholder="Optional"
+                    />
+                  </div>
                 </article>
               </div>
             )}
@@ -1448,8 +1624,8 @@ export default function App() {
                 </div>
                 <article className="form-card">
                   <p className="field-hint no-print">
-                    Your wizard choices are already mapped onto a standardized printable character
-                    sheet format. Use export to save a PDF instantly.
+                    Wizard output is mapped directly into a fixed sheet layout. Export as PDF when
+                    ready.
                   </p>
                   <div className="sheet-export-controls no-print">
                     <button className="primary" type="button" onClick={handleExportPdf}>
@@ -1463,20 +1639,91 @@ export default function App() {
                         <h3>Stormlight Character Sheet</h3>
                         <span>Page 1</span>
                       </header>
+
                       <div className="generated-sheet-grid generated-sheet-grid-main">
                         <div className="sheet-box"><strong>Character Name</strong><p>{finalSheetName}</p></div>
                         <div className="sheet-box"><strong>Player Name</strong><p>{finalSheetPlayer}</p></div>
                         <div className="sheet-box"><strong>Level</strong><p>{state.level}</p></div>
+                        <div className="sheet-box"><strong>Paths</strong><p>{selectedPath?.name ?? "—"}</p></div>
                         <div className="sheet-box"><strong>Ancestry</strong><p>{selectedAncestry?.name ?? "—"}</p></div>
-                        <div className="sheet-box"><strong>Path</strong><p>{selectedPath?.name ?? "—"}</p></div>
                         <div className="sheet-box"><strong>Cultures</strong><p>{selectedCultures.join(", ") || "—"}</p></div>
                       </div>
 
-                      <div className="generated-attributes">
-                        {attributeList.map((attribute) => (
-                          <div key={attribute.key} className="sheet-stat-pill">
-                            <span>{attribute.label}</span>
-                            <strong>{state.attributes[attribute.key]}</strong>
+                      <div className="sheet-defense-grid">
+                        <div className="sheet-defense-card">
+                          <h4>Physical</h4>
+                          <div className="sheet-defense-row">
+                            <span>Strength</span>
+                            <strong>{state.attributes.strength}</strong>
+                          </div>
+                          <div className="sheet-defense-row">
+                            <span>Speed</span>
+                            <strong>{state.attributes.speed}</strong>
+                          </div>
+                          <div className="sheet-defense-row emphasis">
+                            <span>Defense</span>
+                            <strong>{physicalDefense}</strong>
+                          </div>
+                          <div className="sheet-defense-subgrid">
+                            <div><span>Health Max</span><strong>{healthMax}</strong></div>
+                            <div><span>Health Current</span><strong>{healthMax}</strong></div>
+                            <div><span>Deflect</span><strong>{deflect}</strong></div>
+                          </div>
+                        </div>
+
+                        <div className="sheet-defense-card">
+                          <h4>Cognitive</h4>
+                          <div className="sheet-defense-row">
+                            <span>Intellect</span>
+                            <strong>{state.attributes.intellect}</strong>
+                          </div>
+                          <div className="sheet-defense-row">
+                            <span>Willpower</span>
+                            <strong>{state.attributes.willpower}</strong>
+                          </div>
+                          <div className="sheet-defense-row emphasis">
+                            <span>Defense</span>
+                            <strong>{cognitiveDefense}</strong>
+                          </div>
+                          <div className="sheet-defense-subgrid">
+                            <div><span>Focus Max</span><strong>{focusMax}</strong></div>
+                            <div><span>Focus Current</span><strong>{focusMax}</strong></div>
+                          </div>
+                        </div>
+
+                        <div className="sheet-defense-card">
+                          <h4>Spiritual</h4>
+                          <div className="sheet-defense-row">
+                            <span>Awareness</span>
+                            <strong>{state.attributes.awareness}</strong>
+                          </div>
+                          <div className="sheet-defense-row">
+                            <span>Presence</span>
+                            <strong>{state.attributes.presence}</strong>
+                          </div>
+                          <div className="sheet-defense-row emphasis">
+                            <span>Defense</span>
+                            <strong>{spiritualDefense}</strong>
+                          </div>
+                          <div className="sheet-defense-subgrid">
+                            <div><span>Investiture Max</span><strong>{investitureMax}</strong></div>
+                            <div><span>Investiture Current</span><strong>{investitureMax}</strong></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="sheet-skill-columns">
+                        {Object.entries(skillSheetColumns).map(([columnKey, rows]) => (
+                          <div key={columnKey} className="sheet-box">
+                            <strong>{columnKey}</strong>
+                            <ul className="sheet-skill-list">
+                              {rows.map((row) => (
+                                <li key={row.key}>
+                                  <span>{row.label} ({row.attr})</span>
+                                  <strong>{skillRankLookup[row.key.toLowerCase()] ?? 0}</strong>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         ))}
                       </div>
@@ -1489,23 +1736,34 @@ export default function App() {
                       </div>
 
                       <div className="generated-sheet-grid generated-sheet-grid-columns">
-                        <div className="sheet-box">
-                          <strong>Skills</strong>
-                          <ul>
-                            {sheetSkills.length === 0 ? <li>No trained skills</li> : sheetSkills.map((skill) => <li key={skill.id}>{skill.name}: {skill.rank}</li>)}
-                          </ul>
+                        <div className="sheet-box tall">
+                          <strong>Conditions & Injuries</strong>
+                          <p>Track at table.</p>
                         </div>
-                        <div className="sheet-box">
+                        <div className="sheet-box tall">
                           <strong>Expertises</strong>
                           <ul>
                             {sheetExpertises.length === 0 ? <li>No expertises</li> : sheetExpertises.map((expertise) => <li key={expertise}>{expertise}</li>)}
                           </ul>
                         </div>
-                        <div className="sheet-box">
+                        <div className="sheet-box tall">
                           <strong>Talents</strong>
                           <ul>
                             {sheetTalents.length === 0 ? <li>No talents</li> : sheetTalents.map((talent) => <li key={talent}>{talent}</li>)}
                           </ul>
+                        </div>
+                      </div>
+
+                      <div className="generated-sheet-grid generated-sheet-grid-columns">
+                        <div className="sheet-box tall">
+                          <strong>Weapons</strong>
+                          <ul>
+                            {weaponNames.length === 0 ? <li>No weapons selected</li> : weaponNames.map((item) => <li key={item}>{item}</li>)}
+                          </ul>
+                        </div>
+                        <div className="sheet-box tall span-2">
+                          <strong>Other Abilities</strong>
+                          <p>{sheetExtras.otherAbilities.trim() || "No additional abilities listed."}</p>
                         </div>
                       </div>
                     </section>
@@ -1517,11 +1775,16 @@ export default function App() {
                       </header>
                       <div className="generated-sheet-grid generated-sheet-grid-columns">
                         <div className="sheet-box tall">
+                          <strong>Character Appearance</strong>
+                          <p>{selectedAncestry?.rulesText ?? "Describe appearance."}</p>
+                        </div>
+                        <div className="sheet-box tall">
                           <strong>Armor & Equipment</strong>
                           <ul>
-                            {finalInventory.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}
+                            {armorAndEquipment.length === 0 ? <li>No extra equipment selected</li> : armorAndEquipment.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}
                           </ul>
-                          <p><strong>Marks:</strong> {rolledSpheres !== null ? `${rolledSpheres} marks` : "Not rolled"}</p>
+                          <p><strong>Marks Rolled:</strong> {rolledSpheres ?? 0}</p>
+                          <p><strong>Marks Remaining:</strong> {remainingMarksDisplay}</p>
                         </div>
                         <div className="sheet-box tall">
                           <strong>Purpose</strong>
@@ -1531,9 +1794,20 @@ export default function App() {
                           <strong>Goals</strong>
                           <ul>{finalGoalList.map((goal) => <li key={goal}>{goal}</li>)}</ul>
                         </div>
+                      </div>
+
+                      <div className="generated-sheet-grid generated-sheet-grid-columns">
+                        <div className="sheet-box tall">
+                          <strong>Other Talents & Abilities</strong>
+                          <ul>
+                            {sheetTalents.length === 0 ? <li>No talents listed</li> : sheetTalents.map((talent) => <li key={talent}>{talent}</li>)}
+                          </ul>
+                        </div>
                         <div className="sheet-box tall">
                           <strong>Notes</strong>
                           <p>{(state.identity.notes ?? "").trim() || "No notes entered."}</p>
+                        </div>
+                        <div className="sheet-box tall">
                           <strong>Connections</strong>
                           <ul>{selectedCultures.length === 0 ? <li>No connections listed</li> : selectedCultures.map((culture) => <li key={culture}>{culture}</li>)}</ul>
                         </div>
@@ -1548,25 +1822,45 @@ export default function App() {
                       <div className="generated-sheet-grid generated-sheet-grid-columns">
                         <div className="sheet-box tall">
                           <strong>Radiant Order</strong>
-                          <p>{selectedPath?.name ?? "Radiant order not set"}</p>
+                          <p>{sheetExtras.radiantOrder.trim() || "Not yet assigned"}</p>
                           <strong>Ideals</strong>
                           <p>{state.talents.some((talent) => talent.toLowerCase().includes("first ideal")) ? "1st Ideal spoken" : "1st Ideal in progress"}</p>
                         </div>
                         <div className="sheet-box tall">
                           <strong>Spren Name</strong>
-                          <p>{state.identity.name || "Spren name TBD"}</p>
-                          <strong>Spren Personality</strong>
-                          <p>{(state.identity.notes ?? "").trim() || "Spren personality not recorded."}</p>
+                          <p>{sheetExtras.sprenName.trim() || "Unknown"}</p>
+                          <strong>Personality</strong>
+                          <p>{sheetExtras.sprenPersonality.trim() || "Not recorded"}</p>
+                          <strong>Spren Bond Range</strong>
+                          <p>{sheetExtras.sprenBondRange.trim() || "Not recorded"}</p>
                         </div>
                         <div className="sheet-box tall">
-                          <strong>Surges / Radiant Talents</strong>
+                          <strong>Stormlight Actions</strong>
                           <ul>
-                            {(state.talents.filter((talent) => talent.toLowerCase().includes("surge")).length > 0
-                              ? state.talents.filter((talent) => talent.toLowerCase().includes("surge"))
-                              : sheetTalents
-                            ).map((entry) => (
-                              <li key={entry}>{entry}</li>
-                            ))}
+                            <li>Enhance</li>
+                            <li>Breathe Stormlight</li>
+                            <li>Regenerate</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="generated-sheet-grid generated-sheet-grid-columns">
+                        <div className="sheet-box tall">
+                          <strong>Surge 1</strong>
+                          <p><strong>Name:</strong> {sheetExtras.surgeOneName.trim() || "Not set"}</p>
+                          <p><strong>Effect:</strong> {sheetExtras.surgeOneEffect.trim() || "Not set"}</p>
+                          <p><strong>Talents:</strong> {sheetExtras.surgeOneTalents.trim() || "Not set"}</p>
+                        </div>
+                        <div className="sheet-box tall">
+                          <strong>Surge 2</strong>
+                          <p><strong>Name:</strong> {sheetExtras.surgeTwoName.trim() || "Not set"}</p>
+                          <p><strong>Effect:</strong> {sheetExtras.surgeTwoEffect.trim() || "Not set"}</p>
+                          <p><strong>Talents:</strong> {sheetExtras.surgeTwoTalents.trim() || "Not set"}</p>
+                        </div>
+                        <div className="sheet-box tall">
+                          <strong>Radiant Talents</strong>
+                          <ul>
+                            {sheetTalents.length === 0 ? <li>No talents listed</li> : sheetTalents.map((entry) => <li key={entry}>{entry}</li>)}
                           </ul>
                         </div>
                       </div>
@@ -1575,6 +1869,7 @@ export default function App() {
                 </article>
               </div>
             )}
+
 
 
           </section>

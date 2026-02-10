@@ -1005,3 +1005,96 @@ textarea {
     margin: 0;
   }
 }
+
+.sheet-defense-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sheet-defense-card {
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+}
+
+.sheet-defense-card h4 {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.sheet-defense-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #bbb;
+  padding: 2px 0;
+}
+
+.sheet-defense-row.emphasis {
+  font-weight: 700;
+}
+
+.sheet-defense-subgrid {
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.sheet-defense-subgrid div {
+  border: 1px solid #222;
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-defense-subgrid span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.sheet-skill-columns {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sheet-skill-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sheet-skill-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 2px;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 960px) {
+  .sheet-defense-grid,
+  .sheet-skill-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-defense-subgrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .span-2 {
+    grid-column: auto;
+  }
+}
